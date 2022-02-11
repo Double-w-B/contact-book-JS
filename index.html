@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" type="image/x-icon" href="icon.png" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./css/modals.css" />
+    <link rel="stylesheet" href="./css/media.css" />
+    <title>Contact book</title>
+  </head>
+
+  <body class="light-mode">
+    <main>
+      <div class="main__container">
+        <nav>
+          <div class="input__container">
+            <input
+              type="text"
+              id="search"
+              placeholder="Type to search ..."
+              onfocus="this.placeholder=''"
+              onblur="this.placeholder='Type to search ...'"
+            />
+            <div class="input__search-icon"><i class="fas fa-search"></i></div>
+          </div>
+          <button class="nav__btn--add no-select">
+            <i class="fas fa-user-plus"></i>
+            <p>Add</p>
+            <p>New</p>
+          </button>
+          <button class="nav__btn--show no-select">
+            <i class="fas fa-address-book"></i>
+            <p>List</p>
+          </button>
+
+          <button class="nav__btn--menu no-select">
+            <i class="fas fa-bars"></i>
+          </button>
+        </nav>
+
+        <div class="main-list">
+          <div class="list">
+            <ul class="contacts"></ul>
+            <div class="contacts-amount no-select"></div>
+          </div>
+
+          <div class="letters">
+            <div class="letter"></div>
+          </div>
+
+          <div class="menu-drop no-select">
+            <div class="btn-select">Select all</div>
+            <div class="btn-unselect">Unselect all</div>
+            <div class="btn-remove">Remove Selected</div>
+            <div class="btn-mode">Change theme</div>
+          </div>
+        </div>
+
+        <div class="modal-overlay">
+          <div class="modal-container"></div>
+          <div class="modal-container-new-contact"></div>
+          <div class="delete-confirm"></div>
+        </div>
+      </div>
+      <footer class="no-select">
+        <p>
+          &copy; 2022 All Rights Reserved. made by
+          <a
+            href="https://github.com/Double-w-B"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Władysław Balandin</a
+          >
+        </p>
+      </footer>
+    </main>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
