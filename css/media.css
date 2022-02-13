@@ -19,7 +19,7 @@
     min-height: 550px;
   }
 
-  .letter:hover a {
+  .letters__letter:hover a {
     transform: none;
   }
 
@@ -72,7 +72,7 @@
     width: 7%;
   }
 
-  .menu-drop div:last-child {
+  .menu div:last-child {
     border-bottom-left-radius: 0.5rem;
   }
 
@@ -80,21 +80,21 @@
     width: 96%;
   }
 
-  .letters {
+  .letters__container {
     width: 4%;
   }
 
-  .list .contacts {
+  .list .list__contacts {
     width: 94%;
     margin: 1rem 1.5rem 0 0.9rem;
     padding: 0.5rem 0;
   }
 
-  .contacts .first-letter {
+  .list__contacts .first-letter {
     padding-left: 0;
   }
 
-  .contacts .first-letter p {
+  .list__contacts .first-letter p {
     margin-left: 0.7rem;
   }
 
@@ -215,26 +215,26 @@
     width: 95%;
   }
 
-  .letters {
+  .letters__container {
     width: 5%;
   }
 
-  .letter,
+  .letters__letter,
   .no-name {
     height: 3.75%;
   }
 
-  .list .contacts {
+  .list .list__contacts {
     width: 94%;
     margin: 1rem 1.5rem 0 0.9rem;
     padding: 0.5rem 0;
   }
 
-  .contacts .first-letter {
+  .list__contacts .first-letter {
     padding-left: 0;
   }
 
-  .contacts .first-letter p {
+  .list__contacts .first-letter p {
     margin-left: 0.7rem;
   }
 
@@ -293,16 +293,16 @@
     width: 94.5%;
   }
 
-  .letters {
+  .letters__container {
     width: 5.5%;
   }
 
-  .letter,
+  .letters__letter,
   .no-name {
     height: 3.7%;
   }
 
-  .list .contacts {
+  .list .list__contacts {
     margin: 1rem 1.5rem 0 0.5rem;
     padding: 0.5rem 0;
   }
@@ -335,7 +335,7 @@
     height: 92vh;
   }
 
-  .list .contacts {
+  .list .list__contacts {
     margin: 0.5rem 1.5rem 0 0.6rem;
   }
 

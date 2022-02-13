@@ -4,8 +4,8 @@ const $$ = document.querySelectorAll.bind(document);
 export const showIcons = () => {
   const contactListLi = $$(".contact-list li");
   const conImg = $$(".contact-img");
-  const selectBtn = $(".btn-select");
-  const unselectBtn = $(".btn-unselect");
+  const selectBtn = $(".menu__btn--select");
+  const unselectBtn = $(".menu__btn--unselect");
 
   /* Add check icon */
   conImg.forEach((img) =>

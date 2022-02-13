@@ -15,7 +15,7 @@ const asideLetters = () => {
   const letters = alphabet
     .map((a) => {
       if (uniqueFilteredLetters().includes(a))
-        return `<div class="letter no-select"><a href="#${a}">${a}</a></div>`;
+        return `<div class="letters__letter no-select"><a href="#${a}">${a}</a></div>`;
       else
         return `<div class="no-name no-select"><a href="#${a}">${a}</a></div>`;
     })

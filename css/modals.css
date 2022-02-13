@@ -1,12 +1,12 @@
 
 /* Modals */
 
-body.dark-mode .modal-container p::selection,
-body.dark-mode .modal-container-new-contact input::selection {
+body.dark-mode .modal__container p::selection,
+body.dark-mode .modal__new-contact input::selection {
   background-color: var(--dark-mode-clr);
 }
 
-.modal-overlay {
+.modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -27,7 +27,7 @@ body.dark-mode .modal-container-new-contact input::selection {
 
 /* Contact info modal */
 
-.modal-container {
+.modal__container {
   background-color: var(--white-dark);
   border-radius: 0.5rem;
   width: 400px;
@@ -42,7 +42,7 @@ body.dark-mode .modal-container-new-contact input::selection {
     rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #48484a;
 }
 
-body.dark-mode .modal-container {
+body.dark-mode .modal__container {
   background-color: var(--dark-mode-2);
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1A1D24;
@@ -206,7 +206,7 @@ body.dark-mode .btn-container .fas {
 
 /* Add contact modal */
 
-.modal-container-new-contact {
+.modal__new-contact {
   border-radius: 0.5rem;
   width: 410px;
   height: 330px;
@@ -222,7 +222,7 @@ body.dark-mode .btn-container .fas {
   transition: cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
 
-body.dark-mode .modal-container-new-contact {
+body.dark-mode .modal__new-contact {
   background-color: var(--dark-mode-2);
   color: var(--white-primary);
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -327,7 +327,7 @@ body.dark-mode .new-con-main-info .info {
   color: var(--grey-dark);
 }
 
-body.dark-mode .modal-container-new-contact form input {
+body.dark-mode .modal__new-contact form input {
   color: var(--white-primary);
   border-bottom: 0.15rem solid var(--grey-light);
 
@@ -419,7 +419,7 @@ body.dark-mode .new-con-main-info form input::placeholder {
 
 /* Modal delete container */
 
-.delete-confirm {
+.modal__delete-confirm {
   background-color: var(--white-dark);
   border-radius: 0.5rem;
   width: 330px;
@@ -435,7 +435,7 @@ body.dark-mode .new-con-main-info form input::placeholder {
     rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #141e30;
 }
 
-body.dark-mode .delete-confirm {
+body.dark-mode .modal__delete-confirm {
   background-color: var(--dark-mode-2);
     color: var(--white-primary);
       box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -506,7 +506,7 @@ body.dark-mode .selected-contact {
   background-color: var(--grey-light);
 }
 
-.nav-bar button:active,
+nav button:active,
 .confirm-btns button:active,
 .new-con-btns button:active {
   -webkit-box-shadow: inset 1px 2px 2px #535557;
@@ -517,7 +517,7 @@ body.dark-mode .selected-contact {
 /* Media Queries */
 
 @media screen and (max-width: 1364px) {
-  .modal-container-new-contact {
+  .modal__new-contact {
     width: 410px;
     height: 320px;
   }
@@ -526,7 +526,7 @@ body.dark-mode .selected-contact {
     margin: 0 1.5rem;
   }
 
-  .modal-container {
+  .modal__container {
     width: 390px;
     height: 230px;
   }
@@ -535,12 +535,12 @@ body.dark-mode .selected-contact {
 /* @media screen and (max-width: 1200px) {} */
 
 @media screen and (max-width: 1024px) {
-  .modal-container {
+  .modal__container {
     width: 390px;
     height: 210px;
   }
 
-  .modal-container-new-contact {
+  .modal__new-contact {
     width: 420px;
     height: 300px;
   }
@@ -551,9 +551,9 @@ body.dark-mode .selected-contact {
 }
 
 @media screen and (max-width: 900px) {
-  .modal-container,
-  .modal-container-new-contact,
-  .delete-confirm {
+  .modal__container,
+  .modal__new-contact,
+  .modal__delete-confirm {
     -moz-box-shadow: inset 0 0 1px #000000;
     -webkit-box-shadow: inset 0 0 1px #000000;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -566,7 +566,7 @@ body.dark-mode .selected-contact {
 }
 
 @media screen and (max-width: 767px) {
-  .modal-container {
+  .modal__container {
     width: 380px;
     height: 210px;
   }
@@ -575,7 +575,7 @@ body.dark-mode .selected-contact {
     font-size: 1.8rem;
   }
 
-  .modal-container-new-contact {
+  .modal__new-contact {
     width: 372px;
     height: 300px;
   }
@@ -589,7 +589,7 @@ body.dark-mode .selected-contact {
     bottom: -2rem;
   }
 
-  .delete-confirm {
+  .modal__delete-confirm {
     height: 150px;
   }
 }
@@ -598,7 +598,7 @@ body.dark-mode .selected-contact {
 }
 
 @media screen and (max-width: 360px) {
-  .modal-container {
+  .modal__container {
     width: 310px;
   }
 
@@ -620,7 +620,7 @@ body.dark-mode .selected-contact {
     font-size: 0.9rem;
   }
 
-  .modal-container-new-contact {
+  .modal__new-contact {
     width: 310px;
   }
 
@@ -655,7 +655,7 @@ body.dark-mode .selected-contact {
     margin-top: 0.5rem;
   }
 
-  .delete-confirm {
+  .modal__delete-confirm {
     width: 310px;
   }
 

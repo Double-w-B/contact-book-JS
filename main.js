@@ -12,22 +12,22 @@ import {
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const letters = $(".letters");
-const contacts = $(".contacts");
+const letters = $(".letters__container");
+const contacts = $(".list__contacts");
 const list = $(".list");
 const btnAllCon = $(".nav__btn--show");
 const btnAddCon = $(".nav__btn--add");
 const btnMenu = $(".nav__btn--menu");
-const conAmount = $(".contacts-amount");
-const modalOverlay = $(".modal-overlay");
-const modalContainerInfo = $(".modal-container");
-const modalContainerNewCon = $(".modal-container-new-contact");
-const modalDeleteQuestion = $(".delete-confirm");
-const menu = $(".menu-drop");
+const conAmount = $(".list__contacts-amount");
+const modalOverlay = $(".modal__overlay");
+const modalContainerInfo = $(".modal__container");
+const modalContainerNewCon = $(".modal__new-contact");
+const modalDeleteQuestion = $(".modal__delete-confirm");
+const menu = $(".menu");
 const searchInput = document.getElementById("search");
 const searchIcon = $(".fa-search");
 
-const modeBtn = $(".btn-mode");
+const modeBtn = $(".menu__btn--mode");
 
 let peopleData = JSON.parse(localStorage.getItem("contacts")) || [];
 
@@ -156,7 +156,7 @@ searchInput.addEventListener("keyup", displayMatches);
 showAllContacts();
 
 /* Remove selected items */
-const removeSelectBtn = $(".btn-remove");
+const removeSelectBtn = $(".menu__btn--remove");
 
 removeSelectBtn.addEventListener("click", () => {
   const conImg = $$(".contact-img");
@@ -177,14 +177,14 @@ removeSelectBtn.addEventListener("click", () => {
                         <div class="confirm-container">
                         <div class="confirm-question">
                             <p>Are you sure you want to delete ${
-                              itemsToRemove.length < 5 ? `` : `all the`
+                              itemsToRemove.length < 5 ? "" : "all the"
                             }  <span class="selected-contact">${
     itemsToRemove.length
   }</span> 
                             ${
                               itemsToRemove.length === 1
-                                ? `contact`
-                                : `contacts`
+                                ? "contact"
+                                : "contacts"
                             }?</p>
                         </div>
                         <div class="confirm-btns">
@@ -231,7 +231,7 @@ removeSelectBtn.addEventListener("click", () => {
 });
 
 /* Move To */
-const navBar = $(".nav-bar");
+const navBar = $("nav");
 letters.addEventListener("click", (e) => {
   e.preventDefault();
 
