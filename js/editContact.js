@@ -1,7 +1,11 @@
-import { modalOverlay, modalContainerNewCon, peopleData, conAmount, showAllContacts } from "../main.js";
-import { invalidItem,
-unavailableNumber,
-requiredInput } from "./validation.js";
+import {
+  modalOverlay,
+  modalContainerNewCon,
+  peopleData,
+  conAmount,
+  showAllContacts,
+} from "../main.js";
+import { invalidItem, unavailableNumber, requiredInput } from "./validation.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -78,6 +82,7 @@ export const editContact = () => {
 
       const checkNumber = peopleData.map((person) => person.phone);
       const id = e.target.parentElement.parentElement.id;
+      const regExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
 
       peopleData.map((person) => {
         const { name, surname, phone, mail, address, notes } = person;
@@ -93,7 +98,6 @@ export const editContact = () => {
       });
 
       btnChangeCon.addEventListener("click", () => {
-
         !inputName.value && requiredInput(inputName);
         !inputSurname.value && requiredInput(inputSurname);
 
@@ -103,16 +107,14 @@ export const editContact = () => {
           invalidItem(inputPhone);
         }
 
-        inputName.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-          invalidItem(inputName);
-        inputSurname.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-          invalidItem(inputSurname);
+        inputName.value.match(regExp) && invalidItem(inputName);
+        inputSurname.value.match(regExp) && invalidItem(inputSurname);
 
         if (
           inputName.value &&
           inputSurname.value &&
-          !inputName.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-          !inputSurname.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/)
+          !inputName.value.match(regExp) &&
+          !inputSurname.value.match(regExp)
         ) {
           checkNumber.includes(inputPhone.value) &&
             unavailableNumber(inputPhone);
@@ -121,8 +123,8 @@ export const editContact = () => {
         if (
           inputName.value &&
           inputSurname.value &&
-          !inputName.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-          !inputSurname.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
+          !inputName.value.match(regExp) &&
+          !inputSurname.value.match(regExp) &&
           inputPhone.value.match(/^[0-9]+$/) &&
           ((checkNumber.includes(inputPhone.value) &&
             inputPhone.value === id) ||

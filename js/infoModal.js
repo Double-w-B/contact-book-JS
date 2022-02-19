@@ -18,30 +18,26 @@ export const infoModal = () => {
                         <div class="btn-container"><i class="fas fa-times"></i></div>
                         <div class="top-info">
                         <div class="photo no-select">
-                        <div class="img">${i.name.slice(0, 1)}${i.surname.slice(
-            0,
-            1
-          )}</div>
+                        <div class="img">
+                        ${i.name.slice(0, 1)}${i.surname.slice(0, 1)}</div>
                         </div>
                          <div class="main-info">
                          <p>${i.name}</p>
                          <p>${i.surname}</p>
-                         <p><i class="fas fa-phone-alt no-select"></i> ${i.phone.replace(
+                         <p><i class="fas fa-phone-alt no-select"></i>
+                         ${i.phone.replace(
                            /(?!^)(?=(?:\d{3})+(?:\.|$))/gm,
                            " "
                          )}</p>
                          </div>
                         </div>
                          <div class="bottom-info">
-                <p><i class="fas fa-at no-select">:</i> ${
-                  i.mail !== "" ? i.mail : "lack of information"
-                }</p>
-                <p><i class="fas fa-map-marker-alt no-select"> :</i> ${
-                  i.address !== "" ? i.address : "lack of information"
-                }</p>
-                <p><i class="far fa-edit no-select">:</i> ${
-                  i.notes !== "" ? i.notes : "lack of information"
-                }</p>
+                <p><i class="fas fa-at no-select">:</i>
+                 ${i.mail !== "" ? i.mail : "lack of information"}</p>
+                <p><i class="fas fa-map-marker-alt no-select"> :</i>
+                 ${i.address !== "" ? i.address : "lack of information"}</p>
+                <p><i class="far fa-edit no-select">:</i>
+                 ${i.notes !== "" ? i.notes : "lack of information"}</p>
                 </div>`;
       });
 

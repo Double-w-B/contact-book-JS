@@ -31,6 +31,7 @@ const modeBtn = $(".menu__btn--mode");
 
 let peopleData = JSON.parse(localStorage.getItem("contacts")) || [];
 
+console.log(peopleData);
 
 // list.scrollTo(0, 0);
 
@@ -73,17 +74,20 @@ btnAddCon.addEventListener("click", () => {
   const btnAddNewCon = $(".accept");
   const btnCancelNewCon = $(".cancel");
 
-  function Person(name, surname, phone, mail, address, notes) {
-    this.name = name.toLowerCase();
-    this.surname = surname.toLowerCase();
-    this.phone = phone;
-    this.mail = mail.toLowerCase();
-    this.address = address.toLowerCase();
-    this.notes = notes.toLowerCase();
+  class Person {
+    constructor(name, surname, phone, mail, address, notes) {
+      this.name = name.toLowerCase();
+      this.surname = surname.toLowerCase();
+      this.phone = phone;
+      this.mail = mail.toLowerCase();
+      this.address = address.toLowerCase();
+      this.notes = notes.toLowerCase();
+    }
   }
 
   btnAddNewCon.addEventListener("click", () => {
     const conImg = $$(".contact-img");
+    const regExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
 
     const checkNumber = peopleData.map((person) => person.phone);
 
@@ -96,16 +100,14 @@ btnAddCon.addEventListener("click", () => {
       invalidItem(inputPhone);
     }
 
-    inputName.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-      invalidItem(inputName);
-    inputSurname.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-      invalidItem(inputSurname);
+    inputName.value.match(regExp) && invalidItem(inputName);
+    inputSurname.value.match(regExp) && invalidItem(inputSurname);
 
     if (
       inputName.value &&
       inputSurname.value &&
-      !inputName.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-      !inputSurname.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/)
+      !inputName.value.match(regExp) &&
+      !inputSurname.value.match(regExp)
     ) {
       checkNumber.includes(inputPhone.value) && unavailableNumber(inputPhone);
     }
@@ -113,8 +115,8 @@ btnAddCon.addEventListener("click", () => {
     if (
       inputName.value &&
       inputSurname.value &&
-      !inputName.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
-      !inputSurname.value.match(/[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/) &&
+      !inputName.value.match(regExp) &&
+      !inputSurname.value.match(regExp) &&
       inputPhone.value.match(/^[0-9]+$/) &&
       !checkNumber.includes(inputPhone.value)
     ) {
@@ -176,16 +178,16 @@ removeSelectBtn.addEventListener("click", () => {
   modalDeleteQuestion.innerHTML = `
                         <div class="confirm-container">
                         <div class="confirm-question">
-                            <p>Are you sure you want to delete ${
-                              itemsToRemove.length < 5 ? "" : "all the"
-                            }  <span class="selected-contact">${
-    itemsToRemove.length
-  }</span> 
+                            <p>Are you sure you want to delete
+                             ${itemsToRemove.length < 5 ? "" : "all the"}
+                            <span class="selected-contact">
+                            ${itemsToRemove.length}</span> 
                             ${
                               itemsToRemove.length === 1
                                 ? "contact"
                                 : "contacts"
-                            }?</p>
+                            }
+                            ?</p>
                         </div>
                         <div class="confirm-btns">
                             <button class="confirm-delete">Delete</button>
@@ -231,17 +233,14 @@ removeSelectBtn.addEventListener("click", () => {
 });
 
 /* Move To */
-const navBar = $("nav");
 letters.addEventListener("click", (e) => {
   e.preventDefault();
 
   if (e.target.hasAttribute("href")) {
     const id = e.target.getAttribute("href").slice(1);
     const element = document.getElementById(id);
-    const containerHeight = list.getBoundingClientRect().height;
-    const navBarHeight = navBar.getBoundingClientRect().height;
-    let position = element.offsetTop - 10;
 
+    let position = element.offsetTop - 10;
     list.scrollTo({
       left: 0,
       top: position,

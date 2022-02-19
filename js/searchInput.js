@@ -30,17 +30,13 @@ export const displayMatches = () => {
                     <ul class="contact-list">
                     <li id="${phone}" class="one-child" >
                     <div class='contact-img no-select'>
-                    <i class='fas fa-check'></i>${name.slice(
-                      0,
-                      1
-                    )}${surname.slice(0, 1)}
+                    <i class='fas fa-check'></i>
+                    ${name.slice(0, 1)}${surname.slice(0, 1)}
                     </div>
                     <div class='contact'>
                     <p>${name} ${surname}</p>
-                    <p><i class="fas fa-phone-alt"></i>${phone.replace(
-                      /(?!^)(?=(?:\d{3})+(?:\.|$))/gm,
-                      " "
-                    )}
+                    <p><i class="fas fa-phone-alt"></i>
+                    ${phone.replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}
                     </p>
                     </div>
                     <div class="user-icons">
@@ -59,7 +55,7 @@ export const displayMatches = () => {
   if (!searchInput.value) {
     showAllContacts();
     showIcons();
-  }else {
+  } else {
     matchArray.length > 0 && (contacts.innerHTML = matchPeople);
   }
 

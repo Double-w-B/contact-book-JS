@@ -11,32 +11,29 @@ const $$ = document.querySelectorAll.bind(document);
 
 export const showAllContacts = () => {
   const lettersInList = alphabet
-    .map((a) => {
+    .map((alphabetLetter) => {
+      
       const firstLetters = uniqueFilteredLetters()
         .map((i) => {
-          if (a === i)
-            return `<li id="${a}" class="letter-container">
-                    <div class="first-letter no-select"><p>${a}</p></div>
+          if (alphabetLetter === i)
+            return `<li id="${alphabetLetter}" class="letter-container">
+                    <div class="first-letter no-select"><p>${alphabetLetter}</p></div>
                     <ul class="contact-list">`;
         })
         .join("");
 
       const liLines = peopleData
         .map((i) => {
-          if (a === i.name.slice(0, 1))
-            return `<li id ="${i.phone}">
+          if (alphabetLetter === i.name.slice(0, 1))
+            return `<li id="${i.phone}">
                     <div class='contact-img no-select'>
-                    <i class='fas fa-check'></i>${i.name.slice(
-                      0,
-                      1
-                    )}${i.surname.slice(0, 1)}
+                    <i class='fas fa-check'></i>
+                    ${i.name.slice(0, 1)}${i.surname.slice(0, 1)}
                     </div>
                     <div class='contact'>
                     <p>${i.name} ${i.surname}</p>
-                    <p><i class="fas fa-phone-alt"></i>${i.phone.replace(
-                      /(?!^)(?=(?:\d{3})+(?:\.|$))/gm,
-                      " "
-                    )}</p>
+                    <p><i class="fas fa-phone-alt"></i>
+                    ${i.phone.replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}</p>
                     </div>
                     <div class="user-icons">
                     <a href = "mailto:${i.mail}"><i class="fas fa-at"></i></a>
@@ -45,7 +42,6 @@ export const showAllContacts = () => {
                     <i class="far fa-trash-alt"></i></div></li>`;
         })
         .join("");
-
       return `${firstLetters}${liLines}</ul></li>`;
     })
     .join("");
