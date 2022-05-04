@@ -1,4 +1,4 @@
-import { peopleData, contacts } from "../main.js";
+import { peopleData, contacts } from "./main.js";
 
 export const greetingPicture = () => {
   if (peopleData.length === 0)

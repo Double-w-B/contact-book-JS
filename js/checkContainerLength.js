@@ -1,4 +1,4 @@
-import { showAllContacts } from "../main.js";
+import { showAllContacts } from "./main.js";
 
 const $$ = document.querySelectorAll.bind(document);
 

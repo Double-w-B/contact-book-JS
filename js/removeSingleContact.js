@@ -1,4 +1,4 @@
-import { peopleData, modalOverlay, modalDeleteQuestion, conAmount, letters } from "../main.js";
+import { peopleData, modalOverlay, modalDeleteQuestion, conAmount, letters } from "./main.js";
 import { checkConLength } from "./checkContainerLength.js";
 import { asideLetters } from "./asideLetters.js";
 

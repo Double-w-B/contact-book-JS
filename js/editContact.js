@@ -4,7 +4,7 @@ import {
   peopleData,
   conAmount,
   showAllContacts,
-} from "../main.js";
+} from "./main.js";
 import { invalidItem, unavailableNumber, requiredInput } from "./validation.js";
 
 const $ = document.querySelector.bind(document);
@@ -47,7 +47,7 @@ export const editContact = () => {
 
                             </div>
                             <div class="mail-input">
-                                <input type="mail" id="email" name="email" placeholder="Email"
+                                <input type="email" id="email" name="email" placeholder="Email"
                                     onfocus="this.placeholder=''" onblur="this.placeholder='Email'" required>
                             </div>
                             </div>
@@ -82,7 +82,8 @@ export const editContact = () => {
 
       const checkNumber = peopleData.map((person) => person.phone);
       const id = e.target.parentElement.parentElement.id;
-      const regExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
+      const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
+      const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
       peopleData.map((person) => {
         const { name, surname, phone, mail, address, notes } = person;
@@ -103,18 +104,24 @@ export const editContact = () => {
 
         if (!inputPhone.value) {
           requiredInput(inputPhone);
-        } else if (!inputPhone.value.match(/^[0-9]+$/)) {
+        }
+
+        if (inputPhone.value && !inputPhone.value.match(/^[0-9]+$/)) {
           invalidItem(inputPhone);
         }
 
-        inputName.value.match(regExp) && invalidItem(inputName);
-        inputSurname.value.match(regExp) && invalidItem(inputSurname);
+        inputName.value.match(textRegExp) && invalidItem(inputName);
+        inputSurname.value.match(textRegExp) && invalidItem(inputSurname);
+        inputEmail.value &&
+          !inputEmail.value.match(emailRegExp) &&
+          invalidItem(inputEmail);
 
         if (
           inputName.value &&
           inputSurname.value &&
-          !inputName.value.match(regExp) &&
-          !inputSurname.value.match(regExp)
+          !inputName.value.match(textRegExp) &&
+          !inputSurname.value.match(textRegExp) &&
+          (!inputEmail.value || inputEmail.value.match(emailRegExp))
         ) {
           checkNumber.includes(inputPhone.value) &&
             unavailableNumber(inputPhone);
@@ -123,9 +130,10 @@ export const editContact = () => {
         if (
           inputName.value &&
           inputSurname.value &&
-          !inputName.value.match(regExp) &&
-          !inputSurname.value.match(regExp) &&
+          !inputName.value.match(textRegExp) &&
+          !inputSurname.value.match(textRegExp) &&
           inputPhone.value.match(/^[0-9]+$/) &&
+          (!inputEmail.value || inputEmail.value.match(emailRegExp)) &&
           ((checkNumber.includes(inputPhone.value) &&
             inputPhone.value === id) ||
             (!checkNumber.includes(inputPhone.value) &&

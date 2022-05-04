@@ -1,4 +1,4 @@
-import { peopleData, searchInput, conAmount, contacts } from "../main.js";
+import { peopleData, searchInput, conAmount, contacts } from "./main.js";
 import { showIcons } from "./showIcons.js";
 import { infoModal } from "./infoModal.js";
 import { removeSingleBtn } from "./removeSingleContact.js";

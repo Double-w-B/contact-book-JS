@@ -1,4 +1,4 @@
-import { peopleData, contacts, letters, conAmount } from "../main.js";
+import { peopleData, contacts, letters, conAmount } from "./main.js";
 import { alphabet } from "./alphabet.js";
 import { asideLetters, uniqueFilteredLetters } from "./asideLetters.js";
 import { infoModal } from "./infoModal.js";

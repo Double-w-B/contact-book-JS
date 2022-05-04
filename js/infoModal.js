@@ -1,4 +1,4 @@
-import { modalOverlay, modalContainerInfo, peopleData } from "../main.js";
+import { modalOverlay, modalContainerInfo, peopleData } from "./main.js";
 
 const $$ = document.querySelectorAll.bind(document);
 

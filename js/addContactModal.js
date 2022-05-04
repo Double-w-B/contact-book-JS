@@ -1,4 +1,4 @@
-import { modalOverlay, modalContainerNewCon } from "../main.js";
+import { modalOverlay, modalContainerNewCon } from "./main.js";
 
 
 /* Add new contact to an array */
@@ -33,7 +33,7 @@ export const openAddConModal = () => {
 
                             </div>
                             <div class="mail-input">
-                                <input type="mail" id="email" name="email" placeholder="Email"
+                                <input type="email" id="email" name="email" placeholder="Email"
                                     onfocus="this.placeholder=''" onblur="this.placeholder='Email'" required>
                             </div>
                             </div>

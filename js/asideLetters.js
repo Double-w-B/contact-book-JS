@@ -1,4 +1,4 @@
-import { peopleData } from "../main.js";
+import { peopleData } from "./main.js";
 import { alphabet } from "./alphabet.js";
 
 const uniqueFilteredLetters = () => {
