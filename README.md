@@ -1,2 +1,2 @@
 # contact-book-JS
-App where user could add contacts and modify their data. Drop menu, modals, search input, etc. Vanilla JS. (RWD)
+App for saving contacts and modifying its data, with a contact search functionality and app theme change. Vanilla JS + RWD
