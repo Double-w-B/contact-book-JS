@@ -98,7 +98,8 @@ export const editContact = () => {
         }
       });
 
-      btnChangeCon.addEventListener("click", () => {
+      btnChangeCon.addEventListener("click", (e) => {
+        e.stopPropagation();
         !inputName.value && requiredInput(inputName);
         !inputSurname.value && requiredInput(inputSurname);
 
@@ -161,7 +162,8 @@ export const editContact = () => {
         showAllContacts();
         localStorage.setItem("contacts", JSON.stringify(peopleData));
       });
-      btnCancelNewCon.addEventListener("click", () => {
+      btnCancelNewCon.addEventListener("click", (e) => {
+        e.stopPropagation();
         modalOverlay.classList.remove("open-modal");
         modalContainerNewCon.classList.remove("open-modal");
       });

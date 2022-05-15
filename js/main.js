@@ -3,11 +3,7 @@ import { openAddConModal } from "./addContactModal.js";
 import { checkConLength } from "./checkContainerLength.js";
 import { displayMatches } from "./searchInput.js";
 import { showAllContacts } from "./showAllContacts.js";
-import {
-  invalidItem,
-  unavailableNumber,
-  requiredInput,
-} from "./validation.js";
+import { invalidItem, unavailableNumber, requiredInput } from "./validation.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -38,6 +34,8 @@ letters.innerHTML = asideLetters();
 
 conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
 
+list.scrollTo(0, 0);
+
 /* Input styling */
 searchInput.addEventListener("mouseover", () =>
   searchIcon.classList.add("input-hover")
@@ -54,7 +52,9 @@ searchInput.addEventListener("blur", () =>
 
 btnMenu.addEventListener("click", () => menu.classList.toggle("show-menu"));
 document.addEventListener("click", (e) => {
-  e.target !== btnMenu && menu.classList.remove("show-menu");
+  e.target !== btnMenu &&
+    menu.classList.contains("show-menu") &&
+    menu.classList.remove("show-menu");
   searchInput.value = "";
 });
 
@@ -81,7 +81,8 @@ btnAddCon.addEventListener("click", () => {
     }
   }
 
-  btnAddNewCon.addEventListener("click", () => {
+  btnAddNewCon.addEventListener("click", (e) => {
+    e.stopPropagation();
     const conImg = $$(".contact-img");
     const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
     const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -153,7 +154,7 @@ btnAddCon.addEventListener("click", () => {
   });
 });
 
-btnAllCon.addEventListener("click", () => showAllContacts());
+btnAllCon.addEventListener("click", showAllContacts);
 
 searchInput.addEventListener("change", displayMatches);
 searchInput.addEventListener("keyup", displayMatches);
@@ -202,7 +203,8 @@ removeSelectBtn.addEventListener("click", () => {
   const confirmCanBtn = $(".confirm-cancel");
 
   /* Confirm Btn */
-  confirmDelBtn.addEventListener("click", () => {
+  confirmDelBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     /* find the index of selected object */
     itemsToRemove.map((id) =>
       peopleData.map(
@@ -228,7 +230,9 @@ removeSelectBtn.addEventListener("click", () => {
   });
 
   /* Deny Btn */
-  confirmCanBtn.addEventListener("click", () => {
+  confirmCanBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
     modalOverlay.classList.remove("open-modal");
     modalDeleteQuestion.classList.remove("open-modal");
     itemsToRemove = [];
@@ -241,15 +245,17 @@ letters.addEventListener("click", (e) => {
 
   if (e.target.hasAttribute("href")) {
     const id = e.target.getAttribute("href").slice(1);
-    const element = document.getElementById(id);
 
+    if (document.getElementById(id) === null) return;
+
+    const element = document.getElementById(id);
     let position = element.offsetTop - 10;
+
     list.scrollTo({
       left: 0,
       top: position,
     });
   }
-  return;
 });
 
 /* Dark/Light mode */
