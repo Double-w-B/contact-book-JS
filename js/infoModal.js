@@ -1,16 +1,15 @@
 import { modalOverlay, modalContainerInfo, peopleData } from "./main.js";
 
 const $$ = document.querySelectorAll.bind(document);
+const $ = document.querySelector.bind(document);
 
 export const infoModal = () => {
-  const infoIcon = $$(".fa-info-circle");
-
   /* Add modal with contact info */
-  infoIcon.forEach((icon) => {
-    icon.addEventListener("click", () => {
+  $(".list__contacts").addEventListener("click", (e) => {
+    if (e.target.closest(".contact p:first-child")) {
       modalOverlay.classList.add("open-modal");
       modalContainerInfo.classList.add("open-modal");
-      const conNumber = icon.parentElement.parentElement.id;
+      const conNumber = e.target.parentElement.parentElement.id;
 
       peopleData.find((i) => {
         if (i.phone === conNumber)
@@ -47,6 +46,6 @@ export const infoModal = () => {
           modalOverlay.classList.remove("open-modal");
           modalContainerInfo.classList.remove("open-modal");
         });
-    });
+    }
   });
 };

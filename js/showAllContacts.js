@@ -12,7 +12,6 @@ const $$ = document.querySelectorAll.bind(document);
 export const showAllContacts = () => {
   const lettersInList = alphabet
     .map((alphabetLetter) => {
-      
       const firstLetters = uniqueFilteredLetters()
         .map((i) => {
           if (alphabetLetter === i)
@@ -37,8 +36,7 @@ export const showAllContacts = () => {
                     </div>
                     <div class="user-icons">
                     <a href = "mailto:${i.mail}"><i class="fas fa-at"></i></a>
-                    <i class="fas fa-info-circle"></i>
-                    <i class="fas fa-user-edit"></i>
+                   <i class="fas fa-user-edit"></i>
                     <i class="far fa-trash-alt"></i></div></li>`;
         })
         .join("");

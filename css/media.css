@@ -1,6 +1,5 @@
-
 @media screen and (max-width: 1364px) {
-  .main__container  {
+  main {
     min-height: 500px;
   }
 
@@ -13,7 +12,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  .main__container  {
+  main {
     margin-top: 7vh;
     width: 35rem;
     min-height: 550px;
@@ -108,10 +107,8 @@
 }
 
 @media screen and (max-width: 767px) {
-  .main__container  {
-    margin-top: 7vh;
+  main {
     width: 30rem;
-    min-height: 550px;
   }
 
   nav .nav__btn--show {
@@ -140,7 +137,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .main__container  {
+  main {
     margin-top: 6vh;
     width: 26rem;
     min-height: 530px;
@@ -253,14 +250,14 @@
 }
 
 @media screen and (max-width: 480px) {
-  .main__container  {
-    margin-top: 2vh;
+  main {
+    margin-top: 6vh;
     width: 23rem;
     min-height: 510px;
   }
 
   footer {
-    height: 6vh;
+    margin-top: 1rem;
   }
 
   nav .input__container {
@@ -309,7 +306,7 @@
 }
 
 @media screen and (max-width: 430px) {
-  .main__container  {
+  main {
     margin-top: 2vh;
     width: 22rem;
     height: 92vh;
@@ -329,7 +326,7 @@
 }
 
 @media screen and (max-width: 360px) {
-  .main__container  {
+  main {
     margin-top: 2vh;
     width: 19rem;
     height: 92vh;

@@ -29,6 +29,7 @@ export const displayMatches = () => {
                     <li>
                     <ul class="contact-list">
                     <li id="${phone}" class="one-child" >
+                    
                     <div class='contact-img no-select'>
                     <i class='fas fa-check'></i>
                     ${name.slice(0, 1)}${surname.slice(0, 1)}
@@ -41,11 +42,12 @@ export const displayMatches = () => {
                     </div>
                     <div class="user-icons">
                     <a href = "mailto:${mail}"><i class="fas fa-at"></i></a>
-                    <i class="fas fa-info-circle"></i>
                     <i class="fas fa-user-edit"></i>
                     <i class="far fa-trash-alt"></i>
                     </div>
+
                     </li>
+                   
                     </ul></li>`;
     })
     .join("");

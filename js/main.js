@@ -24,6 +24,7 @@ const searchInput = document.getElementById("search");
 const searchIcon = $(".fa-search");
 
 const modeBtn = $(".menu__btn--mode");
+const footer = $("footer");
 
 let peopleData = JSON.parse(localStorage.getItem("contacts")) || [];
 
@@ -49,6 +50,15 @@ searchInput.addEventListener("focus", () =>
 searchInput.addEventListener("blur", () =>
   searchIcon.classList.remove("input-focus")
 );
+
+/* Scrollbar styling */
+list.addEventListener("scroll", ()=>{
+  list.classList.add("move");
+  setTimeout(() => {
+  list.classList.remove("move");
+    
+  }, 700);
+})
 
 btnMenu.addEventListener("click", () => menu.classList.toggle("show-menu"));
 document.addEventListener("click", (e) => {
@@ -278,6 +288,14 @@ modeBtn.addEventListener("click", () => {
     }, 300);
   }
 });
+
+/* Footer */
+footer.innerHTML = `<p>
+      &copy; ${new Date().getFullYear()} All Rights Reserved. made by
+      <a href="https://github.com/Double-w-B" target="_blank" rel="noopener noreferrer">
+      Władysław Balandin
+      </a>
+    </p>`;
 
 export {
   peopleData,
