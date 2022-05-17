@@ -44,7 +44,7 @@
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 
-  .contact-list li .user-icons {
+  .contact-list li .submenu-icon {
     width: 24%;
     opacity: 1;
     font-size: 1.05rem;
@@ -174,7 +174,7 @@
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 
-  .contact-list li .user-icons {
+  .contact-list li .submenu-icon {
     width: 24%;
     opacity: 1;
     font-size: 1.05rem;
@@ -312,7 +312,7 @@
     height: 92vh;
   }
 
-  .contact-list li .user-icons {
+  .contact-list li .submenu-icon {
     width: 15%;
     font-size: 1rem;
     padding: 0 0.3rem;
@@ -320,7 +320,7 @@
     flex-wrap: wrap;
   }
 
-  .user-icons a {
+  .submenu-icon a {
     margin-top: 0;
   }
 }

@@ -24,6 +24,8 @@
   --dark-mode-3: #2d2d2d;
   --dark-mode-4: #3e4250;
   --dark-mode-clr: #657ee4;
+
+  --transition:  all 0.3s linear;
 }
 
 * {
@@ -31,7 +33,6 @@
   margin: 0;
   padding: 0;
   font-family: "Lato", sans-serif;
-  transition: all 0.3s linear;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -291,6 +292,9 @@ body.dark-mode .list.move {
   padding: 2rem 1.7rem 1.5rem 2rem;
   list-style: none;
 }
+.list .list__contacts *{
+transition: var(--transition);
+}
 
 /* ------------- New contact info ------------- */
 
@@ -470,15 +474,58 @@ body.dark-mode .contact {
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 0;
   position: relative;
+  /* margin-bottom: 2rem; */
 }
 
-.contact-list li .submenu{
+.contact-list li.showSubmenu {
+  margin-bottom: 2rem !important;
+}
+
+.contact-list .submenu {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1rem;
-  background-color: yellowgreen;
+  bottom: -1.2rem;
+  left: 50%;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 1.3rem;
+  font-size: 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transform: translateX(-50%);
+  /* background-color: yellowgreen; */
+  background-color: #dbe4ee3d;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  opacity: 0;
+}
+.submenu a {
+  height: 100%;
+  pointer-events: none;
+}
+.submenu.show a {
+  pointer-events: all;
+}
+.submenu button {
+  font-family: inherit;
+  font-weight: bold;
+  border: none;
+  color: var(--grey-dark-secondary);
+  background-color: transparent;
+  pointer-events: none;
+}
+.submenu.show button {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.submenu button:hover {
+  color: var(--blue-primary);
+}
+
+.contact-list .submenu.show {
+  bottom: -1.4rem;
+  opacity: 1;
 }
 
 body.dark-mode .contact-list li {
@@ -498,7 +545,7 @@ body.dark-mode .contact-list li {
   border-radius: 0.5rem;
 }
 
-.contact-list li .user-icons {
+.contact-list li .submenu-icon {
   width: 19%;
   opacity: 0;
   height: 100%;
@@ -514,37 +561,29 @@ body.dark-mode .contact-list li {
   padding-right: 0.5rem;
 }
 
-.user-icons * {
+.submenu-icon img {
   cursor: pointer;
-  color: var(--grey-dark);
-  color: var(--grey-semi-dark);
-  transition: all 0.1s linear;
+  width: 20px;
+  filter: invert(55%) sepia(100%) saturate(7471%) hue-rotate(190deg)
+    brightness(84%) contrast(90%);
+ filter: invert(81%) sepia(6%) saturate(227%) hue-rotate(173deg) brightness(85%) contrast(91%);
+  transition: all 0.2s ease-in;
+}
+.submenu-icon img.active {
+  transform: rotate(90deg);
+  filter: invert(55%) sepia(100%) saturate(7471%) hue-rotate(190deg)
+    brightness(84%) contrast(90%);
 }
 
-body.dark-mode .user-icons * {
-  color: var(--white-secondary);
+body.dark-mode .submenu-icon img {
+  filter: invert(50%) sepia(97%) saturate(1486%) hue-rotate(205deg)
+    brightness(90%) contrast(98%);
 }
 
-.user-icons *:hover {
-  color: var(--blue-primary);
+.submenu-icon img:active,
+.submenu button:active {
+  transform: scale(0.8);
 }
-
-body.dark-mode .user-icons *:hover {
-  color: var(--dark-mode-clr);
-}
-
-.user-icons *:active {
-  transform: scale(0.9);
-}
-
-.user-icons a {
-  margin-top: 0.05rem;
-  text-decoration: none;
-}
-
-/* .user-icons .fa-info-circle {
-  margin-top: 0.05rem;
-} */
 
 /* ------------- Contacts Amount ------------- */
 
@@ -751,7 +790,7 @@ input[type="number"] {
 }
 
 .fa-check.show-checked,
-li .user-icons.show-icons {
+li .submenu-icon.show-icons {
   opacity: 1;
 }
 

@@ -1,9 +1,10 @@
 import { asideLetters } from "./asideLetters.js";
-import { openAddConModal } from "./addContactModal.js";
+import { addContactModal } from "./modals/addContactModal.js";
 import { checkConLength } from "./checkContainerLength.js";
 import { displayMatches } from "./searchInput.js";
 import { showAllContacts } from "./showAllContacts.js";
 import { invalidItem, unavailableNumber, requiredInput } from "./validation.js";
+import { contactSubmenu } from "./contactSubmenu.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -16,9 +17,9 @@ const btnAddCon = $(".nav__btn--add");
 const btnMenu = $(".nav__btn--menu");
 const conAmount = $(".list__contacts-amount");
 const modalOverlay = $(".modal__overlay");
-const modalContainerInfo = $(".modal__container");
-const modalContainerNewCon = $(".modal__new-contact");
-const modalDeleteQuestion = $(".modal__delete-confirm");
+const modalContainerInfo = $(".modal__contact-info");
+const modalContainerNewCon = $(".modal__contact-add");
+const modalDeleteQuestion = $(".modal__contact-delete");
 const menu = $(".menu");
 const searchInput = document.getElementById("search");
 const searchIcon = $(".fa-search");
@@ -35,8 +36,6 @@ letters.innerHTML = asideLetters();
 
 conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
 
-list.scrollTo(0, 0);
-
 /* Input styling */
 searchInput.addEventListener("mouseover", () =>
   searchIcon.classList.add("input-hover")
@@ -52,13 +51,12 @@ searchInput.addEventListener("blur", () =>
 );
 
 /* Scrollbar styling */
-list.addEventListener("scroll", ()=>{
+list.addEventListener("scroll", () => {
   list.classList.add("move");
   setTimeout(() => {
-  list.classList.remove("move");
-    
+    list.classList.remove("move");
   }, 700);
-})
+});
 
 btnMenu.addEventListener("click", () => menu.classList.toggle("show-menu"));
 document.addEventListener("click", (e) => {
@@ -69,7 +67,7 @@ document.addEventListener("click", (e) => {
 });
 
 btnAddCon.addEventListener("click", () => {
-  openAddConModal();
+  addContactModal();
   const inputName = document.getElementById("name");
   const inputSurname = document.getElementById("surname");
   const inputPhone = document.getElementById("phone");
@@ -91,6 +89,7 @@ btnAddCon.addEventListener("click", () => {
     }
   }
 
+  /* Add new contact */
   btnAddNewCon.addEventListener("click", (e) => {
     e.stopPropagation();
     const conImg = $$(".contact-img");
@@ -170,6 +169,7 @@ searchInput.addEventListener("change", displayMatches);
 searchInput.addEventListener("keyup", displayMatches);
 
 showAllContacts();
+contactSubmenu();
 
 /* Remove selected items */
 const removeSelectBtn = $(".menu__btn--remove");

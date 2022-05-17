@@ -1,9 +1,10 @@
 import { peopleData, searchInput, conAmount, contacts } from "./main.js";
-import { showIcons } from "./showIcons.js";
-import { infoModal } from "./infoModal.js";
-import { removeSingleBtn } from "./removeSingleContact.js";
-import { editContact } from "./editContact.js";
+import { selectIcons } from "./selectIcons.js";
+import { infoContactModal } from "./modals/infoContactModal.js";
+import { removeContactModal } from "./modals/removeContactModal.js";
+import { editContactModal } from "./modals/editContactModal.js";
 import { showAllContacts } from "./showAllContacts.js";
+import { contactSubmenu } from "./contactSubmenu.js";
 
 const findMatches = (wordToMatch, peopleData) => {
   return peopleData.filter((person) => {
@@ -40,10 +41,14 @@ export const displayMatches = () => {
                     ${phone.replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}
                     </p>
                     </div>
-                    <div class="user-icons">
-                    <a href = "mailto:${mail}"><i class="fas fa-at"></i></a>
-                    <i class="fas fa-user-edit"></i>
-                    <i class="far fa-trash-alt"></i>
+                    <div class="submenu-icon">
+                    <img src="../icons/arrowDown.svg" alt="icon" />
+                    </div>
+                    <div class="submenu">
+                    <button class="editCon">Edit</button>
+                    <a href = "mailto:${mail}">
+                    <button class="sendEm">Send email</button></a>
+                    <button class="deleteCon">Delete</button>
                     </div>
 
                     </li>
@@ -56,7 +61,6 @@ export const displayMatches = () => {
 
   if (!searchInput.value) {
     showAllContacts();
-    showIcons();
   } else {
     matchArray.length > 0 && (contacts.innerHTML = matchPeople);
   }
@@ -69,8 +73,8 @@ export const displayMatches = () => {
     conAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
   }
 
-  showIcons();
-  infoModal();
-  removeSingleBtn();
-  editContact();
+  selectIcons();
+  editContactModal();
+  infoContactModal();
+  removeContactModal();
 };

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="shortcut icon" type="image/x-icon" href="icon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="./css/modals.css" />
   <link rel="stylesheet" href="./css/media.css" />
@@ -20,7 +20,7 @@
     <nav>
       <div class="input__container">
         <input type="text" id="search" placeholder="Type to search ..." onfocus="this.placeholder=''"
-          onblur="this.placeholder='Type to search ...'" />
+          onblur="this.placeholder='Type to search ...'" autocomplete="off" />
         <div class="input__search-icon"><i class="fas fa-search"></i></div>
       </div>
       <button class="nav__btn--add no-select">
@@ -45,7 +45,6 @@
       </section>
 
       <section class="letters__container">
-        <!-- <div class="letters__letter"></div> -->
       </section>
 
       <section class="menu no-select">
@@ -57,9 +56,9 @@
     </section>
 
     <div class="modal__overlay">
-      <div class="modal__container"></div>
-      <div class="modal__new-contact"></div>
-      <div class="modal__delete-confirm"></div>
+      <div class="modal__contact-info"></div>
+      <div class="modal__contact-add"></div>
+      <div class="modal__contact-delete"></div>
     </div>
   </main>
   <footer class="no-select"></footer>

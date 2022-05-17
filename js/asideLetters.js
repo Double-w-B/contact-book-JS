@@ -1,5 +1,5 @@
 import { peopleData } from "./main.js";
-import { alphabet } from "./alphabet.js";
+import { alphabet } from "./data/data.js";
 
 const uniqueFilteredLetters = () => {
   const filteredLetters = peopleData.map((i) => {

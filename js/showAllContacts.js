@@ -1,15 +1,20 @@
-import { peopleData, contacts, letters, conAmount } from "./main.js";
-import { alphabet } from "./alphabet.js";
+import { peopleData, contacts, letters, conAmount,searchInput } from "./main.js";
+import { alphabet } from "./data/data.js";
 import { asideLetters, uniqueFilteredLetters } from "./asideLetters.js";
-import { infoModal } from "./infoModal.js";
-import { removeSingleBtn } from "./removeSingleContact.js";
-import { showIcons } from "./showIcons.js";
+import { infoContactModal } from "./modals/infoContactModal.js";
+import { editContactModal } from "./modals/editContactModal.js";
+import { removeContactModal } from "./modals/removeContactModal.js";
+import { selectIcons } from "./selectIcons.js";
 import { greetingPicture } from "./greetingPicture.js";
-import { editContact } from "./editContact.js";
 
+const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 export const showAllContacts = () => {
+  $(".list").scrollTo(0, 0);
+
+  searchInput.value = "";
+
   const lettersInList = alphabet
     .map((alphabetLetter) => {
       const firstLetters = uniqueFilteredLetters()
@@ -34,19 +39,27 @@ export const showAllContacts = () => {
                     <p><i class="fas fa-phone-alt"></i>
                     ${i.phone.replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}</p>
                     </div>
-                    <div class="user-icons">
-                    <a href = "mailto:${i.mail}"><i class="fas fa-at"></i></a>
-                   <i class="fas fa-user-edit"></i>
-                    <i class="far fa-trash-alt"></i></div></li>`;
+                    <div class="submenu-icon">
+                    <img src="../icons/arrowDown.svg" alt="icon" />
+                    </div>
+                    <div class="submenu">
+                    <button class="editCon">Edit</button>
+                    <a href = "mailto:${i.mail}">
+                    <button class="sendEm">Send email</button></a>
+                    <button class="deleteCon">Delete</button>
+                    </div>
+                    </li>
+                    `;
         })
         .join("");
+
       return `${firstLetters}${liLines}</ul></li>`;
     })
     .join("");
 
   contacts.innerHTML = lettersInList;
 
-  /* check length children */
+  /* children length checking*/
 
   const contactList = $$(".letter-container .contact-list");
 
@@ -61,11 +74,11 @@ export const showAllContacts = () => {
   });
 
   letters.innerHTML = asideLetters();
-  infoModal();
-  removeSingleBtn();
-  showIcons();
   greetingPicture();
-  editContact();
+  selectIcons();
+  infoContactModal();
+  editContactModal();
+  removeContactModal();
   conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
   localStorage.setItem("contacts", JSON.stringify(peopleData));
 };
