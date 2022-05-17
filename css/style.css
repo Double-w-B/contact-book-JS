@@ -25,7 +25,7 @@
   --dark-mode-4: #3e4250;
   --dark-mode-clr: #657ee4;
 
-  --transition:  all 0.3s linear;
+  --transition: all 0.3s linear;
 }
 
 * {
@@ -292,8 +292,8 @@ body.dark-mode .list.move {
   padding: 2rem 1.7rem 1.5rem 2rem;
   list-style: none;
 }
-.list .list__contacts *{
-transition: var(--transition);
+.list .list__contacts * {
+  transition: var(--transition);
 }
 
 /* ------------- New contact info ------------- */
@@ -499,6 +499,11 @@ body.dark-mode .contact {
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   opacity: 0;
 }
+
+.dark-mode .contact-list .submenu {
+  background-color: var(--dark-mode-4);
+}
+
 .submenu a {
   height: 100%;
   pointer-events: none;
@@ -514,6 +519,11 @@ body.dark-mode .contact {
   background-color: transparent;
   pointer-events: none;
 }
+
+.dark-mode .submenu button {
+  color: var(--white-secondary);
+}
+
 .submenu.show button {
   cursor: pointer;
   pointer-events: all;
@@ -522,9 +532,12 @@ body.dark-mode .contact {
 .submenu button:hover {
   color: var(--blue-primary);
 }
+.dark-mode .submenu button:hover {
+  color: var(--dark-mode-clr);
+}
 
 .contact-list .submenu.show {
-  bottom: -1.4rem;
+  bottom: -1.38rem;
   opacity: 1;
 }
 
@@ -564,9 +577,9 @@ body.dark-mode .contact-list li {
 .submenu-icon img {
   cursor: pointer;
   width: 20px;
-  filter: invert(55%) sepia(100%) saturate(7471%) hue-rotate(190deg)
-    brightness(84%) contrast(90%);
- filter: invert(81%) sepia(6%) saturate(227%) hue-rotate(173deg) brightness(85%) contrast(91%);
+
+  filter: invert(81%) sepia(6%) saturate(227%) hue-rotate(173deg)
+    brightness(85%) contrast(91%);
   transition: all 0.2s ease-in;
 }
 .submenu-icon img.active {
@@ -576,6 +589,10 @@ body.dark-mode .contact-list li {
 }
 
 body.dark-mode .submenu-icon img {
+  filter: invert(14%) sepia(1%) saturate(2297%) hue-rotate(235deg)
+    brightness(97%) contrast(94%);
+}
+body.dark-mode .submenu-icon img.active {
   filter: invert(50%) sepia(97%) saturate(1486%) hue-rotate(205deg)
     brightness(90%) contrast(98%);
 }
