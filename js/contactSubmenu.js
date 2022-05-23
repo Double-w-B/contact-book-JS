@@ -3,6 +3,19 @@ import { searchInput } from "./main.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const hideActiveSubmenu = () => {
+  $$(".submenu-icon img").forEach((btn) => {
+    btn.classList.remove("active");
+  });
+  $$(".contact-list li").forEach((contact) => {
+    contact.classList.remove("showSubmenu");
+    contact.lastElementChild.classList.remove("show");
+  });
+  $$(".submenu-icon").forEach((icon) => {
+    icon.classList.remove("show-icons");
+  });
+};
+
 export const contactSubmenu = () => {
   /* Show/hide submenu icon */
 
@@ -27,6 +40,8 @@ export const contactSubmenu = () => {
   /* Show/hide submenu */
 
   $(".list__contacts").addEventListener("click", (e) => {
+    e.stopPropagation();
+    const targetClass = e.target.classList;
     const liElm = e.target.closest(".contact-list li");
     const liElmImg = e.target.closest(".contact-list li img");
 
@@ -71,20 +86,12 @@ export const contactSubmenu = () => {
     }
 
     /* Hide submenu icon & submenu on a side click */
-    if (
-      e.target.classList.contains("first-letter") ||
-      e.target.classList.contains("list__contacts")
-    ) {
-      $$(".submenu-icon img").forEach((btn) => {
-        btn.classList.remove("active");
-      });
-      $$(".contact-list li").forEach((contact) => {
-        contact.classList.remove("showSubmenu");
-        contact.lastElementChild.classList.remove("show");
-      });
-      $$(".submenu-icon").forEach((icon) => {
-        icon.classList.remove("show-icons");
-      });
-    }
+    (targetClass.contains("first-letter") ||
+      targetClass.contains("list__contacts")) &&
+      hideActiveSubmenu();
   });
+
+  /* Hide submenu icon & submenu on a side click */
+  $(".list").addEventListener("click", hideActiveSubmenu);
+  $(".letters__container").addEventListener("click", hideActiveSubmenu);
 };
