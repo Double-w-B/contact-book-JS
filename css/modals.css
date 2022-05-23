@@ -1,4 +1,3 @@
-
 /* Modals */
 
 body.dark-mode .modal__contact-info p::selection,
@@ -44,8 +43,8 @@ body.dark-mode .modal__contact-add input::selection {
 
 body.dark-mode .modal__contact-info {
   background-color: var(--dark-mode-2);
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1A1D24;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1a1d24;
 }
 
 .btn-container {
@@ -100,7 +99,7 @@ body.dark-mode .photo .img {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around; 
+  justify-content: space-around;
 }
 
 .top-info .main-info p {
@@ -151,16 +150,19 @@ body.dark-mode .main-info p:last-child {
   text-transform: lowercase;
   color: var(--grey-dark-secondary);
   font-style: italic;
-  /* background-color: var(--white-primary); */
+}
+
+.bottom-info p span {
+  opacity: 0.6;
 }
 
 body.dark-mode .bottom-info p {
   color: var(--white-primary);
 }
 
-.bottom-info p .fas ,
+.bottom-info p .fas,
 .bottom-info p .far {
-color: var(--blue-primary);
+  color: var(--blue-primary);
 }
 
 .bottom-info p:nth-child(1) .fas {
@@ -196,13 +198,15 @@ body.dark-mode .bottom-info .far {
   cursor: pointer;
   transition: var(--transition);
 }
-.btn-container .fas:hover{
+
+.btn-container .fas:hover {
   color: var(--blue-primary);
 }
 
 body.dark-mode .btn-container .fas {
   color: var(--white-primary);
 }
+
 body.dark-mode .btn-container .fas:hover {
   color: var(--dark-mode-clr);
 }
@@ -232,7 +236,7 @@ body.dark-mode .btn-container .fas:hover {
 body.dark-mode .modal__contact-add {
   background-color: var(--dark-mode-2);
   color: var(--white-primary);
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1a1d24;
 }
 
@@ -251,7 +255,7 @@ body.dark-mode .modal__contact-add {
   justify-content: center;
   align-items: center;
   color: var(--blue-primary);
- /* text-shadow: -1px 1px 6px var(--grey-semi-light),
+  /* text-shadow: -1px 1px 6px var(--grey-semi-light),
 	-1px -1px 6px var(--grey-semi-light); */
   font-weight: bold;
   letter-spacing: 0.05rem;
@@ -307,7 +311,7 @@ body.dark-mode .new-con-main-info .info {
 }
 
 .error-hint,
-.error-hint-number, 
+.error-hint-number,
 .error-hint-required {
   position: absolute;
   bottom: -1rem;
@@ -338,7 +342,6 @@ body.dark-mode .new-con-main-info .info {
 body.dark-mode .modal__contact-add form input {
   color: var(--white-primary);
   border-bottom: 0.15rem solid var(--grey-light);
-
 }
 
 .name-input input::placeholder,
@@ -347,7 +350,6 @@ body.dark-mode .modal__contact-add form input {
 .mail-input input::placeholder,
 .address-input input::placeholder,
 .notes-input input::placeholder {
-
   opacity: 0.4;
 }
 
@@ -445,9 +447,9 @@ body.dark-mode .new-con-main-info form input::placeholder {
 
 body.dark-mode .modal__contact-delete {
   background-color: var(--dark-mode-2);
-    color: var(--white-primary);
-      box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1A1D24;
+  color: var(--white-primary);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1a1d24;
 }
 
 .confirm-container {
@@ -475,13 +477,13 @@ body.dark-mode .modal__contact-delete {
   font-weight: bold;
   font-size: 1.2rem;
   color: var(--blue-primary);
-   /* text-shadow: -1px 1px 4px var(--grey-semi-light),
+  /* text-shadow: -1px 1px 4px var(--grey-semi-light),
 	-1px -1px 4px var(--grey-semi-light); */
 }
 
 body.dark-mode .selected-contact {
   color: var(--dark-mode-clr);
-   text-shadow: none;
+  text-shadow: none;
 }
 
 .confirm-btns {

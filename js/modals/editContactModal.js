@@ -112,7 +112,9 @@ export const editContactModal = () => {
         }
 
         inputName.value.match(textRegExp) && invalidItem(inputName);
+
         inputSurname.value.match(textRegExp) && invalidItem(inputSurname);
+        
         inputEmail.value &&
           !inputEmail.value.match(emailRegExp) &&
           invalidItem(inputEmail);
@@ -122,10 +124,10 @@ export const editContactModal = () => {
           inputSurname.value &&
           !inputName.value.match(textRegExp) &&
           !inputSurname.value.match(textRegExp) &&
-          (!inputEmail.value || inputEmail.value.match(emailRegExp))
+          (!inputEmail.value || !inputEmail.value.match(emailRegExp)) &&
+          checkNumber.includes(inputPhone.value)
         ) {
-          checkNumber.includes(inputPhone.value) &&
-            unavailableNumber(inputPhone);
+          unavailableNumber(inputPhone);
         }
 
         if (

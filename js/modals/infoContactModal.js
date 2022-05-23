@@ -12,19 +12,20 @@ export const infoContactModal = () => {
       const conNumber = e.target.parentElement.parentElement.id;
 
       peopleData.find((i) => {
-        if (i.phone === conNumber)
+        const { name, surname, phone, mail, address, notes } = i;
+        if (phone === conNumber) {
           modalContainerInfo.innerHTML = `
                         <div class="btn-container"><i class="fas fa-times"></i></div>
                         <div class="top-info">
                         <div class="photo no-select">
                         <div class="img">
-                        ${i.name.slice(0, 1)}${i.surname.slice(0, 1)}</div>
+                        ${name.slice(0, 1)}${surname.slice(0, 1)}</div>
                         </div>
                          <div class="main-info">
-                         <p>${i.name}</p>
-                         <p>${i.surname}</p>
+                         <p>${name}</p>
+                         <p>${surname}</p>
                          <p><i class="fas fa-phone-alt no-select"></i>
-                         ${i.phone.replace(
+                         ${phone.replace(
                            /(?!^)(?=(?:\d{3})+(?:\.|$))/gm,
                            " "
                          )}</p>
@@ -32,12 +33,13 @@ export const infoContactModal = () => {
                         </div>
                          <div class="bottom-info">
                 <p><i class="fas fa-at no-select"></i>
-                 ${i.mail !== "" ? i.mail : "lack of information"}</p>
+                 ${mail ? mail : "<span>no email address passed</span>"}</p>
                 <p><i class="fas fa-map-marker-alt no-select">&nbsp;</i>
-                 ${i.address !== "" ? i.address : "lack of information"}</p>
+                 ${address ? address : "<span>no address passed</span>"}</p>
                 <p><i class="far fa-edit no-select"></i>
-                 ${i.notes !== "" ? i.notes : "lack of information"}</p>
+                 ${notes ? notes : "<span>no notes passed</span>"}</p>
                 </div>`;
+        }
       });
 
       modalContainerInfo
