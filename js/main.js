@@ -3,7 +3,6 @@ import { addContactModal } from "./modals/addContactModal.js";
 import { checkConLength } from "./checkContainerLength.js";
 import { displayMatches } from "./searchInput.js";
 import { showAllContacts } from "./showAllContacts.js";
-import { invalidItem, unavailableNumber, requiredInput } from "./validation.js";
 import { contactSubmenu } from "./contactSubmenu.js";
 
 const $ = document.querySelector.bind(document);
@@ -12,19 +11,19 @@ const $$ = document.querySelectorAll.bind(document);
 const letters = $(".letters__container");
 const contacts = $(".list__contacts");
 const list = $(".list");
-const btnAllCon = $(".nav__btn--show");
-const btnAddCon = $(".nav__btn--add");
+const btnAllContacts = $(".nav__btn--show");
+const btnAddNewCon = $(".nav__btn--add");
 const btnMenu = $(".nav__btn--menu");
-const conAmount = $(".list__contacts-amount");
+const contactsAmount = $(".list__contacts-amount");
 const modalOverlay = $(".modal__overlay");
 const modalContainerInfo = $(".modal__contact-info");
-const modalContainerNewCon = $(".modal__contact-add");
-const modalDeleteQuestion = $(".modal__contact-delete");
+const modalContainerAddEdit = $(".modal__contact-add");
+const modalContainerRemoveSelected = $(".modal__contact-delete");
 const menu = $(".menu");
 const searchInput = document.getElementById("search");
 const searchIcon = $(".fa-search");
 
-const modeBtn = $(".menu__btn--mode");
+const btnMode = $(".menu__btn--mode");
 const footer = $("footer");
 
 let peopleData = JSON.parse(localStorage.getItem("contacts")) || [];
@@ -34,7 +33,7 @@ document.body.className = localStorage.theme;
 
 letters.innerHTML = asideLetters();
 
-conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
 
 /* Input styling */
 searchInput.addEventListener("mouseover", () =>
@@ -60,110 +59,14 @@ list.addEventListener("scroll", () => {
 
 btnMenu.addEventListener("click", () => menu.classList.toggle("show-menu"));
 document.addEventListener("click", (e) => {
-  e.target !== btnMenu &&
+    e.target !== btnMenu &&
     menu.classList.contains("show-menu") &&
     menu.classList.remove("show-menu");
   searchInput.value = "";
 });
 
-btnAddCon.addEventListener("click", () => {
-  addContactModal();
-  const inputName = document.getElementById("name");
-  const inputSurname = document.getElementById("surname");
-  const inputPhone = document.getElementById("phone");
-  const inputEmail = document.getElementById("email");
-  const inputAddress = document.getElementById("address");
-  const inputNotes = document.getElementById("notes");
-
-  const btnAddNewCon = $(".accept");
-  const btnCancelNewCon = $(".cancel");
-
-  class Person {
-    constructor(name, surname, phone, mail, address, notes) {
-      this.name = name.toLowerCase();
-      this.surname = surname.toLowerCase();
-      this.phone = phone;
-      this.mail = mail.toLowerCase();
-      this.address = address.toLowerCase();
-      this.notes = notes.toLowerCase();
-    }
-  }
-
-  /* Add new contact */
-  btnAddNewCon.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const conImg = $$(".contact-img");
-    const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
-    const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-
-    const checkNumber = peopleData.map((person) => person.phone);
-
-    !inputName.value && requiredInput(inputName);
-    !inputSurname.value && requiredInput(inputSurname);
-
-    if (!inputPhone.value) {
-      requiredInput(inputPhone);
-    }
-    if (inputPhone.value && !inputPhone.value.match(/^[0-9]+$/)) {
-      invalidItem(inputPhone);
-    }
-
-    inputName.value.match(textRegExp) && invalidItem(inputName);
-    inputSurname.value.match(textRegExp) && invalidItem(inputSurname);
-    inputEmail.value &&
-      !inputEmail.value.match(emailRegExp) &&
-      invalidItem(inputEmail);
-
-    if (
-      inputName.value &&
-      inputSurname.value &&
-      !inputName.value.match(textRegExp) &&
-      !inputSurname.value.match(textRegExp) &&
-      (!inputEmail.value || inputEmail.value.match(emailRegExp))
-    ) {
-      checkNumber.includes(inputPhone.value) && unavailableNumber(inputPhone);
-    }
-
-    if (
-      inputName.value &&
-      inputSurname.value &&
-      !inputName.value.match(textRegExp) &&
-      !inputSurname.value.match(textRegExp) &&
-      inputPhone.value.match(/^[0-9]+$/) &&
-      !checkNumber.includes(inputPhone.value) &&
-      (!inputEmail.value || inputEmail.value.match(emailRegExp))
-    ) {
-      peopleData.push(
-        new Person(
-          inputName.value,
-          inputSurname.value,
-          inputPhone.value,
-          inputEmail.value,
-          inputAddress.value,
-          inputNotes.value
-        )
-      );
-
-      conImg.forEach((img) =>
-        img.firstElementChild.classList.remove("show-checked")
-      );
-      localStorage.setItem("contacts", JSON.stringify(peopleData));
-      modalOverlay.classList.remove("open-modal");
-      modalContainerNewCon.classList.remove("open-modal");
-
-      conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
-
-      showAllContacts();
-    }
-  });
-
-  btnCancelNewCon.addEventListener("click", () => {
-    modalOverlay.classList.remove("open-modal");
-    modalContainerNewCon.classList.remove("open-modal");
-  });
-});
-
-btnAllCon.addEventListener("click", showAllContacts);
+btnAddNewCon.addEventListener("click", addContactModal);
+btnAllContacts.addEventListener("click", showAllContacts);
 
 searchInput.addEventListener("change", displayMatches);
 searchInput.addEventListener("keyup", displayMatches);
@@ -171,14 +74,14 @@ searchInput.addEventListener("keyup", displayMatches);
 showAllContacts();
 contactSubmenu();
 
-/* Remove selected items */
-const removeSelectBtn = $(".menu__btn--remove");
+/* Remove selected contacts */
+const btnRemoveSelected = $(".menu__btn--remove");
 
-removeSelectBtn.addEventListener("click", () => {
-  const conImg = $$(".contact-img");
+btnRemoveSelected.addEventListener("click", () => {
+  const contactImg = $$(".contact-img");
   let itemsToRemove = [];
 
-  conImg.forEach((li) => {
+  contactImg.forEach((li) => {
     const parentElId = li.parentElement.id;
     li.firstElementChild.classList.contains("show-checked") &&
       itemsToRemove.push(parentElId);
@@ -187,9 +90,9 @@ removeSelectBtn.addEventListener("click", () => {
   if (itemsToRemove.length === 0) return;
 
   modalOverlay.classList.add("open-modal");
-  modalDeleteQuestion.classList.add("open-modal");
+  modalContainerRemoveSelected.classList.add("open-modal");
 
-  modalDeleteQuestion.innerHTML = `
+  modalContainerRemoveSelected.innerHTML = `
                         <div class="confirm-container">
                         <div class="confirm-question">
                             <p>Are you sure you want to delete
@@ -209,11 +112,11 @@ removeSelectBtn.addEventListener("click", () => {
                         </div>
                     </div>`;
 
-  const confirmDelBtn = $(".confirm-delete");
-  const confirmCanBtn = $(".confirm-cancel");
+  const btnConfirm = $(".confirm-delete");
+  const btnCancel = $(".confirm-cancel");
 
   /* Confirm Btn */
-  confirmDelBtn.addEventListener("click", (e) => {
+  btnConfirm.addEventListener("click", (e) => {
     e.stopPropagation();
     /* find the index of selected object */
     itemsToRemove.map((id) =>
@@ -224,27 +127,27 @@ removeSelectBtn.addEventListener("click", () => {
       )
     );
 
-    conImg.forEach(
+    contactImg.forEach(
       (li) =>
         li.firstElementChild.classList.contains("show-checked") &&
         li.parentElement.remove()
     );
 
     modalOverlay.classList.remove("open-modal");
-    modalDeleteQuestion.classList.remove("open-modal");
+    modalContainerRemoveSelected.classList.remove("open-modal");
     letters.innerHTML = asideLetters();
-    conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+    contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
     checkConLength();
     itemsToRemove = [];
     localStorage.setItem("contacts", JSON.stringify(peopleData));
   });
 
-  /* Deny Btn */
-  confirmCanBtn.addEventListener("click", (e) => {
+  /* Cancel Btn */
+  btnCancel.addEventListener("click", (e) => {
     e.stopPropagation();
 
     modalOverlay.classList.remove("open-modal");
-    modalDeleteQuestion.classList.remove("open-modal");
+    modalContainerRemoveSelected.classList.remove("open-modal");
     itemsToRemove = [];
   });
 });
@@ -269,14 +172,14 @@ letters.addEventListener("click", (e) => {
 });
 
 /* Dark/Light mode */
-modeBtn.addEventListener("click", () => {
+btnMode.addEventListener("click", () => {
   if (document.body.classList.contains("dark-mode")) {
     document.body.classList.remove("dark-mode");
     document.body.classList.add("light-mode");
     localStorage.theme = document.body.className;
 
     setTimeout(() => {
-      modeBtn.innerText = "Dark mode";
+      btnMode.innerText = "Dark mode";
     }, 300);
   } else {
     document.body.classList.remove("light-mode");
@@ -284,7 +187,7 @@ modeBtn.addEventListener("click", () => {
     localStorage.theme = document.body.className;
 
     setTimeout(() => {
-      modeBtn.innerText = "Light mode";
+      btnMode.innerText = "Light mode";
     }, 300);
   }
 });
@@ -302,10 +205,10 @@ export {
   letters,
   contacts,
   modalOverlay,
-  modalContainerNewCon,
+  modalContainerAddEdit,
   modalContainerInfo,
-  modalDeleteQuestion,
-  conAmount,
+  modalContainerRemoveSelected,
+  contactsAmount,
   showAllContacts,
   searchInput,
 };

@@ -15,12 +15,16 @@ body.dark-mode .modal__contact-add input::selection {
   align-items: center;
   justify-content: center;
   transition: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  background-color: rgba(0, 0, 0, 0.5);
   visibility: hidden;
   z-index: -10;
 }
 
-.open-modal {
-  visibility: visible !important;
+.modal__overlay.open-modal,
+.modal__contact-add.open-modal,
+.modal__contact-delete.open-modal,
+.modal__contact-info.open-modal {
+  visibility: visible;
   z-index: 10;
 }
 

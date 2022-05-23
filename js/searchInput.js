@@ -1,4 +1,4 @@
-import { peopleData, searchInput, conAmount, contacts } from "./main.js";
+import { peopleData, searchInput, contactsAmount, contacts } from "./main.js";
 import { selectIcons } from "./selectIcons.js";
 import { infoContactModal } from "./modals/infoContactModal.js";
 import { removeContactModal } from "./modals/removeContactModal.js";
@@ -57,7 +57,7 @@ export const displayMatches = () => {
     })
     .join("");
 
-  conAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
+  contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
 
   if (!searchInput.value) {
     showAllContacts();
@@ -70,7 +70,7 @@ export const displayMatches = () => {
             <div class="info-img no-select"><i class="fas fa-search"></i></div>
             <div class="info-text no-select">It looks like there aren't any matches for your search</div>
             </div>`;
-    conAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
+    contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
   }
 
   selectIcons();

@@ -1,4 +1,4 @@
-import { peopleData, contacts, letters, conAmount,searchInput } from "./main.js";
+import { peopleData, contacts, letters, contactsAmount,searchInput } from "./main.js";
 import { alphabet } from "./data/data.js";
 import { asideLetters, uniqueFilteredLetters } from "./asideLetters.js";
 import { infoContactModal } from "./modals/infoContactModal.js";
@@ -79,6 +79,6 @@ export const showAllContacts = () => {
   infoContactModal();
   editContactModal();
   removeContactModal();
-  conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+  contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
   localStorage.setItem("contacts", JSON.stringify(peopleData));
 };

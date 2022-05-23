@@ -1,58 +1,95 @@
-import { modalOverlay, modalContainerNewCon } from "../main.js";
+import {
+  modalOverlay,
+  modalContainerAddEdit,
+  peopleData,
+  contactsAmount,
+} from "../main.js";
+import { showAllContacts } from "../showAllContacts.js";
+import { addEditModalStructure } from "../data/data.js";
+import { validationFunction } from "../validation.js";
 
+const $$ = document.querySelectorAll.bind(document);
+const $ = document.querySelector.bind(document);
 
 /* Add new contact to an array */
 export const addContactModal = () => {
   modalOverlay.classList.add("open-modal");
-  modalContainerNewCon.classList.add("open-modal");
+  modalContainerAddEdit.classList.add("open-modal");
 
-  modalContainerNewCon.innerHTML = `<div class="new-con-main-info">
+  modalContainerAddEdit.innerHTML = `<div class="new-con-main-info">
                         <div class="info">New Contact</div>
-                        <form>
-                        <div class="info-one">
-                            <div class="name-input">
-                                <input type="text" id="name" name="name" placeholder="Name*"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Name*'" required>
-                                    <div class="error-hint">invalid name</div>
-                                    <div class="error-hint-required">name is required</div>
-                            </div>
-                            <div class="surname-input">
-                                <input type="text" id="surname" name="surname" placeholder="Surname*"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Surname*'" required>
-                                    <div class="error-hint">invalid surname</div>
-                                    <div class="error-hint-required">surname is required</div>
-
-                            </div>
-                            </div>
-                            <div class="info-two">
-                            <div class="phone-input">
-                                <input type="text" id="phone" name="phone" maxlength="9" placeholder="Phone*" onfocus="this.placeholder=''" onblur="this.placeholder='Phone*'" required>
-                                    <div class="error-hint">invalid number</div>
-                                    <div class="error-hint-required">number is required</div>
-                                    <div class="error-hint-number">number already exists</div>
-
-                            </div>
-                            <div class="mail-input">
-                                <input type="email" id="email" name="email" placeholder="Email"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Email'" required>
-                            </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="new-con-secondary-info">
-                        <form>
-                            <div class="address-input">
-                                <input type="text" id="address" name="address" placeholder="Address"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Address'">
-                            </div>
-                            <div class="notes-input">
-                                <input type="text" id="notes" name="notes" maxlength="36" placeholder="Notes"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Notes'">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="new-con-btns">
+                        ${addEditModalStructure}
                         <button class="accept">Add</button>
                         <button class="cancel">Cancel</button>
                     </div>`;
+
+  const inputName = document.getElementById("name");
+  const inputSurname = document.getElementById("surname");
+  const inputPhone = document.getElementById("phone");
+  const inputEmail = document.getElementById("email");
+  const inputAddress = document.getElementById("address");
+  const inputNotes = document.getElementById("notes");
+
+  const btnAccept = $(".accept");
+  const btnCancel = $(".cancel");
+
+  class Person {
+    constructor(name, surname, phone, mail, address, notes) {
+      this.name = name.toLowerCase();
+      this.surname = surname.toLowerCase();
+      this.phone = phone;
+      this.mail = mail.toLowerCase();
+      this.address = address.toLowerCase();
+      this.notes = notes.toLowerCase();
+    }
+  }
+
+  /* Add new contact */
+  btnAccept.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const contactImg = $$(".contact-img");
+    const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
+    const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    const checkNumber = peopleData.map((person) => person.phone);
+
+    validationFunction(inputName, inputSurname, inputPhone, inputEmail);
+
+    if (
+      inputName.value &&
+      inputSurname.value &&
+      !inputName.value.match(textRegExp) &&
+      !inputSurname.value.match(textRegExp) &&
+      inputPhone.value.match(/^[0-9]+$/) &&
+      !checkNumber.includes(inputPhone.value) &&
+      (!inputEmail.value || inputEmail.value.match(emailRegExp))
+    ) {
+      peopleData.push(
+        new Person(
+          inputName.value,
+          inputSurname.value,
+          inputPhone.value,
+          inputEmail.value,
+          inputAddress.value,
+          inputNotes.value
+        )
+      );
+
+      contactImg.forEach((img) =>
+        img.firstElementChild.classList.remove("show-checked")
+      );
+      localStorage.setItem("contacts", JSON.stringify(peopleData));
+      modalOverlay.classList.remove("open-modal");
+      modalContainerAddEdit.classList.remove("open-modal");
+
+      contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+
+      showAllContacts();
+    }
+  });
+
+  btnCancel.addEventListener("click", () => {
+    modalOverlay.classList.remove("open-modal");
+    modalContainerAddEdit.classList.remove("open-modal");
+  });
 };

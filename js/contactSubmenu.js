@@ -40,6 +40,9 @@ export const contactSubmenu = () => {
   /* Show/hide submenu */
 
   $(".list__contacts").addEventListener("click", (e) => {
+    $(".menu").classList.contains("show-menu") &&
+      $(".menu").classList.remove("show-menu");
+
     e.stopPropagation();
     const targetClass = e.target.classList;
     const liElm = e.target.closest(".contact-list li");

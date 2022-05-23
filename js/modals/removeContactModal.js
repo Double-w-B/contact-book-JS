@@ -1,7 +1,12 @@
-import { peopleData, modalOverlay, modalDeleteQuestion, conAmount, letters } from "../main.js";
+import {
+  peopleData,
+  modalOverlay,
+  modalContainerRemoveSelected,
+  contactsAmount,
+  letters,
+} from "../main.js";
 import { checkConLength } from "../checkContainerLength.js";
 import { asideLetters } from "../asideLetters.js";
-
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -15,7 +20,7 @@ export const removeContactModal = () => {
 
     deleteIcon.addEventListener("click", (e) => {
       modalOverlay.classList.add("open-modal");
-      modalDeleteQuestion.classList.add("open-modal");
+      modalContainerRemoveSelected.classList.add("open-modal");
 
       let contactId = e.target.parentElement.parentElement.id;
 
@@ -26,7 +31,7 @@ export const removeContactModal = () => {
         })
         .join("");
 
-      modalDeleteQuestion.innerHTML = `
+      modalContainerRemoveSelected.innerHTML = `
                         <div class="confirm-container  no-select">
                         <div class="confirm-question">
                             <p>Are you sure you want to delete the <span class="selected-contact">${selectedContact}</span> contact?</p>
@@ -48,16 +53,16 @@ export const removeContactModal = () => {
         localStorage.setItem("contacts", JSON.stringify(peopleData));
 
         modalOverlay.classList.remove("open-modal");
-        modalDeleteQuestion.classList.remove("open-modal");
+        modalContainerRemoveSelected.classList.remove("open-modal");
 
-        conAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+        contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
 
         letters.innerHTML = asideLetters();
       });
 
       confirmCanBtn.addEventListener("click", () => {
         modalOverlay.classList.remove("open-modal");
-        modalDeleteQuestion.classList.remove("open-modal");
+        modalContainerRemoveSelected.classList.remove("open-modal");
       });
     });
   });

@@ -801,7 +801,8 @@ input[type="number"] {
 .name-input .invalid-input,
 .surname-input .invalid-input,
 .phone-input .invalid-input,
-#email.invalid-input {
+#email.invalid-input,
+.error-hint.invalid-input{
   color: var(--red-secondary);
   visibility: visible;
 }
