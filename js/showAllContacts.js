@@ -1,4 +1,10 @@
-import { peopleData, contacts, letters, contactsAmount,searchInput } from "./main.js";
+import {
+  peopleData,
+  contacts,
+  letters,
+  contactsAmount,
+  searchInput,
+} from "./main.js";
 import { alphabet } from "./data/data.js";
 import { asideLetters, uniqueFilteredLetters } from "./asideLetters.js";
 import { infoContactModal } from "./modals/infoContactModal.js";
@@ -15,49 +21,52 @@ export const showAllContacts = () => {
 
   searchInput.value = "";
 
-  const lettersInList = alphabet
-    .map((alphabetLetter) => {
-      const firstLetters = uniqueFilteredLetters()
-        .map((i) => {
-          if (alphabetLetter === i)
-            return `<li id="${alphabetLetter}" class="letter-container">
-                    <div class="first-letter no-select"><p>${alphabetLetter}</p></div>
-                    <ul class="contact-list">`;
-        })
-        .join("");
+  const contactsList = uniqueFilteredLetters()
+    .map((letter) => {
+      if (alphabet.includes(letter)) {
+        return `<li id="${letter}" class="letter-container">
+                    <div class="first-letter no-select"><p>${letter}</p></div>
+                    <ul class="contact-list">
 
-      const liLines = peopleData
-        .map((i) => {
-          if (alphabetLetter === i.name.slice(0, 1))
-            return `<li id="${i.phone}">
+                    ${peopleData
+                      .map((person) => {
+                        const { name, phone, surname, mail } = person;
+
+                        if (letter === name.slice(0, 1)) {
+                          return `<li id="${phone}">
                     <div class='contact-img no-select'>
                     <i class='fas fa-check'></i>
-                    ${i.name.slice(0, 1)}${i.surname.slice(0, 1)}
+                    ${name.slice(0, 1)}${surname.slice(0, 1)}
                     </div>
+
                     <div class='contact'>
-                    <p>${i.name} ${i.surname}</p>
+                    <p>${name} ${surname}</p>
                     <p><i class="fas fa-phone-alt"></i>
-                    ${i.phone.replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}</p>
+                    ${phone.replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}</p>
                     </div>
+
                     <div class="submenu-icon">
                     <img src="../icons/arrowDown.svg" alt="icon" />
                     </div>
                     <div class="submenu">
                     <button class="editCon">Edit</button>
-                    <a href = "mailto:${i.mail}">
+                    <a href = "mailto:${mail}">
                     <button class="sendEm">Send email</button></a>
                     <button class="deleteCon">Delete</button>
                     </div>
                     </li>
                     `;
-        })
-        .join("");
+                        }
+                      })
+                      .join("")}
 
-      return `${firstLetters}${liLines}</ul></li>`;
+                    </ul></li>
+                    `;
+      }
     })
     .join("");
 
-  contacts.innerHTML = lettersInList;
+  contacts.innerHTML = contactsList;
 
   /* children length checking*/
 
