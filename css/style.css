@@ -554,7 +554,7 @@ body.dark-mode .contact-list li {
   margin-bottom: 1rem;
 }
 
-.contact-list li.one-child {
+.contact-list li:only-child {
   border-radius: 0.5rem;
 }
 
@@ -802,7 +802,7 @@ input[type="number"] {
 .surname-input .invalid-input,
 .phone-input .invalid-input,
 #email.invalid-input,
-.error-hint.invalid-input{
+.error-hint.invalid-input {
   color: var(--red-secondary);
   visibility: visible;
 }

@@ -68,20 +68,6 @@ export const showAllContacts = () => {
 
   contacts.innerHTML = contactsList;
 
-  /* children length checking*/
-
-  const contactList = $$(".letter-container .contact-list");
-
-  contactList.forEach((list) => {
-    list.children.length === 1
-      ? Object.values(list.children).map((child) =>
-          child.classList.add("one-child")
-        )
-      : Object.values(list.children).map((child) =>
-          child.classList.remove("one-child")
-        );
-  });
-
   letters.innerHTML = asideLetters();
   greetingPicture();
   selectIcons();
