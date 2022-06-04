@@ -1,11 +1,6 @@
-import {
-  modalOverlay,
-  modalContainerAddEdit,
-  peopleData,
-  contactsAmount,
-} from "../main.js";
+import * as mainModule from "../main.js";
 import { showAllContacts } from "../showAllContacts.js";
-import { addEditModalStructure } from "../data/data.js";
+import { addEditModalStructure } from "./addEditModalStructure.js";
 import { validationFunction } from "../validation.js";
 
 const $$ = document.querySelectorAll.bind(document);
@@ -13,10 +8,10 @@ const $ = document.querySelector.bind(document);
 
 /* Add new contact to an array */
 export const addContactModal = () => {
-  modalOverlay.classList.add("open-modal");
-  modalContainerAddEdit.classList.add("open-modal");
+  mainModule.modalOverlay.classList.add("open-modal");
+  mainModule.modalContainerAddEdit.classList.add("open-modal");
 
-  modalContainerAddEdit.innerHTML = `<div class="new-con-main-info">
+  mainModule.modalContainerAddEdit.innerHTML = `<div class="new-con-main-info">
                         <div class="info">New Contact</div>
                         ${addEditModalStructure}
                         <button class="accept">Add</button>
@@ -51,7 +46,7 @@ export const addContactModal = () => {
     const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
     const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
-    const checkNumber = peopleData.map((person) => person.phone);
+    const checkNumber = mainModule.peopleData.map((person) => person.phone);
 
     validationFunction(inputName, inputSurname, inputPhone, inputEmail);
 
@@ -64,7 +59,7 @@ export const addContactModal = () => {
       !checkNumber.includes(inputPhone.value) &&
       (!inputEmail.value || inputEmail.value.match(emailRegExp))
     ) {
-      peopleData.push(
+      mainModule.peopleData.push(
         new Person(
           inputName.value,
           inputSurname.value,
@@ -78,18 +73,18 @@ export const addContactModal = () => {
       contactImg.forEach((img) =>
         img.firstElementChild.classList.remove("show-checked")
       );
-      localStorage.setItem("contacts", JSON.stringify(peopleData));
-      modalOverlay.classList.remove("open-modal");
-      modalContainerAddEdit.classList.remove("open-modal");
+      localStorage.setItem("contacts", JSON.stringify(mainModule.peopleData));
+      mainModule.modalOverlay.classList.remove("open-modal");
+      mainModule.modalContainerAddEdit.classList.remove("open-modal");
 
-      contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+      mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
 
       showAllContacts();
     }
   });
 
   btnCancel.addEventListener("click", () => {
-    modalOverlay.classList.remove("open-modal");
-    modalContainerAddEdit.classList.remove("open-modal");
+    mainModule.modalOverlay.classList.remove("open-modal");
+    mainModule.modalContainerAddEdit.classList.remove("open-modal");
   });
 };

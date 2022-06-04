@@ -1,20 +1,19 @@
-import { modalOverlay, modalContainerInfo, peopleData } from "../main.js";
+import * as mainModule from "../main.js";
 
-const $$ = document.querySelectorAll.bind(document);
 const $ = document.querySelector.bind(document);
 
 export const infoContactModal = () => {
   /* Add modal with contact info */
   $(".list__contacts").addEventListener("click", (e) => {
     if (e.target.closest(".contact p:first-child")) {
-      modalOverlay.classList.add("open-modal");
-      modalContainerInfo.classList.add("open-modal");
+      mainModule.modalOverlay.classList.add("open-modal");
+      mainModule.modalContainerInfo.classList.add("open-modal");
       const conNumber = e.target.parentElement.parentElement.id;
 
-      peopleData.find((i) => {
+      mainModule.peopleData.find((i) => {
         const { name, surname, phone, mail, address, notes } = i;
         if (phone === conNumber) {
-          modalContainerInfo.innerHTML = `
+          mainModule.modalContainerInfo.innerHTML = `
                         <div class="btn-container"><i class="fas fa-times"></i></div>
                         <div class="top-info">
                         <div class="photo no-select">
@@ -42,11 +41,11 @@ export const infoContactModal = () => {
         }
       });
 
-      modalContainerInfo
+      mainModule.modalContainerInfo
         .querySelector(".btn-container .fas")
         .addEventListener("click", () => {
-          modalOverlay.classList.remove("open-modal");
-          modalContainerInfo.classList.remove("open-modal");
+          mainModule.modalOverlay.classList.remove("open-modal");
+          mainModule.modalContainerInfo.classList.remove("open-modal");
         });
     }
   });

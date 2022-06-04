@@ -1,12 +1,6 @@
-import {
-  modalOverlay,
-  modalContainerAddEdit,
-  peopleData,
-  contactsAmount,
-  showAllContacts,
-} from "../main.js";
+import * as mainModule from "../main.js";
 import { validationFunction } from "../validation.js";
-import { addEditModalStructure } from "../data/data.js";
+import { addEditModalStructure } from "./addEditModalStructure.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -16,10 +10,10 @@ export const editContactModal = () => {
 
   editBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      modalOverlay.classList.add("open-modal");
-      modalContainerAddEdit.classList.add("open-modal");
+      mainModule.modalOverlay.classList.add("open-modal");
+      mainModule.modalContainerAddEdit.classList.add("open-modal");
 
-      modalContainerAddEdit.innerHTML = `<div class="new-con-main-info">
+      mainModule.modalContainerAddEdit.innerHTML = `<div class="new-con-main-info">
                         <div class="info">Edit contact</div>
                         ${addEditModalStructure}
                         <button class="save">Save</button>
@@ -36,12 +30,12 @@ export const editContactModal = () => {
       const btnSave = $(".save");
       const btnCancel = $(".cancel");
 
-      const checkNumber = peopleData.map((person) => person.phone);
+      const checkNumber = mainModule.peopleData.map((person) => person.phone);
       const id = e.target.parentElement.parentElement.id;
       const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
       const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
-      peopleData.map((person) => {
+      mainModule.peopleData.map((person) => {
         const { name, surname, phone, mail, address, notes } = person;
 
         if (btn.parentElement.parentElement.id === phone) {
@@ -75,7 +69,7 @@ export const editContactModal = () => {
           inputPhone.nextElementSibling.nextElementSibling.nextElementSibling.classList.remove(
             "invalid-input"
           );
-          peopleData.map((person) => {
+          mainModule.peopleData.map((person) => {
             if (person.phone === btn.parentElement.parentElement.id) {
               person.name = inputName.value.toLowerCase();
               person.surname = inputSurname.value.toLowerCase();
@@ -89,18 +83,18 @@ export const editContactModal = () => {
           return;
         }
 
-        modalOverlay.classList.remove("open-modal");
-        modalContainerAddEdit.classList.remove("open-modal");
+        mainModule.modalOverlay.classList.remove("open-modal");
+        mainModule.modalContainerAddEdit.classList.remove("open-modal");
 
-        contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+        mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
 
-        showAllContacts();
-        localStorage.setItem("contacts", JSON.stringify(peopleData));
+        mainModule.showAllContacts();
+        localStorage.setItem("contacts", JSON.stringify(mainModule.peopleData));
       });
       btnCancel.addEventListener("click", (e) => {
         e.stopPropagation();
-        modalOverlay.classList.remove("open-modal");
-        modalContainerAddEdit.classList.remove("open-modal");
+        mainModule.modalOverlay.classList.remove("open-modal");
+        mainModule.modalContainerAddEdit.classList.remove("open-modal");
       });
     });
   });

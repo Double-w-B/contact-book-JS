@@ -1,10 +1,4 @@
-import {
-  peopleData,
-  modalOverlay,
-  modalContainerRemoveSelected,
-  contactsAmount,
-  letters,
-} from "../main.js";
+import * as mainModule from "../main.js";
 import { checkConLength } from "../checkContainerLength.js";
 import { asideLetters } from "../asideLetters.js";
 
@@ -19,19 +13,19 @@ export const removeContactModal = () => {
     const parentEl = deleteIcon.parentElement.parentElement;
 
     deleteIcon.addEventListener("click", (e) => {
-      modalOverlay.classList.add("open-modal");
-      modalContainerRemoveSelected.classList.add("open-modal");
+      mainModule.modalOverlay.classList.add("open-modal");
+      mainModule.modalContainerRemoveSelected.classList.add("open-modal");
 
       let contactId = e.target.parentElement.parentElement.id;
 
-      const selectedContact = peopleData
+      const selectedContact = mainModule.peopleData
         .map((person) => {
           if (person.phone === contactId)
             return `${person.name} ${person.surname}`;
         })
         .join("");
 
-      modalContainerRemoveSelected.innerHTML = `
+      mainModule.modalContainerRemoveSelected.innerHTML = `
                         <div class="confirm-container  no-select">
                         <div class="confirm-question">
                             <p>Are you sure you want to delete the <span class="selected-contact">${selectedContact}</span> contact?</p>
@@ -46,23 +40,25 @@ export const removeContactModal = () => {
       const confirmCanBtn = $(".confirm-cancel");
 
       confirmDelBtn.addEventListener("click", () => {
-        let removeIndex = peopleData.map((con) => con.phone).indexOf(contactId);
-        peopleData.splice(removeIndex, 1);
+        let removeIndex = mainModule.peopleData
+          .map((con) => con.phone)
+          .indexOf(contactId);
+        mainModule.peopleData.splice(removeIndex, 1);
         parentEl.remove();
         checkConLength();
-        localStorage.setItem("contacts", JSON.stringify(peopleData));
+        localStorage.setItem("contacts", JSON.stringify(mainModule.peopleData));
 
-        modalOverlay.classList.remove("open-modal");
-        modalContainerRemoveSelected.classList.remove("open-modal");
+        mainModule.modalOverlay.classList.remove("open-modal");
+        mainModule.modalContainerRemoveSelected.classList.remove("open-modal");
 
-        contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
+        mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
 
-        letters.innerHTML = asideLetters();
+        mainModule.letters.innerHTML = asideLetters();
       });
 
       confirmCanBtn.addEventListener("click", () => {
-        modalOverlay.classList.remove("open-modal");
-        modalContainerRemoveSelected.classList.remove("open-modal");
+        mainModule.modalOverlay.classList.remove("open-modal");
+        mainModule.modalContainerRemoveSelected.classList.remove("open-modal");
       });
     });
   });

@@ -1,10 +1,9 @@
-import { peopleData, searchInput, contactsAmount, contacts } from "./main.js";
+import * as mainModule from "./main.js";
 import { selectIcons } from "./selectIcons.js";
 import { infoContactModal } from "./modals/infoContactModal.js";
 import { removeContactModal } from "./modals/removeContactModal.js";
 import { editContactModal } from "./modals/editContactModal.js";
 import { showAllContacts } from "./showAllContacts.js";
-import { contactSubmenu } from "./contactSubmenu.js";
 
 const findMatches = (wordToMatch, peopleData) => {
   return peopleData.filter((person) => {
@@ -18,7 +17,10 @@ const findMatches = (wordToMatch, peopleData) => {
 };
 
 export const displayMatches = () => {
-  const matchArray = findMatches(searchInput.value, peopleData);
+  const matchArray = findMatches(
+    mainModule.searchInput.value,
+    mainModule.peopleData
+  );
   const sortedMatchArray = matchArray.sort((a, b) =>
     a.name > b.name ? 1 : -1
   );
@@ -57,20 +59,20 @@ export const displayMatches = () => {
     })
     .join("");
 
-  contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
+  mainModule.contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
 
-  if (!searchInput.value) {
+  if (!mainModule.searchInput.value) {
     showAllContacts();
   } else {
-    matchArray.length > 0 && (contacts.innerHTML = matchPeople);
+    matchArray.length > 0 && (mainModule.contacts.innerHTML = matchPeople);
   }
 
-  if (matchArray.length === 0 && peopleData.length > 0) {
-    contacts.innerHTML = `<div class="add-contact-info">
+  if (matchArray.length === 0 && mainModule.peopleData.length > 0) {
+    mainModule.contacts.innerHTML = `<div class="add-contact-info">
             <div class="info-img no-select"><i class="fas fa-search"></i></div>
             <div class="info-text no-select">It looks like there aren't any matches for your search</div>
             </div>`;
-    contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
+    mainModule.contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
   }
 
   selectIcons();

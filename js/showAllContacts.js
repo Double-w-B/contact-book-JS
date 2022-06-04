@@ -1,10 +1,4 @@
-import {
-  peopleData,
-  contacts,
-  letters,
-  contactsAmount,
-  searchInput,
-} from "./main.js";
+import * as mainModule from "./main.js";
 import { alphabet } from "./data/data.js";
 import { asideLetters, uniqueFilteredLetters } from "./asideLetters.js";
 import { infoContactModal } from "./modals/infoContactModal.js";
@@ -14,12 +8,11 @@ import { selectIcons } from "./selectIcons.js";
 import { greetingPicture } from "./greetingPicture.js";
 
 const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
 
 export const showAllContacts = () => {
   $(".list").scrollTo(0, 0);
 
-  searchInput.value = "";
+  mainModule.searchInput.value = "";
 
   const contactsList = uniqueFilteredLetters()
     .map((letter) => {
@@ -28,7 +21,8 @@ export const showAllContacts = () => {
                     <div class="first-letter no-select"><p>${letter}</p></div>
                     <ul class="contact-list">
 
-                    ${peopleData
+                    ${mainModule.peopleData
+                      .sort((a, b) => a.name > b.name)
                       .map((person) => {
                         const { name, phone, surname, mail } = person;
 
@@ -66,14 +60,14 @@ export const showAllContacts = () => {
     })
     .join("");
 
-  contacts.innerHTML = contactsList;
+  mainModule.contacts.innerHTML = contactsList;
 
-  letters.innerHTML = asideLetters();
+  mainModule.letters.innerHTML = asideLetters();
   greetingPicture();
   selectIcons();
   infoContactModal();
   editContactModal();
   removeContactModal();
-  contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
-  localStorage.setItem("contacts", JSON.stringify(peopleData));
+  mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
+  localStorage.setItem("contacts", JSON.stringify(mainModule.peopleData));
 };
