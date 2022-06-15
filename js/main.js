@@ -162,7 +162,7 @@ letters.addEventListener("click", (e) => {
     if (document.getElementById(id) === null) return;
 
     const element = document.getElementById(id);
-    let position = element.offsetTop - 10;
+    let position = element.offsetTop - 15;
 
     list.scrollTo({
       left: 0,

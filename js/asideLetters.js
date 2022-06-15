@@ -24,4 +24,4 @@ const asideLetters = () => {
   return `${letters} <div class="free-space"></div>`;
 };
 
-export {uniqueFilteredLetters, asideLetters}
+export { uniqueFilteredLetters, asideLetters };
