@@ -1,6 +1,6 @@
 import * as mainModule from "./main.js";
 import { alphabet } from "./data/data.js";
-import { asideLetters, uniqueFilteredLetters } from "./asideLetters.js";
+import { sideLetters, uniqueFilteredLetters } from "./sideLetters.js";
 import { infoContactModal } from "./modals/infoContactModal.js";
 import { editContactModal } from "./modals/editContactModal.js";
 import { removeContactModal } from "./modals/removeContactModal.js";
@@ -62,7 +62,7 @@ export const showAllContacts = () => {
 
   mainModule.contacts.innerHTML = contactsList;
 
-  mainModule.letters.innerHTML = asideLetters();
+  mainModule.sideLettersContainer.innerHTML = sideLetters();
   greetingPicture();
   selectIcons();
   infoContactModal();

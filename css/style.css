@@ -664,7 +664,7 @@ body.dark-mode .list__contacts-amount {
   opacity: 0.4;
 }
 
-/* ------------- Aside letters ------------- */
+/* ------------- Side letters ------------- */
 
 .letters__container {
   width: 3%;
@@ -675,7 +675,6 @@ body.dark-mode .list__contacts-amount {
   justify-content: start;
   border-bottom-right-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
-  /* z-index: 1; */
 }
 
 body.dark-mode .letters__container {
@@ -873,7 +872,6 @@ li .submenu-icon.show-icons {
 
 .menu.show-menu {
   opacity: 1;
-  transform: translateY(0);
   top: 0;
   z-index: 2;
 }

@@ -1,6 +1,6 @@
 import * as mainModule from "../main.js";
 import { checkConLength } from "../checkContainerLength.js";
-import { asideLetters } from "../asideLetters.js";
+import { sideLetters } from "../sideLetters.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -53,7 +53,7 @@ export const removeContactModal = () => {
 
         mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
 
-        mainModule.letters.innerHTML = asideLetters();
+        mainModule.sideLettersContainer.innerHTML = sideLetters();
       });
 
       confirmCanBtn.addEventListener("click", () => {

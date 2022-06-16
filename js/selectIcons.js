@@ -1,10 +1,9 @@
-const $ = document.querySelector.bind(document);
+import { menuSelectAllBtn, menuUnselectAllBtn } from "./main.js";
+
 const $$ = document.querySelectorAll.bind(document);
 
 export const selectIcons = () => {
   const contactImg = $$(".contact-img");
-  const selectBtn = $(".menu__btn--select");
-  const unselectBtn = $(".menu__btn--unselect");
 
   /* Add check icon */
   contactImg.forEach((img) =>
@@ -14,14 +13,14 @@ export const selectIcons = () => {
   );
 
   /* Select all contacts btn  */
-  selectBtn.addEventListener("click", () => {
+  menuSelectAllBtn.addEventListener("click", () => {
     contactImg.forEach((img) =>
       img.firstElementChild.classList.add("show-checked")
     );
   });
 
   /* Unselect all contacts btn  */
-  unselectBtn.addEventListener("click", () => {
+  menuUnselectAllBtn.addEventListener("click", () => {
     contactImg.forEach((img) =>
       img.firstElementChild.classList.remove("show-checked")
     );

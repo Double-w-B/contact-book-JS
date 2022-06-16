@@ -1,4 +1,4 @@
-import { asideLetters } from "./asideLetters.js";
+import { sideLetters } from "./sideLetters.js";
 import { addContactModal } from "./modals/addContactModal.js";
 import { checkConLength } from "./checkContainerLength.js";
 import { displayMatches } from "./searchInput.js";
@@ -8,22 +8,26 @@ import { contactSubmenu } from "./contactSubmenu.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const letters = $(".letters__container");
+const sideLettersContainer = $(".letters__container");
 const contacts = $(".list__contacts");
 const list = $(".list");
-const btnAllContacts = $(".nav__btn--show");
-const btnAddNewCon = $(".nav__btn--add");
-const btnMenu = $(".nav__btn--menu");
+const navNewContactBtn = $(".nav__btn--add");
+const navAllContactsBtn = $(".nav__btn--show");
+const navMenuBtn = $(".nav__btn--menu");
 const contactsAmount = $(".list__contacts-amount");
 const modalOverlay = $(".modal__overlay");
 const modalContainerInfo = $(".modal__contact-info");
 const modalContainerAddEdit = $(".modal__contact-add");
 const modalContainerRemoveSelected = $(".modal__contact-delete");
-const menu = $(".menu");
 const searchInput = document.getElementById("search");
 const searchIcon = $(".fa-search");
 
-const btnMode = $(".menu__btn--mode");
+const menu = $(".menu");
+const menuSelectAllBtn = $(".menu__btn--select");
+const menuUnselectAllBtn = $(".menu__btn--unselect");
+const menuRemoveSelectedBtn = $(".menu__btn--remove");
+const menuChangeModeBtn = $(".menu__btn--mode");
+
 const footer = $("footer");
 
 let peopleData = JSON.parse(localStorage.getItem("contacts")) || [];
@@ -31,7 +35,7 @@ let peopleData = JSON.parse(localStorage.getItem("contacts")) || [];
 if (!localStorage.theme) localStorage.theme = "light-mode";
 document.body.className = localStorage.theme;
 
-letters.innerHTML = asideLetters();
+sideLettersContainer.innerHTML = sideLetters();
 
 contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
 
@@ -49,24 +53,27 @@ searchInput.addEventListener("blur", () =>
   searchIcon.classList.remove("input-focus")
 );
 
-/* Scrollbar styling */
-list.addEventListener("scroll", () => {
+/* Hide scrollbar */
+const scrollbarThumb = () => {
   list.classList.add("move");
   setTimeout(() => {
     list.classList.remove("move");
   }, 700);
-});
+};
+list.addEventListener("scroll", scrollbarThumb);
 
-btnMenu.addEventListener("click", () => menu.classList.toggle("show-menu"));
+navMenuBtn.addEventListener("click", () => menu.classList.toggle("show-menu"));
 document.addEventListener("click", (e) => {
-    e.target !== btnMenu &&
-    menu.classList.contains("show-menu") &&
+  menu.classList.contains("show-menu") &&
+    e.target !== menuSelectAllBtn &&
+    e.target !== menuUnselectAllBtn &&
+    e.target !== menuRemoveSelectedBtn &&
+    e.target !== navMenuBtn &&
     menu.classList.remove("show-menu");
-  searchInput.value = "";
 });
 
-btnAddNewCon.addEventListener("click", addContactModal);
-btnAllContacts.addEventListener("click", showAllContacts);
+navNewContactBtn.addEventListener("click", addContactModal);
+navAllContactsBtn.addEventListener("click", showAllContacts);
 
 searchInput.addEventListener("change", displayMatches);
 searchInput.addEventListener("keyup", displayMatches);
@@ -75,9 +82,8 @@ showAllContacts();
 contactSubmenu();
 
 /* Remove selected contacts */
-const btnRemoveSelected = $(".menu__btn--remove");
 
-btnRemoveSelected.addEventListener("click", () => {
+menuRemoveSelectedBtn.addEventListener("click", () => {
   const contactImg = $$(".contact-img");
   let itemsToRemove = [];
 
@@ -89,6 +95,7 @@ btnRemoveSelected.addEventListener("click", () => {
 
   if (itemsToRemove.length === 0) return;
 
+  menu.classList.remove("show-menu");
   modalOverlay.classList.add("open-modal");
   modalContainerRemoveSelected.classList.add("open-modal");
 
@@ -135,7 +142,7 @@ btnRemoveSelected.addEventListener("click", () => {
 
     modalOverlay.classList.remove("open-modal");
     modalContainerRemoveSelected.classList.remove("open-modal");
-    letters.innerHTML = asideLetters();
+    sideLettersContainer.innerHTML = sideLetters();
     contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
     checkConLength();
     itemsToRemove = [];
@@ -153,7 +160,7 @@ btnRemoveSelected.addEventListener("click", () => {
 });
 
 /* Move To */
-letters.addEventListener("click", (e) => {
+sideLettersContainer.addEventListener("click", (e) => {
   e.preventDefault();
 
   if (e.target.hasAttribute("href")) {
@@ -172,14 +179,14 @@ letters.addEventListener("click", (e) => {
 });
 
 /* Dark/Light mode */
-btnMode.addEventListener("click", () => {
+const themeMode = () => {
   if (document.body.classList.contains("dark-mode")) {
     document.body.classList.remove("dark-mode");
     document.body.classList.add("light-mode");
     localStorage.theme = document.body.className;
 
     setTimeout(() => {
-      btnMode.innerText = "Dark mode";
+      menuChangeModeBtn.innerText = "Dark mode";
     }, 300);
   } else {
     document.body.classList.remove("light-mode");
@@ -187,10 +194,11 @@ btnMode.addEventListener("click", () => {
     localStorage.theme = document.body.className;
 
     setTimeout(() => {
-      btnMode.innerText = "Light mode";
+      menuChangeModeBtn.innerText = "Light mode";
     }, 300);
   }
-});
+};
+menuChangeModeBtn.addEventListener("click", themeMode);
 
 /* Footer */
 footer.innerHTML = `<p>
@@ -202,7 +210,7 @@ footer.innerHTML = `<p>
 
 export {
   peopleData,
-  letters,
+  sideLettersContainer,
   contacts,
   modalOverlay,
   modalContainerAddEdit,
@@ -211,4 +219,6 @@ export {
   contactsAmount,
   showAllContacts,
   searchInput,
+  menuSelectAllBtn,
+  menuUnselectAllBtn,
 };
