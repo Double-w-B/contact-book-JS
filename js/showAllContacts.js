@@ -30,6 +30,7 @@ export const showAllContacts = () => {
                           return `<li id="${phone}">
                     <div class='contact-img no-select'>
                     <i class='fas fa-check'></i>
+                    <i class='fas fa-check hover hide'></i>
                     ${name.slice(0, 1)}${surname.slice(0, 1)}
                     </div>
 

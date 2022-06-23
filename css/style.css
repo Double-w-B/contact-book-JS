@@ -458,8 +458,23 @@ body.dark-mode .contact-img {
   transition: all 0.1s linear;
 }
 
+.fa-check.hover {
+  color: var(--blue-primary);
+  background-color: var(--white-secondary);
+  opacity: 1;
+}
+.fa-check.hover.hide {
+  opacity: 0;
+}
+
 body.dark-mode .contact-img .fa-check {
+  color: var(--dark-mode-clr);
+  background-color: var(--white-secondary);
+}
+
+body.dark-mode .contact-img .fa-check.hover {
   background-color: var(--dark-mode-clr);
+  color: var(--white-secondary);
 }
 
 .contact {
