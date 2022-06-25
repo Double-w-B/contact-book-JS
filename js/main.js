@@ -39,6 +39,21 @@ sideLettersContainer.innerHTML = sideLetters();
 
 contactsAmount.innerHTML = `<p>Contacts: ${peopleData.length}</p>`;
 
+/* Detect user device */
+const deviceType = () => {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    return "tablet";
+  } else if (
+    /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+      ua
+    )
+  ) {
+    return "mobile";
+  }
+  return "desktop";
+};
+
 /* Input styling */
 searchInput.addEventListener("mouseover", () =>
   searchIcon.classList.add("input-hover")
@@ -221,4 +236,5 @@ export {
   searchInput,
   menuSelectAllBtn,
   menuUnselectAllBtn,
+  deviceType,
 };
