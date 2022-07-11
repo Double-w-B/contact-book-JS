@@ -2,38 +2,45 @@ import { peopleData } from "./main.js";
 
 /* Invalid data validation */
 const invalidItem = (elm) => {
+  const siblingElement = [...elm.parentElement.children].find(
+    (el) => el.className === "error-hint"
+  );
+
   elm.classList.add("invalid-input");
-  elm.nextElementSibling.classList.add("invalid-input");
+  siblingElement.classList.add("invalid-input");
 
   setTimeout(() => {
     elm.classList.remove("invalid-input");
-    elm.nextElementSibling.classList.remove("invalid-input");
+    siblingElement.classList.remove("invalid-input");
   }, 1500);
 };
 
 /* Required data validation */
 const requiredInput = (elm) => {
+  const siblingElement = [...elm.parentElement.children].find(
+    (el) => el.className === "error-hint-required"
+  );
+
   elm.classList.add("invalid-input");
-  elm.nextElementSibling.nextElementSibling.classList.add("invalid-input");
+  siblingElement.classList.add("invalid-input");
 
   setTimeout(() => {
     elm.classList.remove("invalid-input");
-    elm.nextElementSibling.nextElementSibling.classList.remove("invalid-input");
+    siblingElement.classList.remove("invalid-input");
   }, 1500);
 };
 
 /* Same number validation */
 const unavailableNumber = (elm) => {
-  elm.classList.add("invalid-input");
-  elm.nextElementSibling.nextElementSibling.nextElementSibling.classList.add(
-    "invalid-input"
+  const siblingElement = [...elm.parentElement.children].find(
+    (el) => el.className === "error-hint-number"
   );
+  elm.classList.add("invalid-input");
+  siblingElement.classList.add("invalid-input");
 
   setTimeout(() => {
     elm.classList.remove("invalid-input");
-    elm.nextElementSibling.nextElementSibling.nextElementSibling.classList.remove(
-      "invalid-input"
-    );
+    siblingElement.classList.remove("invalid-input");
   }, 1500);
 };
 

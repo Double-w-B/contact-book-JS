@@ -14,7 +14,7 @@ export const editContactModal = () => {
       mainModule.modalContainerAddEdit.classList.add("open-modal");
 
       mainModule.modalContainerAddEdit.innerHTML = `<div class="new-con-main-info">
-                        <div class="info">Edit contact</div>
+                        <div class="info">Edit Contact</div>
                         ${addEditModalStructure}
                         <button class="save">Save</button>
                         <button class="cancel">Cancel</button>
