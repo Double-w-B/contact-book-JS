@@ -15,7 +15,7 @@ body.dark-mode .modal__contact-add input::selection {
   align-items: center;
   justify-content: center;
   transition: cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   visibility: hidden;
   z-index: -10;
 }
@@ -224,7 +224,7 @@ body.dark-mode .btn-container .fas:hover {
 .modal__contact-add {
   border-radius: 0.5rem;
   width: 410px;
-  height: 330px;
+  height: 420px;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -259,8 +259,6 @@ body.dark-mode .modal__contact-add {
   justify-content: center;
   align-items: center;
   color: var(--blue-primary);
-  /* text-shadow: -1px 1px 6px var(--grey-semi-light),
-	-1px -1px 6px var(--grey-semi-light); */
   font-weight: bold;
   letter-spacing: 0.05rem;
   font-size: 1.5rem;
@@ -295,12 +293,15 @@ body.dark-mode .new-con-main-info .info {
 .phone-input,
 .mail-input {
   width: 50%;
-  height: 40%;
-  position: relative;
   display: flex;
   justify-content: center;
   position: relative;
   transition: all 0.1s ease-in;
+}
+
+.address-input,
+.notes-input {
+  position: relative;
 }
 
 .phone-input {
@@ -335,40 +336,70 @@ body.dark-mode .new-con-main-info .info {
   border-bottom: 0.15rem solid var(--grey-semi-light);
   margin: 0 0.5rem;
   padding-left: 0.2rem;
-  font-family: inherit;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-family: inherit;
   text-transform: capitalize;
   background-color: transparent;
-  color: var(--grey-dark);
+  color: var(--blue-primary);
 }
 
 body.dark-mode .modal__contact-add form input {
-  color: var(--white-primary);
-  border-bottom: 0.15rem solid var(--grey-light);
+  color: var(--dark-mode-clr);
+  border-bottom: 0.15rem solid var(--grey-semi-light);
 }
 
-.name-input input::placeholder,
-.surname-input input::placeholder,
-.phone-input input::placeholder,
-.mail-input input::placeholder,
-.address-input input::placeholder,
-.notes-input input::placeholder {
-  opacity: 0.4;
-}
-
-body.dark-mode .new-con-main-info form input::placeholder {
-  color: var(--white-primary);
-}
-
-.phone-input input {
-  width: 100%;
-  text-transform: none;
-}
-
+.phone-input input,
 .mail-input input {
   width: 100%;
   text-transform: none;
+}
+
+.name-input label,
+.surname-input label,
+.phone-input label,
+.mail-input label,
+.address-input label,
+.notes-input label {
+  font-size: 1.2rem;
+  color: var(--grey-semi-light);
+  position: absolute;
+  left: 1.6rem;
+  bottom: 0.2rem;
+  transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: none;
+}
+
+.phone-input label,
+.mail-input label {
+  left: 0.8rem;
+}
+
+form div input:focus,
+form div input:valid {
+  border-bottom: 0.15rem solid var(--grey-semi-light-2);
+}
+body.dark-mode form div input:focus,
+body.dark-mode form div input:valid {
+  border-bottom: 0.15rem solid var(--grey-light);
+}
+
+form div input:focus + label,
+form div input:valid + label {
+  transform: translateY(-30px);
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: var(--grey-semi-dark);
+}
+
+body.dark-mode form div input:focus + label,
+body.dark-mode form div input:valid + label {
+  color: var(--white-primary);
+}
+
+form div input:focus + label span,
+form div input:valid + label span {
+  color: var(--red-secondary);
 }
 
 .new-con-secondary-info {
@@ -387,7 +418,6 @@ body.dark-mode .new-con-main-info form input::placeholder {
 .address-input,
 .notes-input {
   width: 100%;
-  height: 50%;
   display: flex;
   align-items: center;
 }
@@ -421,10 +451,7 @@ body.dark-mode .new-con-main-info form input::placeholder {
   transition: all 0.1s linear;
   background-color: var(--white-secondary);
   color: var(--grey-dark);
-  /* box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; */
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  /* opacity: 0.85; */
 }
 
 .new-con-btns button:hover {
@@ -481,8 +508,6 @@ body.dark-mode .modal__contact-delete {
   font-weight: bold;
   font-size: 1.2rem;
   color: var(--blue-primary);
-  /* text-shadow: -1px 1px 4px var(--grey-semi-light),
-	-1px -1px 4px var(--grey-semi-light); */
 }
 
 body.dark-mode .selected-contact {
@@ -532,8 +557,7 @@ nav button:active,
 
 @media screen and (max-width: 1364px) {
   .modal__contact-add {
-    width: 410px;
-    height: 320px;
+    height: 410px;
   }
 
   .confirm-question p {
@@ -556,7 +580,7 @@ nav button:active,
 
   .modal__contact-add {
     width: 420px;
-    height: 300px;
+    height: 400px;
   }
 
   .confirm-question p {
@@ -590,8 +614,8 @@ nav button:active,
   }
 
   .modal__contact-add {
-    width: 372px;
-    height: 300px;
+    width: 390px;
+    height: 390px;
   }
 
   .new-con-btns button {

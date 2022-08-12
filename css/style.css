@@ -10,6 +10,7 @@
   --grey-light: #e9e4f0;
   --grey-light-2: #d4d5d9;
   --grey-semi-light: #aaaeb3;
+  --grey-semi-light-2: #888B8F;
   --grey-semi-dark: #48484a;
   --grey-dark: #2f2f31;
   --grey-dark-secondary: #29292b;
@@ -637,6 +638,7 @@ body.dark-mode .contact-list li {
   width: 20px;
   filter: invert(81%) sepia(6%) saturate(227%) hue-rotate(173deg)
     brightness(85%) contrast(91%);
+
   transition: all 0.2s ease-in;
 }
 
@@ -647,8 +649,8 @@ body.dark-mode .contact-list li {
 }
 
 body.dark-mode .submenu-icon img {
-  filter: invert(14%) sepia(1%) saturate(2297%) hue-rotate(235deg)
-    brightness(97%) contrast(94%);
+  filter: invert(40%) sepia(7%) saturate(214%) hue-rotate(177deg)
+    brightness(96%) contrast(82%);
 }
 
 body.dark-mode .submenu-icon img.active {
