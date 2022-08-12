@@ -125,8 +125,8 @@ menuRemoveSelectedBtn.addEventListener("click", () => {
                               itemsToRemove.length === 1
                                 ? "contact"
                                 : "contacts"
-                            }
-                            ?</p>
+                            }?
+                            </p>
                         </div>
                         <div class="confirm-btns">
                             <button class="confirm-delete">Delete</button>
