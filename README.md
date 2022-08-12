@@ -18,28 +18,28 @@ Technology: <HTML + CSS + JavaScript + RWD>
 ## Add a new contact
 To add a new contact, user has to click a button "Add New" and fulfill required form fields marked with an asterisk. A new contact will be added to the list of contacts after passing the form validation.
 
-![img-0](https://user-images.githubusercontent.com/105418561/178250766-b169dafb-132d-45a9-be41-32ca4ef89397.jpg)
+![img-0](https://user-images.githubusercontent.com/75247773/184440179-4011c232-b57f-4915-a0b1-e68a6badc503.jpg)
 
 ## Contact details
 To check the specific contact details, user has to click on the name of that contact.
 
-![img-2](https://user-images.githubusercontent.com/105418561/178250970-5cdffa5e-6dfb-4e99-8c04-96537975b78a.jpg)
+![img-2](https://user-images.githubusercontent.com/75247773/184441217-50fff443-8388-42fe-ad3b-b89ed33039e0.jpg)
 
 ## Manage the contact
 By clicking on a side arrow in a field of specific contact will be shown the submenu to manage the contact. There are 3 options: "Edit" - enables to edit contact details, "Send email" - launches Email Client installed on the user's device and adds a predefined email address (if it was defined), "Delete" - removes the contact from a contact list.
 
 ![img-7](https://user-images.githubusercontent.com/105418561/178251079-ab502e0e-2eb2-4173-b46a-01dfa1b2e797.jpg)
 
-![img-8](https://user-images.githubusercontent.com/105418561/178251152-8cbef727-b7ed-400c-a287-c82c9f5a18fe.jpg)
+![img-8](https://user-images.githubusercontent.com/75247773/184441295-d974ecf2-56b0-49c2-a33b-b08d646c49fa.jpg)
 
-![img-9](https://user-images.githubusercontent.com/105418561/178251165-13d709d2-9573-4560-b64a-af02940705df.jpg)
+![img-9](https://user-images.githubusercontent.com/75247773/184441373-bac7d161-5f05-4d99-8e99-86391c1b1389.jpg)
 
 ## Remove contacts
 User can remove selected contacts or all the contacts. By clicking on a menu button in a top right corner of the app and choosing among options "select all" and "remove selected".
 
 ![img-4](https://user-images.githubusercontent.com/105418561/178251236-f50803bd-4448-40b5-abb6-fbd97ab9e9e8.jpg)
 
-![img-6](https://user-images.githubusercontent.com/105418561/178251246-e43bf34a-84c3-4d0d-910a-a83a18e11c7a.jpg)
+![img-6](https://user-images.githubusercontent.com/75247773/184441440-d5684361-14a3-4422-8b8b-453e83bd111e.jpg)
 
 ## Search for a contact 
 There is a functionality which gives the possibility to find a specific contact from a list of contacts by passing name or phone number in a search field.
