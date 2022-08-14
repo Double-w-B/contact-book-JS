@@ -10,7 +10,7 @@
   --grey-light: #e9e4f0;
   --grey-light-2: #d4d5d9;
   --grey-semi-light: #aaaeb3;
-  --grey-semi-light-2: #888B8F;
+  --grey-semi-light-2: #888b8f;
   --grey-semi-dark: #48484a;
   --grey-dark: #2f2f31;
   --grey-dark-secondary: #29292b;
@@ -417,8 +417,8 @@ body.dark-mode .first-letter {
 }
 
 .contact-img {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   letter-spacing: 0.08rem;
   font-weight: 600;
@@ -430,7 +430,6 @@ body.dark-mode .first-letter {
   justify-content: center;
   text-transform: uppercase;
   margin-left: 0.5rem;
-  padding-left: 0.1rem;
   position: relative;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
@@ -457,6 +456,14 @@ body.dark-mode .contact-img {
   right: 0;
   opacity: 0;
   transition: all 0.1s linear;
+}
+
+.contact-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .fa-check.hover {
@@ -508,6 +515,7 @@ body.dark-mode .contact {
   margin: 0.1rem 0 0 0;
   font-size: 1.05rem;
   color: var(--grey-semi-dark);
+  cursor: default;
 }
 
 body.dark-mode .contact p:nth-child(2) {

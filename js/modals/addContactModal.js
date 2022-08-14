@@ -10,9 +10,23 @@ const $ = document.querySelector.bind(document);
 export const addContactModal = () => {
   mainModule.modalOverlay.classList.add("open-modal");
   mainModule.modalContainerAddEdit.classList.add("open-modal");
+  const themeMode = document.body.className;
 
-  mainModule.modalContainerAddEdit.innerHTML = `<div class="new-con-main-info">
-                        <div class="info">New Contact</div>
+  mainModule.modalContainerAddEdit.innerHTML = `
+                         <div class="contact-img-upload">
+                        <div class="avatar-container">
+                            <label title="Press camera to add an image">
+                                ${
+                                  themeMode === "light-mode"
+                                    ? '<img class="img-icon" src="../../icons/camera_plus_dark.svg" alt="icon" />'
+                                    : '<img class="img-icon" src="../../icons/camera_plus_light.svg" alt="icon"/>'
+                                }
+                            <input type="file" />
+                            </label>
+                        </div>
+                        <p>add an image</p>
+                    </div>
+                        <div class="new-con-main-info">
                         ${addEditModalStructure}
                         <button class="accept">Add</button>
                         <button class="cancel">Cancel</button>
@@ -25,19 +39,52 @@ export const addContactModal = () => {
   const inputAddress = document.getElementById("address");
   const inputNotes = document.getElementById("notes");
 
+  const inputImg = document.querySelector("input[type=file]");
+  const inputImgContainer = document.querySelector(".avatar-container label");
+  const inputImgName = document.querySelector(".contact-img-upload p");
+
+  let imgSrc = "";
+  let imgName = "";
+
   const btnAccept = $(".accept");
   const btnCancel = $(".cancel");
 
   class Person {
-    constructor(name, surname, phone, mail, address, notes) {
+    constructor(name, surname, phone, mail, address, notes, imgSrc, imgName) {
       this.name = name.toLowerCase();
       this.surname = surname.toLowerCase();
       this.phone = phone;
       this.mail = mail.toLowerCase();
       this.address = address.toLowerCase();
       this.notes = notes.toLowerCase();
+      this.img = { src: imgSrc, name: imgName };
     }
   }
+
+  /* Add avatar image */
+  const addImage = (reader) => {
+    const uploaded = reader.result;
+    const inputImage = document.querySelector("input[type=file]").files[0];
+    const avatarImg = document.createElement("img");
+
+    inputImgName.innerText =
+      inputImage.name.length > 20
+        ? `...${inputImage.name.slice(-20)}`
+        : `../${inputImage.name}`;
+
+    inputImgContainer.insertBefore(avatarImg, inputImg);
+    inputImgContainer.removeChild(inputImgContainer.children[0]);
+    inputImgContainer.children[0].src = uploaded;
+
+    imgSrc = uploaded;
+    imgName = `../${inputImage.name}`;
+  };
+
+  inputImg.addEventListener("change", () => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => addImage(reader));
+    reader.readAsDataURL(inputImg.files[0]);
+  });
 
   /* Add new contact */
   btnAccept.addEventListener("click", (e) => {
@@ -66,9 +113,12 @@ export const addContactModal = () => {
           inputPhone.value,
           inputEmail.value,
           inputAddress.value,
-          inputNotes.value
+          inputNotes.value,
+          imgSrc,
+          imgName
         )
       );
+      console.log(mainModule.peopleData);
 
       contactImg.forEach((img) =>
         img.firstElementChild.classList.remove("show-checked")
