@@ -26,7 +26,7 @@ export const displayMatches = () => {
   );
   const matchPeople = sortedMatchArray
     .map((person) => {
-      const { name, surname, phone, mail } = person;
+      const { name, surname, phone, mail,img:{src} } = person;
 
       return `
                     <li>
@@ -36,7 +36,11 @@ export const displayMatches = () => {
                     <div class='contact-img no-select'>
                     <i class='fas fa-check'></i>
                     <i class='fas fa-check hover hide'></i>
-                    ${name.slice(0, 1)}${surname.slice(0, 1)}
+                    ${
+                      src
+                        ? "<img src=" + src + " alt=''/>"
+                        : name.slice(0, 1) + surname.slice(0, 1)
+                    }
                     </div>
                     <div class='contact'>
                     <p>${name} ${surname}</p>

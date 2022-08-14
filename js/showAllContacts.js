@@ -13,6 +13,7 @@ export const showAllContacts = () => {
   $(".list").scrollTo(0, 0);
 
   mainModule.searchInput.value = "";
+  mainModule.peopleData.sort((a, b) => a.name > b.name);
 
   const contactsList = uniqueFilteredLetters()
     .map((letter) => {
@@ -22,16 +23,26 @@ export const showAllContacts = () => {
                     <ul class="contact-list">
 
                     ${mainModule.peopleData
-                      .sort((a, b) => a.name > b.name)
+                      // .sort((a, b) => a.name > b.name)
                       .map((person) => {
-                        const { name, phone, surname, mail } = person;
+                        const {
+                          name,
+                          phone,
+                          surname,
+                          mail,
+                          img: { src },
+                        } = person;
 
                         if (letter === name.slice(0, 1)) {
                           return `<li id="${phone}">
                     <div class='contact-img no-select'>
                     <i class='fas fa-check'></i>
                     <i class='fas fa-check hover hide'></i>
-                    ${name.slice(0, 1)}${surname.slice(0, 1)}
+                   ${
+                     src
+                       ? "<img src=" + src + " alt=''/>"
+                       : name.slice(0, 1) + surname.slice(0, 1)
+                   }
                     </div>
 
                     <div class='contact'>
