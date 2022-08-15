@@ -23,7 +23,6 @@ export const infoContactModal = () => {
         if (phone === conNumber) {
           mainModule.modalContainerInfo.innerHTML = `
                      <div class="top_info">
-                      <i class="fas fa-times"></i>
                       <div class="top_info-avatar">
                       ${
                         src
@@ -49,7 +48,12 @@ export const infoContactModal = () => {
                           <p>
                           <i class="fas fa-at no-select"></i>
                           ${
-                            mail ? mail : "<span>no email address passed</span>"
+                            mail
+                              ? mail +
+                                " " +
+                                "<i class='fas fa-link no-select'></i>" +
+                                "<span class='copied'>Copied!</span>"
+                              : "<span>no email address passed</span>"
                           }
                           </p>
                           <p>
@@ -62,18 +66,31 @@ export const infoContactModal = () => {
                           <i class="far fa-edit no-select"></i>
                           ${notes ? notes : "<span>no notes passed</span>"}
                           </p>
+                          <button class="bottom_info-close-btn">Close</button>
                          </div>
-     
                 </div>`;
         }
       });
-
-      mainModule.modalContainerInfo
-        .querySelector(".top_info .fas")
-        .addEventListener("click", () => {
-          mainModule.modalOverlay.classList.remove("open-modal");
-          mainModule.modalContainerInfo.classList.remove("open-modal");
-        });
     }
+
+    const closeModal = () => {
+      mainModule.modalOverlay.classList.remove("open-modal");
+      mainModule.modalContainerInfo.classList.remove("open-modal");
+    };
+
+    const copyEmail = (e) => {
+      const copiedBtn = $(".copied");
+      navigator.clipboard.writeText(
+        e.target.previousSibling.textContent.trim()
+      );
+      copiedBtn.classList.add("show");
+
+      setTimeout(() => {
+        copiedBtn.classList.remove("show");
+      }, 700);
+    };
+
+    $(".bottom_info-close-btn")?.addEventListener("click", closeModal);
+    $(".fa-link")?.addEventListener("click", (e) => copyEmail(e));
   });
 };

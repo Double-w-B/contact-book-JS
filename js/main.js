@@ -119,7 +119,7 @@ menuRemoveSelectedBtn.addEventListener("click", () => {
                         <div class="confirm-question">
                             <p>Are you sure you want to delete
                              ${itemsToRemove.length < 5 ? "" : "all the"}
-                            <span class="selected-contact">
+                             <span class="selected-contact">
                             ${itemsToRemove.length}</span> 
                             ${
                               itemsToRemove.length === 1
