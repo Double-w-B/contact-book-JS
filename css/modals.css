@@ -35,7 +35,7 @@ body.dark-mode .modal__contact-add input::selection {
 .modal__contact-info {
   display: flex;
   color: var(--grey-dark-secondary);
-  transform: translateY(110px);
+  transform: translateY(12%);
   transition: 0.3s linear;
   transition-delay: 0.1s;
   opacity: 0;
@@ -245,6 +245,10 @@ body.dark-mode .bottom_info-details p:nth-child(2) .copied {
   opacity: 1;
 }
 
+.bottom_info-details p:last-child {
+  word-wrap: break-word;
+}
+
 /*------------- Close Button -------------*/
 .bottom_info-close-btn {
   width: 100px;
@@ -297,20 +301,6 @@ body.dark-mode .modal__contact-add {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-
-.modal__contact-add h1 {
-  width: 100%;
-  text-align: center;
-  color: var(--blue-primary);
-  font-weight: bold;
-  letter-spacing: 0.05rem;
-  font-size: 1.5rem;
-}
-
-body.dark-mode .new-con-main-info h1 {
-  color: var(--dark-mode-clr);
-  text-shadow: none;
 }
 
 .new-con-main-info form {
@@ -427,8 +417,8 @@ body.dark-mode form div input:valid {
   border-bottom: 0.15rem solid var(--grey-light);
 }
 
-form div input:focus + label,
-form div input:valid + label {
+form div input:focus+label,
+form div input:valid+label {
   transform: translateY(-30px);
   font-size: 0.8rem;
   font-weight: bold;
@@ -436,13 +426,13 @@ form div input:valid + label {
   color: var(--grey-semi-dark);
 }
 
-body.dark-mode form div input:focus + label,
-body.dark-mode form div input:valid + label {
+body.dark-mode form div input:focus+label,
+body.dark-mode form div input:valid+label {
   color: var(--white-primary);
 }
 
-form div input:focus + label span,
-form div input:valid + label span {
+form div input:focus+label span,
+form div input:valid+label span {
   color: var(--red-secondary);
 }
 
@@ -588,6 +578,7 @@ label .img-icon:active {
   display: flex;
   flex-direction: column;
   color: var(--grey-dark-secondary);
+  transform: translateY(35%);
 }
 
 body.dark-mode .modal__contact-delete {
@@ -668,38 +659,8 @@ nav button:active,
 
 /*------------- Media Queries -------------*/
 
-@media screen and (max-width: 1364px) {
-  .modal__contact-add {
-    height: 410px;
-  }
-
-  .confirm-question p {
-    margin: 0 1.5rem;
-  }
-
-  .modal__contact-info {
-    width: 390px;
-    height: 230px;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .modal__contact-info {
-    width: 390px;
-    height: 210px;
-  }
-
-  .modal__contact-add {
-    width: 420px;
-    height: 400px;
-  }
-
-  .confirm-question p {
-    margin: 0 1.2rem;
-  }
-}
-
 @media screen and (max-width: 900px) {
+
   .modal__contact-info,
   .modal__contact-add,
   .modal__contact-delete {
@@ -715,18 +676,8 @@ nav button:active,
 }
 
 @media screen and (max-width: 767px) {
-  .modal__contact-info {
-    width: 380px;
-    height: 210px;
-  }
-
   .btn-container .fas {
     font-size: 1.8rem;
-  }
-
-  .modal__contact-add {
-    width: 390px;
-    height: 390px;
   }
 
   .new-con-btns button {
@@ -737,57 +688,62 @@ nav button:active,
   .error-hint-required {
     bottom: -2rem;
   }
-
-  .modal__contact-delete {
-    height: 150px;
-  }
 }
 
 @media screen and (max-width: 480px) {
-}
-
-@media screen and (max-width: 360px) {
-  .modal__contact-info {
-    width: 310px;
-  }
-
-  .top-info .photo .img {
-    width: 80px;
-    height: 75px;
-    font-size: 2.5rem;
-  }
-
-  .top-info .main-info p {
-    font-size: 1.3rem;
-  }
-
-  .top-info .main-info p:last-child {
-    margin-bottom: 0.5rem;
-  }
-
-  .bottom-info p {
-    font-size: 0.9rem;
+  .confirm-question {
+    font-size: 1.1rem;
   }
 
   .modal__contact-add {
-    width: 310px;
+    width: 330px;
+    height: 480px;
   }
 
-  form .info-two {
+  .new-con-main-info {
+    height: 45%;
+  }
+
+  .info-one,
+  .info-two {
     flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   .name-input,
-  .surname-input {
-    margin: 0.6rem;
-  }
-
+  .surname-input,
   .phone-input,
   .mail-input {
-    margin: 0 0.75rem;
-    width: 92.5%;
+    width: 100%;
+    margin: 0;
+  }
+
+  .name-input input,
+  .surname-input input,
+  .phone-input input,
+  .mail-input input {
+    width: 100%;
+    margin: 0 1.2rem;
+  }
+
+  .phone-input label,
+  .mail-input label {
+    left: 1.6rem;
+  }
+
+  form div input:focus+label,
+  form div input:valid+label {
+    transform: translateY(-25px);
+  }
+
+  .new-con-secondary-info {
+    height: 20%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .modal__contact-add {
+    width: 305px;
   }
 
   .name-input input,
@@ -796,16 +752,12 @@ nav button:active,
   .mail-input input,
   .address-input input,
   .notes-input input {
-    font-size: 1rem;
-  }
-
-  .new-con-secondary-info {
-    height: 30%;
-    margin-top: 0.5rem;
+    font-size: 1.1rem;
   }
 
   .modal__contact-delete {
-    width: 310px;
+    width: 270px;
+    height: 150px;
   }
 
   .error-hint-number,

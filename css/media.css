@@ -139,7 +139,7 @@
 @media screen and (max-width: 600px) {
   main {
     margin-top: 6vh;
-    width: 26rem;
+    width: 29rem;
     min-height: 530px;
   }
 
@@ -252,7 +252,7 @@
 @media screen and (max-width: 480px) {
   main {
     margin-top: 6vh;
-    width: 23rem;
+    width: 26rem;
     min-height: 510px;
   }
 
