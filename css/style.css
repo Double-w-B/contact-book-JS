@@ -4,8 +4,8 @@
   --white-primary: #fff;
   --white-secondary: #fafafa;
   --white-dark: #dadce0;
-  /* --blue-primary: #0d66a1; */
-  --blue-primary: #0053b5;
+  --blue-primary: #0d66a1;
+  /* --blue-primary: #0053b5; */
   --green-primary: #34c759;
   --grey-light: #e9e4f0;
   --grey-light-2: #d4d5d9;
@@ -268,6 +268,7 @@ nav .nav__btn--menu {
   background: linear-gradient(transparent, var(--grey-light-2) 55%);
   bottom: -0.05rem;
 }
+
 body.dark-mode .list__top-opacity {
   background: linear-gradient(var(--dark-mode-1) 25%, transparent);
 }
@@ -288,6 +289,7 @@ body.dark-mode .list__bottom-opacity {
   height: 30px;
   background-color: var(--grey-light-2);
 }
+
 .list::-webkit-scrollbar-thumb:hover {
   background-color: var(--blue-primary);
 }
@@ -441,19 +443,20 @@ body.dark-mode .contact-img {
 }
 
 .contact-img .fa-check {
+  width: 100%;
+  height: 100%;
   position: absolute;
   background-color: var(--blue-primary);
   color: var(--white-secondary);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding-left: 0.2rem;
+  padding-top: 0.2rem;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
   opacity: 0;
   transition: all 0.1s linear;
 }
@@ -471,6 +474,7 @@ body.dark-mode .contact-img {
   background-color: var(--white-secondary);
   opacity: 1;
 }
+
 .fa-check.hover.hide {
   opacity: 0;
 }
@@ -499,6 +503,7 @@ body.dark-mode .contact {
 }
 
 .contact p:first-child {
+  letter-spacing: 0.2px;
   margin: 0;
   cursor: pointer;
 }
