@@ -1,4 +1,4 @@
-/* Modals */
+/*------------- Modals -------------*/
 
 body.dark-mode .modal__contact-info p::selection,
 body.dark-mode .modal__contact-add input::selection {
@@ -26,25 +26,36 @@ body.dark-mode .modal__contact-add input::selection {
 .modal__contact-info.open-modal {
   visibility: visible;
   z-index: 10;
+  transform: translateY(0);
+  opacity: 1;
 }
 
-/* Contact info modal */
-
+.modal__contact-add,
+.modal__contact-delete,
 .modal__contact-info {
-  background-color: var(--white-dark);
+  display: flex;
+  color: var(--grey-dark-secondary);
+  transform: translateY(110px);
+  transition: 0.3s linear;
+  transition-delay: 0.1s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -10;
+  position: absolute;
   border-radius: 0.3rem;
-  padding: 0.2rem;
+  background-color: var(--white-dark);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #141e30;
+}
+
+/*------------- Contact Info Modal -------------*/
+.modal__contact-info {
   width: 300px;
   height: 440px;
+  padding: 0.3rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: absolute;
-  visibility: hidden;
-  z-index: -10;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #48484a;
 }
 
 body.dark-mode .modal__contact-info {
@@ -61,52 +72,10 @@ body.dark-mode .modal__contact-info {
   background-color: var(--blue-primary);
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
-  /* border-top-left-radius: 0.5rem; */
-  /* border-top-right-radius: 0.5rem; */
 }
-body.dark-mode.top_info {
+
+body.dark-mode .top_info {
   background-color: var(--dark-mode-clr);
-}
-
-/* Close Button */
-/* .btn-container {
-  width: 3rem;
-  height: 3rem;
-  display: grid;
-  place-content: center;
-  position: absolute;
-  top: 0;
-  right: 0; */
-/* background-color: #fff; */
-/* } */
-
-.top_info .fas {
-  color: var(--white-dark);
-  font-size: 1.5rem;
-  transition: all 0.1s;
-  cursor: pointer;
-  position: absolute;
-  top: 0.5rem;
-  right: 0.8rem;
-  transition: var(--transition);
-}
-
-.top_info .fas:hover {
-  color: var(--grey-semi-dark);
-  color: var(--white-secondary);
-  /* color: var(--red-secondary); */
-}
-
-body.dark-mode .top_info .fas {
-  color: var(--white-primary);
-}
-
-body.dark-mode .top_info .fas:hover {
-  color: var(--dark-mode-clr);
-}
-
-.top_info .fas:active {
-  transform: scale(0.9);
 }
 
 .top_info .top_info-avatar {
@@ -123,12 +92,21 @@ body.dark-mode .top_info .fas:hover {
   position: absolute;
 }
 
+body.dark-mode .top_info-avatar {
+  border: 5px solid var(--dark-mode-2);
+  background-color: var(--white-secondary);
+}
+
 .top_info .top_info-avatar p {
   width: 100%;
   font-size: 4rem;
   text-align: center;
   text-transform: uppercase;
   color: var(--blue-primary);
+}
+
+body.dark-mode .top_info-avatar p {
+  color: var(--dark-mode-clr);
 }
 
 .top_info .top_info-avatar img {
@@ -139,12 +117,10 @@ body.dark-mode .top_info .fas:hover {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 8px;
 }
 
-/* Bottom info */
-
+/*------------- Bottom info -------------*/
 .bottom_info {
   width: 100%;
   height: 62%;
-  /* background-color: tomato; */
 }
 
 .bottom_info-name {
@@ -154,7 +130,10 @@ body.dark-mode .top_info .fas:hover {
   text-transform: capitalize;
   text-align: center;
   color: var(--blue-primary);
-  /* background-color: tomato; */
+}
+
+body.dark-mode .bottom_info-name {
+  color: var(--dark-mode-clr);
 }
 
 .bottom_info-name-underline {
@@ -168,21 +147,25 @@ body.dark-mode .top_info .fas:hover {
 .bottom_info-details {
   width: 100%;
   height: 80%;
-  padding: 0.8rem 0 0 0.5rem;
-  /* padding-left: 0.5rem; */
+  padding-top: 0.8rem;
   display: flex;
   flex-direction: column;
-  justify-content:flex-start;
-  /* background-color: tomato; */
+  justify-content: flex-start;
 }
 
-.bottom_info-details p{
+.bottom_info-details p {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
   color: var(--grey-dark-secondary);
+  margin-left: 0.5rem;
 }
-.bottom_info-details p span{
+
+body.dark-mode .bottom_info-details p {
+  color: var(--grey-light-2);
+}
+
+.bottom_info-details p span {
   opacity: 0.6;
 }
 
@@ -190,164 +173,115 @@ body.dark-mode .top_info .fas:hover {
   font-size: 1.6rem;
 }
 
+body.dark-mode .bottom_info-details p:first-child {
+  color: var(--white-secondary);
+}
+
 .bottom_info-details .fas,
 .bottom_info-details .far {
   font-size: 1.4rem;
   margin-right: 0.5rem;
-
   color: var(--blue-primary);
+}
+
+body.dark-mode .bottom_info-details .fas,
+body.dark-mode .bottom_info-details .far {
+  color: var(--dark-mode-clr);
 }
 
 .bottom_info-details .fa-phone-alt {
   font-size: 1.2rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   color: var(--green-primary);
 }
 
-/* .top-info .photo {
-  width: 35%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.bottom_info-details .fa-map-marker-alt {
+  margin-left: 0.1rem;
 }
 
-.top-info .photo .img {
-  width: 100px;
-  height: 95px;
-  background-color: var(--white-secondary);
-  border-radius: 50%;
-  color: var(--blue-primary);
-  display: grid;
-  place-content: center;
-  font-size: 3rem;
-  text-transform: uppercase;
-  box-shadow: rgba(4, 16, 29, 0.4) 0px 0px 0px 2px,
-    rgba(4, 16, 29, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+body.dark-mode .bottom_info-details .fa-phone-alt {
+  color: var(--green-primary);
 }
 
-body.dark-mode .photo .img {
-  background-color: var(--dark-mode-clr);
-  color: var(--white-primary);
-  box-shadow: none;
+.bottom_info-details p .fas.fa-link {
+  margin-left: 1rem;
+  font-size: 1rem;
+  color: var(--grey-semi-light);
+  cursor: pointer;
+  transition: 0.3s linear;
 }
 
-.top-info .main-info {
-  width: 65%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.top-info .main-info p {
-  margin: 0;
-  padding: 0;
-  font-size: 1.6rem;
-  font-weight: normal;
-  text-transform: capitalize;
+.bottom_info-details p .fas.fa-link:hover {
   color: var(--grey-semi-dark);
 }
 
-body.dark-mode .main-info p {
-  color: var(--white-primary);
+body.dark-mode .bottom_info-details p .fas.fa-link:hover {
+  color: var(--grey-light-2);
 }
 
-.top-info .main-info p:first-child {
-  margin-top: 1rem;
+.bottom_info-details p .fas.fa-link:active {
+  transform: scale(0.7);
 }
 
-.top-info .main-info p:last-child {
-  color: var(--grey-dark-secondary);
-  margin-bottom: 1rem;
+.bottom_info-details p:nth-child(2) {
+  position: relative;
 }
 
-body.dark-mode .main-info p:last-child {
-  color: var(--white-primary);
-}
-
-.main-info .fa-phone-alt {
-  color: var(--green-primary);
-}
-
-.bottom-info {
-  width: 100%;
-  height: 45%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding-bottom: 0.5rem;
-}
-
-.bottom-info p {
-  margin: 0 1rem;
-  padding: 0;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  text-transform: lowercase;
-  color: var(--grey-dark-secondary);
+.bottom_info-details p:nth-child(2) .copied {
+  position: absolute;
+  top: -1rem;
+  left: 4rem;
   font-style: italic;
-}
-
-.bottom-info p span {
-  opacity: 0.6;
-}
-
-body.dark-mode .bottom-info p {
-  color: var(--white-primary);
-}
-
-.bottom-info p .fas,
-.bottom-info p .far {
   color: var(--blue-primary);
+  opacity: 0;
+  transition: 0.2s linear;
 }
 
-.bottom-info p:nth-child(1) .fas {
-  margin-right: 1.05rem;
-  transform: translateY(0.1rem);
-}
-
-.bottom-info p:nth-child(2) .fas {
-  margin-right: 1.05rem;
-}
-
-.bottom-info p:nth-child(3) .far {
-  font-size: 0.9rem;
-}
-
-.bottom-info .fas,
-.bottom-info .far {
-  font-size: 1rem;
-  color: var(--grey-dark-secondary);
-  font-weight: bold;
-  margin-right: 1rem;
-}
-
-body.dark-mode .bottom-info .fas,
-body.dark-mode .bottom-info .far {
+body.dark-mode .bottom_info-details p:nth-child(2) .copied {
   color: var(--dark-mode-clr);
-} */
+}
 
-/* Add contact modal */
+.bottom_info-details p:nth-child(2) .copied.show {
+  opacity: 1;
+}
 
+/*------------- Close Button -------------*/
+.bottom_info-close-btn {
+  width: 100px;
+  height: 30px;
+  margin: 0 auto;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 1.5rem;
+  letter-spacing: 0.05rem;
+  transition: all 0.1s linear;
+  background-color: var(--white-secondary);
+  color: var(--grey-dark);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.bottom_info-close-btn:hover {
+  background-color: var(--grey-light);
+}
+
+.bottom_info-close-btn:active {
+  -webkit-box-shadow: inset 1px 2px 2px #535557;
+  -moz-box-shadow: inset 1px 2px 2px #535557;
+  box-shadow: inset 1px 2px 2px #535557;
+}
+
+/*------------- Add Contact Modal -------------*/
 .modal__contact-add {
-  border-radius: 0.5rem;
   width: 410px;
   height: 420px;
   padding-top: 0.5rem;
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
-  position: absolute;
-  visibility: hidden;
-  z-index: -10;
-  background-color: var(--white-dark);
   color: var(--grey-dark-secondary);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #141e30;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  transform: translateY(70px);
 }
 
 body.dark-mode .modal__contact-add {
@@ -487,6 +421,7 @@ form div input:focus,
 form div input:valid {
   border-bottom: 0.15rem solid var(--grey-semi-light-2);
 }
+
 body.dark-mode form div input:focus,
 body.dark-mode form div input:valid {
   border-bottom: 0.15rem solid var(--grey-light);
@@ -544,12 +479,10 @@ form div input:valid + label span {
   margin-top: 0.5rem;
   display: flex;
   align-items: center;
-  /* justify-content: space-around; */
-  /* background-color: tomato; */
 }
+
 .contact-img-upload p {
   color: var(--grey-semi-light);
-  /* font-weight: bold; */
   font-size: 1.1rem;
   font-style: italic;
   cursor: default;
@@ -582,7 +515,6 @@ form div input:valid + label span {
   color: var(--grey-semi-dark);
   cursor: pointer;
   display: flex;
-  /* overflow: hidden; */
 }
 
 .avatar-container .fa-times {
@@ -648,22 +580,14 @@ label .img-icon:active {
   background-color: var(--grey-light);
 }
 
-/* Modal delete container */
+/*------------- Delete Contact Modal -------------*/
 
 .modal__contact-delete {
-  background-color: var(--white-dark);
-  border-radius: 0.5rem;
   width: 330px;
   height: 130px;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  visibility: hidden;
-  z-index: -10;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67);
   color: var(--grey-dark-secondary);
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #141e30;
 }
 
 body.dark-mode .modal__contact-delete {
@@ -681,14 +605,13 @@ body.dark-mode .modal__contact-delete {
 .confirm-question {
   width: 100%;
   height: 65%;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
+  padding: 0 1rem;
 }
 
 .confirm-question p {
-  margin: 0 1.5rem;
-  padding: 0;
   text-align: justify;
   line-height: 1.5;
 }
@@ -743,7 +666,7 @@ nav button:active,
   box-shadow: inset 1px 2px 2px #535557;
 }
 
-/* Media Queries */
+/*------------- Media Queries -------------*/
 
 @media screen and (max-width: 1364px) {
   .modal__contact-add {
@@ -759,8 +682,6 @@ nav button:active,
     height: 230px;
   }
 }
-
-/* @media screen and (max-width: 1200px) {} */
 
 @media screen and (max-width: 1024px) {
   .modal__contact-info {
