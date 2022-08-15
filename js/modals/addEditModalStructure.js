@@ -40,7 +40,7 @@ export const addEditModalStructure = `<form>
                                     <label>Address</label>
                             </div>
                             <div class="notes-input">
-                                <input type="text" id="notes" name="notes" maxlength="36" required>
+                                <input type="text" id="notes" name="notes" maxlength="30" required>
                                     <label>Notes</label>
                             </div>
                         </form>
