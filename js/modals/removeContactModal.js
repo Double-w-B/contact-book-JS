@@ -1,6 +1,7 @@
 import * as mainModule from "../main.js";
 import { checkConLength } from "../checkContainerLength.js";
 import { sideLetters } from "../sideLetters.js";
+import { showAllContacts } from "../main.js";
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -36,10 +37,10 @@ export const removeContactModal = () => {
                         </div>
                     </div>`;
 
-      const confirmDelBtn = $(".confirm-delete");
-      const confirmCanBtn = $(".confirm-cancel");
+      const confirmDeleteBtn = $(".confirm-delete");
+      const confirmCancelBtn = $(".confirm-cancel");
 
-      confirmDelBtn.addEventListener("click", () => {
+      confirmDeleteBtn.addEventListener("click", () => {
         let removeIndex = mainModule.peopleData
           .map((con) => con.phone)
           .indexOf(contactId);
@@ -54,9 +55,11 @@ export const removeContactModal = () => {
         mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
 
         mainModule.sideLettersContainer.innerHTML = sideLetters();
+
+        showAllContacts();
       });
 
-      confirmCanBtn.addEventListener("click", () => {
+      confirmCancelBtn.addEventListener("click", () => {
         mainModule.modalOverlay.classList.remove("open-modal");
         mainModule.modalContainerRemoveSelected.classList.remove("open-modal");
       });
