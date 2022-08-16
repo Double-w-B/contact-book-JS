@@ -55,8 +55,8 @@ export const addContactModal = () => {
       this.surname = surname.toLowerCase();
       this.phone = phone;
       this.mail = mail.toLowerCase();
-      this.address = address.toLowerCase();
-      this.notes = notes.toLowerCase();
+      this.address = address;
+      this.notes = notes;
       this.img = { src: imgSrc, name: imgName };
     }
   }
@@ -68,13 +68,15 @@ export const addContactModal = () => {
     const avatarImg = document.createElement("img");
 
     inputImgName.innerText =
-      inputImage.name.length > 20
-        ? `...${inputImage.name.slice(-20)}`
+      inputImage.name.length > 15
+        ? `...${inputImage.name.slice(-15)}`
         : `../${inputImage.name}`;
 
     inputImgContainer.insertBefore(avatarImg, inputImg);
     inputImgContainer.removeChild(inputImgContainer.children[0]);
     inputImgContainer.children[0].src = uploaded;
+    inputImgContainer.children[0].draggable = false;
+    inputImgContainer.children[0].className = "no-select";
 
     imgSrc = uploaded;
     imgName = `../${inputImage.name}`;
@@ -103,6 +105,7 @@ export const addContactModal = () => {
       !inputName.value.match(textRegExp) &&
       !inputSurname.value.match(textRegExp) &&
       inputPhone.value.match(/^[0-9]+$/) &&
+      inputPhone.value.length >=6 &&
       !checkNumber.includes(inputPhone.value) &&
       (!inputEmail.value || inputEmail.value.match(emailRegExp))
     ) {
@@ -118,11 +121,11 @@ export const addContactModal = () => {
           imgName
         )
       );
-      console.log(mainModule.peopleData);
 
       contactImg.forEach((img) =>
         img.firstElementChild.classList.remove("show-checked")
       );
+
       localStorage.setItem("contacts", JSON.stringify(mainModule.peopleData));
       mainModule.modalOverlay.classList.remove("open-modal");
       mainModule.modalContainerAddEdit.classList.remove("open-modal");

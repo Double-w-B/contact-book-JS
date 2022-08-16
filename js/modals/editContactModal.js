@@ -6,11 +6,11 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 export const editContactModal = () => {
-  const themeMode = document.body.className;
   const editBtns = $$(".editCon");
 
   editBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
+      const themeMode = document.body.className;
       mainModule.modalOverlay.classList.add("open-modal");
       mainModule.modalContainerAddEdit.classList.add("open-modal");
 
@@ -28,7 +28,7 @@ export const editContactModal = () => {
                             <label>
                             ${
                               src
-                                ? "<img src=" + src + " alt='avatar'/>"
+                                ? `<img src=${src} alt='avatar'/>`
                                 : themeMode === "light-mode"
                                 ? `<img class="img-icon" src="../../icons/camera_plus_dark.svg" alt="icon"/>`
                                 : `<img class="img-icon" src="../../icons/camera_plus_light.svg" alt="icon"/>`
@@ -45,8 +45,8 @@ export const editContactModal = () => {
                         </div>
                         <p>${
                           name
-                            ? name.length > 20
-                              ? "..." + name.slice(-20)
+                            ? name.length > 15
+                              ? `...${name.slice(-15)}`
                               : name
                             : "add an image"
                         }</p>
@@ -120,12 +120,14 @@ export const editContactModal = () => {
 
         inputImgName.innerText =
           inputImage.name.length > 20
-            ? `...${inputImage.name.slice(-20)}`
+            ? `...${inputImage.name.slice(-15)}`
             : `../${inputImage.name}`;
 
         inputImgContainer.insertBefore(avatarImg, inputImgInput);
         inputImgContainer.removeChild(inputImgContainer.children[0]);
         inputImgContainer.children[0].src = uploaded;
+        inputImgContainer.children[0].draggable = false;
+        inputImgContainer.children[0].className = "no-select";
         inputImgRemoveBtn.classList.remove("hide");
 
         imgSrc = uploaded;
@@ -150,6 +152,7 @@ export const editContactModal = () => {
           !inputName.value.match(textRegExp) &&
           !inputSurname.value.match(textRegExp) &&
           inputPhone.value.match(/^[0-9]+$/) &&
+          inputPhone.value.length >= 6 &&
           (!inputEmail.value || inputEmail.value.match(emailRegExp)) &&
           ((checkNumber.includes(inputPhone.value) &&
             inputPhone.value === contactId) ||
@@ -167,8 +170,8 @@ export const editContactModal = () => {
               person.surname = inputSurname.value.toLowerCase();
               person.phone = inputPhone.value;
               person.mail = inputEmail.value.toLowerCase();
-              person.address = inputAddress.value.toLowerCase();
-              person.notes = inputNotes.value.toLowerCase();
+              person.address = inputAddress.value;
+              person.notes = inputNotes.value;
               person.img = { src: imgSrc, name: imgName };
             }
           });
