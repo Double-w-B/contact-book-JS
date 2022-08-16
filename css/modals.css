@@ -45,7 +45,7 @@ body.dark-mode .modal__contact-add input::selection {
   border-radius: 0.3rem;
   background-color: var(--white-dark);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #141e30;
+    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 /*------------- Contact Info Modal -------------*/
@@ -72,6 +72,7 @@ body.dark-mode .modal__contact-info {
   background-color: var(--blue-primary);
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 4px, inset 0px 0px 1px;
 }
 
 body.dark-mode .top_info {
@@ -90,16 +91,19 @@ body.dark-mode .top_info {
   border: 5px solid var(--white-dark);
   background-color: var(--white-secondary);
   position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.5) inset 0px 0px 6px;
 }
 
 body.dark-mode .top_info-avatar {
   border: 5px solid var(--dark-mode-2);
   background-color: var(--white-secondary);
+  box-shadow: none;
 }
 
 .top_info .top_info-avatar p {
   width: 100%;
-  font-size: 4rem;
+  font-size: 3.5rem;
+  letter-spacing: 2px;
   text-align: center;
   text-transform: uppercase;
   color: var(--blue-primary);
@@ -114,7 +118,7 @@ body.dark-mode .top_info-avatar p {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 8px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 6px;
 }
 
 /*------------- Bottom info -------------*/
@@ -138,10 +142,13 @@ body.dark-mode .bottom_info-name {
 
 .bottom_info-name-underline {
   width: 60%;
-  height: 0.2rem;
+  height: 0.15rem;
   margin-top: 1rem;
   margin-left: 0.5rem;
+  border-bottom-left-radius: 0.1rem;
+  border-bottom-right-radius: 0.1rem;
   background-color: var(--grey-semi-light);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px;
 }
 
 .bottom_info-details {
@@ -157,7 +164,7 @@ body.dark-mode .bottom_info-name {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-  color: var(--grey-dark-secondary);
+  color: var(--grey-dark);
   margin-left: 0.5rem;
 }
 
@@ -171,6 +178,7 @@ body.dark-mode .bottom_info-details p {
 
 .bottom_info-details p:first-child {
   font-size: 1.6rem;
+  color: var(--grey-semi-dark);
 }
 
 body.dark-mode .bottom_info-details p:first-child {
@@ -182,6 +190,7 @@ body.dark-mode .bottom_info-details p:first-child {
   font-size: 1.4rem;
   margin-right: 0.5rem;
   color: var(--blue-primary);
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.15));
 }
 
 body.dark-mode .bottom_info-details .fas,
@@ -203,23 +212,27 @@ body.dark-mode .bottom_info-details .fa-phone-alt {
   color: var(--green-primary);
 }
 
-.bottom_info-details p .fas.fa-link {
-  margin-left: 1rem;
+.bottom_info-details p .fas.fa-copy,
+.bottom_info-details p .fas.fa-location-arrow {
+  margin-left: 0.5rem;
   font-size: 1rem;
-  color: var(--grey-semi-light);
+  color: var(--grey-semi-light-2);
   cursor: pointer;
   transition: 0.3s linear;
 }
 
-.bottom_info-details p .fas.fa-link:hover {
+.bottom_info-details p .fas.fa-copy:hover,
+.bottom_info-details p .fas.fa-location-arrow:hover {
   color: var(--grey-semi-dark);
 }
 
-body.dark-mode .bottom_info-details p .fas.fa-link:hover {
+body.dark-mode .bottom_info-details p .fas.fa-copy:hover,
+body.dark-mode .bottom_info-details p .fas.fa-location-arrow:hover {
   color: var(--grey-light-2);
 }
 
-.bottom_info-details p .fas.fa-link:active {
+.bottom_info-details p .fas.fa-copy:active,
+.bottom_info-details p .fas.fa-location-arrow:active {
   transform: scale(0.7);
 }
 
@@ -257,18 +270,22 @@ body.dark-mode .bottom_info-details p:nth-child(2) .copied {
   cursor: pointer;
   font-family: inherit;
   font-size: 1rem;
-  font-weight: 600;
   border: none;
   border-radius: 1.5rem;
-  letter-spacing: 0.05rem;
-  transition: all 0.1s linear;
+  transition: all 0.2s linear;
   background-color: var(--white-secondary);
-  color: var(--grey-dark);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: var(--grey-dark-secondary);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 3px, inset 0px 0px 2px;
 }
 
 .bottom_info-close-btn:hover {
-  background-color: var(--grey-light);
+  background-color: var(--blue-primary);
+  color: var(--white-secondary);
+}
+
+body.dark-mode .bottom_info-close-btn:hover {
+  background-color: var(--dark-mode-clr);
+  color: var(--white-secondary);
 }
 
 .bottom_info-close-btn:active {
@@ -349,6 +366,7 @@ body.dark-mode .modal__contact-add {
 }
 
 .error-hint,
+.error-hint-length,
 .error-hint-number,
 .error-hint-required {
   position: absolute;
@@ -367,6 +385,8 @@ body.dark-mode .modal__contact-add {
   outline: none;
   border: none;
   border-bottom: 0.15rem solid var(--grey-semi-light);
+  border-bottom-left-radius: 0.1rem;
+  border-bottom-right-radius: 0.1rem;
   margin: 0 0.5rem;
   padding-left: 0.2rem;
   font-size: 1.2rem;
@@ -384,7 +404,7 @@ body.dark-mode .modal__contact-add form input {
 .phone-input input,
 .mail-input input {
   width: 100%;
-  text-transform: none;
+  text-transform: lowercase;
 }
 
 .name-input label,
@@ -393,7 +413,7 @@ body.dark-mode .modal__contact-add form input {
 .mail-input label,
 .address-input label,
 .notes-input label {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--grey-semi-light);
   position: absolute;
   left: 1.6rem;
@@ -417,8 +437,8 @@ body.dark-mode form div input:valid {
   border-bottom: 0.15rem solid var(--grey-light);
 }
 
-form div input:focus+label,
-form div input:valid+label {
+form div input:focus + label,
+form div input:valid + label {
   transform: translateY(-30px);
   font-size: 0.8rem;
   font-weight: bold;
@@ -426,13 +446,13 @@ form div input:valid+label {
   color: var(--grey-semi-dark);
 }
 
-body.dark-mode form div input:focus+label,
-body.dark-mode form div input:valid+label {
-  color: var(--white-primary);
+body.dark-mode form div input:focus + label,
+body.dark-mode form div input:valid + label {
+  color: var(--grey-light);
 }
 
-form div input:focus+label span,
-form div input:valid+label span {
+form div input:focus + label span,
+form div input:valid + label span {
   color: var(--red-secondary);
 }
 
@@ -467,8 +487,10 @@ form div input:valid+label span {
   width: 100%;
   height: 15%;
   margin-top: 0.5rem;
+  padding-right: 0.5rem;
   display: flex;
   align-items: center;
+  word-break: break-word;
 }
 
 .contact-img-upload p {
@@ -482,14 +504,14 @@ form div input:valid+label span {
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  margin: 0 1rem 0 30%;
-  border: thin solid var(--grey-semi-light);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 8px;
+  margin: 0 0.5rem 0 8.5rem;
+  border: 0.15rem solid var(--grey-semi-light);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 4px;
   position: relative;
   transition: 0.3s linear;
 }
 
-.contact-img-upload .avatar-container:hover {
+.contact-img-upload .avatar-container:hover *:not(i) {
   opacity: 0.8;
 }
 
@@ -505,6 +527,8 @@ form div input:valid+label span {
   color: var(--grey-semi-dark);
   cursor: pointer;
   display: flex;
+  transition: 0.2s linear;
+  overflow: hidden;
 }
 
 .avatar-container .fa-times {
@@ -524,9 +548,9 @@ form div input:valid+label span {
 label img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
   color: transparent;
+  transition: 0.2s linear;
 }
 
 label .img-icon {
@@ -556,18 +580,22 @@ label .img-icon:active {
   cursor: pointer;
   font-family: inherit;
   font-size: 1rem;
-  font-weight: 600;
   border: none;
   border-radius: 1.5rem;
-  letter-spacing: 0.05rem;
-  transition: all 0.1s linear;
+  transition: all 0.2s linear;
   background-color: var(--white-secondary);
-  color: var(--grey-dark);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: var(--grey-dark-secondary);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 3px, inset 0px 0px 2px;
 }
 
 .new-con-btns button:hover {
-  background-color: var(--grey-light);
+  background-color: var(--blue-primary);
+  color: var(--white-secondary);
+}
+
+body.dark-mode .new-con-btns button:hover {
+  background-color: var(--dark-mode-clr);
+  color: var(--white-secondary);
 }
 
 /*------------- Delete Contact Modal -------------*/
@@ -631,22 +659,25 @@ body.dark-mode .selected-contact {
   width: 80px;
   height: 30px;
   margin: 0 1rem 0 0.5rem;
-  padding-left: 0.4rem;
   font-size: 1rem;
-  font-weight: bold;
   font-family: inherit;
   cursor: pointer;
   border: none;
   border-radius: 1.5rem;
-  letter-spacing: 0.05rem;
   transition: all 0.2s linear;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   background-color: var(--white-secondary);
-  color: var(--grey-dark);
+  color: var(--grey-dark-secondary);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 3px, inset 0px 0px 2px;
 }
 
 .confirm-btns button:hover {
-  background-color: var(--grey-light);
+  background-color: var(--blue-primary);
+  color: var(--white-secondary);
+}
+
+body.dark-mode .confirm-btns button:hover {
+  background-color: var(--dark-mode-clr);
+  color: var(--white-secondary);
 }
 
 nav button:active,
@@ -660,7 +691,6 @@ nav button:active,
 /*------------- Media Queries -------------*/
 
 @media screen and (max-width: 900px) {
-
   .modal__contact-info,
   .modal__contact-add,
   .modal__contact-delete {
@@ -668,6 +698,20 @@ nav button:active,
     -webkit-box-shadow: inset 0 0 1px #000000;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
       rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #141e30;
+  }
+
+  .bottom_info-close-btn,
+  .new-con-btns button,
+  .confirm-btns button {
+    background-color: var(--blue-primary);
+    color: var(--white-secondary);
+  }
+
+  body.dark-mode .bottom_info-close-btn,
+  body.dark-mode .new-con-btns button,
+  body.dark-mode .confirm-btns button {
+    background-color: var(--dark-mode-clr);
+    color: var(--white-secondary);
   }
 
   .confirm-btns button {
@@ -682,11 +726,6 @@ nav button:active,
 
   .new-con-btns button {
     opacity: 1;
-  }
-
-  .error-hint-number,
-  .error-hint-required {
-    bottom: -2rem;
   }
 }
 
@@ -731,8 +770,8 @@ nav button:active,
     left: 1.6rem;
   }
 
-  form div input:focus+label,
-  form div input:valid+label {
+  form div input:focus + label,
+  form div input:valid + label {
     transform: translateY(-25px);
   }
 
@@ -758,10 +797,5 @@ nav button:active,
   .modal__contact-delete {
     width: 270px;
     height: 150px;
-  }
-
-  .error-hint-number,
-  .error-hint-required {
-    bottom: -1rem;
   }
 }

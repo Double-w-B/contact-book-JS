@@ -8,9 +8,6 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
-}
-
 @media screen and (max-width: 900px) {
   main {
     margin-top: 7vh;
@@ -65,10 +62,9 @@
     height: 60%;
     padding-left: 0.4rem;
   }
-
   nav .nav__btn--menu {
-    height: 60%;
-    width: 7%;
+    width: 30px;
+    height: 30px;
   }
 
   .menu div:last-child {
@@ -125,6 +121,10 @@
 
   nav .nav__btn--add p:last-child {
     display: none;
+  }
+
+  .submenu-icon img {
+    width: 16px;
   }
 
   .contact {
@@ -202,12 +202,6 @@
     display: none;
   }
 
-  nav .nav__btn--menu {
-    height: 60%;
-    width: 7%;
-    opacity: 1;
-  }
-
   .list {
     width: 95%;
   }
@@ -270,20 +264,24 @@
     display: none;
   }
 
+  nav .nav__btn--show,
+  nav .nav__btn--add,
+  nav .nav__btn--menu {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
   nav .nav__btn--show {
-    width: 12%;
-    padding-left: 0.2rem;
-    height: 55%;
+    padding-left: 0.3rem;
+    font-size: 1.1rem;
   }
 
   nav .nav__btn--add {
-    width: 14%;
-    height: 55%;
     padding-left: 0.5rem;
   }
-
   nav .nav__btn--menu {
-    height: 55%;
+    padding-top: 0.1rem;
+    font-size: 1.05rem;
   }
 
   .list {
