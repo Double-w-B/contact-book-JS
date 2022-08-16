@@ -26,8 +26,10 @@ export const infoContactModal = () => {
                       <div class="top_info-avatar">
                       ${
                         src
-                          ? "<img src=" + src + " alt='contact img' />"
-                          : "<p>" +
+                          ? "<img src=" +
+                            src +
+                            " alt='contact img' class='no-select' draggable='false'/>"
+                          : "<p class='no-select'>" +
                             name.slice(0, 1) +
                             surname.slice(0, 1) +
                             "</p>"
@@ -49,17 +51,17 @@ export const infoContactModal = () => {
                           <i class="fas fa-at no-select"></i>
                           ${
                             mail
-                              ? mail +
-                                " " +
-                                "<i class='fas fa-link no-select'></i>" +
-                                "<span class='copied'>Copied!</span>"
+                              ? `${mail}<i class='fas fa-copy no-select' title='copy'></i>
+                              <span class='copied'>Copied!</span>`
                               : "<span>no email address passed</span>"
                           }
                           </p>
                           <p>
                           <i class="fas fa-map-marker-alt no-select">&nbsp;</i>
                           ${
-                            address ? address : "<span>no address passed</span>"
+                            address
+                              ? `${address}<a href="http://maps.google.com/?q=${address}" target="_blank"><i class='fas fa-location-arrow'></i></a>`
+                              : "<span>no address passed</span>"
                           }
                           </p>
                           <p>
@@ -91,6 +93,6 @@ export const infoContactModal = () => {
     };
 
     $(".bottom_info-close-btn")?.addEventListener("click", closeModal);
-    $(".fa-link")?.addEventListener("click", (e) => copyEmail(e));
+    $(".fa-copy")?.addEventListener("click", (e) => copyEmail(e));
   });
 };
