@@ -13,7 +13,9 @@ export const showAllContacts = () => {
   $(".list").scrollTo(0, 0);
 
   mainModule.searchInput.value = "";
-  mainModule.peopleData.sort((a, b) => a.name > b.name);
+  mainModule.peopleData.sort((a, b) => {
+    return a.name > b.name ? 1 : -1;
+  });
 
   const contactsList = uniqueFilteredLetters()
     .map((letter) => {
@@ -23,7 +25,6 @@ export const showAllContacts = () => {
                     <ul class="contact-list">
 
                     ${mainModule.peopleData
-                      // .sort((a, b) => a.name > b.name)
                       .map((person) => {
                         const {
                           name,
@@ -41,7 +42,7 @@ export const showAllContacts = () => {
                    ${
                      src
                        ? "<img src=" + src + " alt=''/>"
-                       : name.slice(0, 1) + surname.slice(0, 1)
+                       : "<p>" + name.slice(0, 1) + surname.slice(0, 1) + "</p>"
                    }
                     </div>
 
