@@ -488,10 +488,20 @@ body.dark-mode .contact-img {
   opacity: 0;
 }
 
-.contact-img:hover img {
+.fa-check.hover.hide + img {
+  visibility: visible;
+  transition: none;
+}
+
+.fa-check.hover + img {
   visibility: hidden;
   transition: none;
 }
+
+/* .contact-img:hover img {
+  visibility: hidden;
+  transition: none;
+} */
 
 .fa-check.show-checked {
   box-shadow: rgba(0, 0, 0, 0.2) inset 0px 0px 2px,
@@ -499,7 +509,7 @@ body.dark-mode .contact-img {
 }
 
 .fa-check.show-checked ~ img {
-  visibility: hidden;
+  visibility: hidden !important;
   transition: none;
 }
 
