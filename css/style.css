@@ -113,9 +113,8 @@ nav .input__container {
   font-family: inherit;
   font-size: 1.2rem;
   background-color: var(--white-secondary);
-  color: var(--grey-dark);
   color: var(--blue-primary);
-  padding-left: 1rem;
+  padding: 0 2rem 0 1rem;
   border-radius: 1.5rem;
   border: none;
   outline: none;
@@ -344,35 +343,28 @@ body.dark-mode .list.move {
   width: 100%;
   height: 25rem;
   color: var(--white-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.2;
 }
 
-.add-contact-info .info-img {
-  width: 100%;
-  height: 50%;
+.add-contact-info__icon {
   font-size: 5rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
   padding-left: 0.8rem;
-  opacity: 0.2;
   color: var(--grey-dark);
 }
 
-.add-contact-info .info-text {
-  width: 100%;
-  height: 25%;
+.add-contact-info__text {
   text-align: center;
   margin-top: 2rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   font-size: 1.5rem;
-  opacity: 0.2;
   color: var(--grey-dark);
 }
 
-body.dark-mode .add-contact-info .info-img,
-body.dark-mode .add-contact-info .info-text {
+body.dark-mode .add-contact-info__icon,
+body.dark-mode .add-contact-info__text {
   color: var(--white-secondary);
 }
 

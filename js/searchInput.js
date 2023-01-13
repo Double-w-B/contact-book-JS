@@ -1,9 +1,11 @@
-import * as mainModule from "./main.js";
-import { selectIcons } from "./selectIcons.js";
+import * as main from "./main.js";
+import { selectIcons } from "./ui.js";
+import * as constructor from "./constructor.js";
+import { removeChildrenElements } from "./utils.js";
+import { showAllContacts } from "./showAllContacts.js";
 import { infoContactModal } from "./modals/infoContactModal.js";
 import { removeContactModal } from "./modals/removeContactModal.js";
 import { editContactModal } from "./modals/editContactModal.js";
-import { showAllContacts } from "./showAllContacts.js";
 
 const findMatches = (wordToMatch, peopleData) => {
   return peopleData.filter((person) => {
@@ -17,67 +19,30 @@ const findMatches = (wordToMatch, peopleData) => {
 };
 
 export const displayMatches = () => {
-  const matchArray = findMatches(
-    mainModule.searchInput.value,
-    mainModule.peopleData
-  );
+  const matchArray = findMatches(main.searchInput.value, main.peopleData);
+  const contactsLengthElm = main.contactsAmount.children[0];
+
   const sortedMatchArray = matchArray.sort((a, b) =>
     a.name > b.name ? 1 : -1
   );
-  const matchPeople = sortedMatchArray
-    .map((person) => {
-      const { name, surname, phone, mail,img:{src} } = person;
 
-      return `
-                    <li>
-                    <ul class="contact-list">
-                    <li id="${phone}" class="one-child" >
-                    
-                    <div class='contact-img no-select'>
-                    <i class='fas fa-check'></i>
-                    <i class='fas fa-check hover hide'></i>
-                    ${
-                      src
-                        ? "<img src=" + src + " alt=''/>"
-                        : name.slice(0, 1) + surname.slice(0, 1)
-                    }
-                    </div>
-                    <div class='contact'>
-                    <p>${name} ${surname}</p>
-                    <p><i class="fas fa-phone-alt"></i>
-                    ${phone.replace(/(?!^)(?=(?:\d{3})+(?:\.|$))/gm, " ")}
-                    </p>
-                    </div>
-                    <div class="submenu-icon">
-                    <img src="../icons/arrowDown.svg" alt="icon" />
-                    </div>
-                    <div class="submenu">
-                    <button class="editCon">Edit</button>
-                    <a href = "mailto:${mail}">
-                    <button class="sendEm">Send email</button></a>
-                    <button class="deleteCon">Delete</button>
-                    </div>
-
-                    </li>
-                   
-                    </ul></li>`;
-    })
-    .join("");
-
-  mainModule.contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
-
-  if (!mainModule.searchInput.value) {
+  if (!main.searchInput.value) {
     showAllContacts();
+    selectIcons();
   } else {
-    matchArray.length > 0 && (mainModule.contacts.innerHTML = matchPeople);
+    if (matchArray.length > 0) {
+      removeChildrenElements(main.contacts);
+      for (const contact of sortedMatchArray) {
+        main.contacts.append(constructor.createContact(contact, "match"));
+      }
+      contactsLengthElm.textContent = `Contacts: ${matchArray.length}`;
+    }
   }
 
-  if (matchArray.length === 0 && mainModule.peopleData.length > 0) {
-    mainModule.contacts.innerHTML = `<div class="add-contact-info">
-            <div class="info-img no-select"><i class="fas fa-search"></i></div>
-            <div class="info-text no-select">It looks like there aren't any matches for your search</div>
-            </div>`;
-    mainModule.contactsAmount.innerHTML = `<p>Contacts: ${matchArray.length}</p>`;
+  if (matchArray.length === 0 && main.peopleData.length > 0) {
+    removeChildrenElements(main.contacts);
+    constructor.createInfoIcon();
+    contactsLengthElm.textContent = `Contacts: ${matchArray.length}`;
   }
 
   selectIcons();

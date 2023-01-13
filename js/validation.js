@@ -65,7 +65,6 @@ function validationFunction(inputName, inputSurname, inputPhone, inputEmail) {
   const checkNumber = peopleData.map((person) => person.phone);
 
   /* Required data validation */
-
   !inputName.value && requiredInput(inputName);
   !inputSurname.value && requiredInput(inputSurname);
   !inputPhone.value && requiredInput(inputPhone);
@@ -77,7 +76,6 @@ function validationFunction(inputName, inputSurname, inputPhone, inputEmail) {
     shortLength(inputPhone);
 
   /* Invalid data validation */
-
   inputName.value.match(textRegExp) && invalidItem(inputName);
   inputSurname.value.match(textRegExp) && invalidItem(inputSurname);
 
@@ -90,7 +88,6 @@ function validationFunction(inputName, inputSurname, inputPhone, inputEmail) {
     invalidItem(inputEmail);
 
   /* Same number validation */
-
   inputName.value &&
     inputSurname.value &&
     !inputName.value.match(textRegExp) &&
