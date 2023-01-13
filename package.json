@@ -1,0 +1,22 @@
+{
+  "name": "contact-book-js",
+  "version": "1.0.0",
+  "description": "Front-End web application. The main idea is to store contacts and modify their data. Includes a contact search feature and app theme change",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Double-w-B/contact-book-JS.git"
+  },
+  "author": "Wladyslaw Balandin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Double-w-B/contact-book-JS/issues"
+  },
+  "homepage": "https://github.com/Double-w-B/contact-book-JS#readme",
+  "devDependencies": {
+    "eslint": "^8.31.0"
+  }
+}
