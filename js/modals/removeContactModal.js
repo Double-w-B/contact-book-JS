@@ -1,68 +1,49 @@
-import * as mainModule from "../main.js";
-import { checkConLength } from "../checkContainerLength.js";
-import { sideLetters } from "../sideLetters.js";
-import { showAllContacts } from "../main.js";
-
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+import * as main from "../main.js";
+import { checkLetterSection } from "../utils.js";
+import { createRemoveSingleContactModal } from "./constructor.js";
 
 export const removeContactModal = () => {
-  const deleteBtns = $$(".deleteCon");
+  main.listOfContacts.addEventListener("click", handleListClick);
 
-  /* Remove single item */
-  deleteBtns.forEach((deleteIcon) => {
-    const parentEl = deleteIcon.parentElement.parentElement;
+  function openModal() {
+    main.modalBackdrop.classList.add("open-modal");
+    main.modalContactRemove.classList.add("open-modal");
+  }
+  function closeModal() {
+    main.modalBackdrop.classList.remove("open-modal");
+    main.modalContactRemove.classList.remove("open-modal");
+  }
 
-    deleteIcon.addEventListener("click", (e) => {
-      mainModule.modalOverlay.classList.add("open-modal");
-      mainModule.modalContainerRemoveSelected.classList.add("open-modal");
+  function handleListClick(e) {
+    if (!e.target.className || e.target.className !== "deleteCon") return;
 
-      let contactId = e.target.parentElement.parentElement.id;
+    const contactId = e.target.closest(".one-child").id;
+    const contact = main.contactsData.find(
+      (person) => person.phone === contactId
+    );
+    const { name, surname } = contact;
+    const contactFullName = name + " " + surname;
 
-      const selectedContact = mainModule.peopleData
-        .map((person) => {
-          if (person.phone === contactId)
-            return `${person.name} ${person.surname}`;
-        })
-        .join("");
+    function deleteContact() {
+      for (const contact of main.contactsData) {
+        if (contact.phone === contactId) {
+          const contactEl = e.target.closest(".one-child");
+          main.contactsData.splice(main.contactsData.indexOf(contact), 1);
+          contactEl.remove();
+        }
+      }
 
-      mainModule.modalContainerRemoveSelected.innerHTML = `
-                        <div class="confirm-container  no-select">
-                        <div class="confirm-question">
-                            <p>Are you sure you want to delete the <span class="selected-contact">${selectedContact}</span> contact?</p>
-                        </div>
-                        <div class="confirm-btns">
-                            <button class="confirm-delete">Delete</button>
-                            <button class="confirm-cancel">Cancel</button>
-                        </div>
-                    </div>`;
+      closeModal();
+      checkLetterSection();
+    }
 
-      const confirmDeleteBtn = $(".confirm-delete");
-      const confirmCancelBtn = $(".confirm-cancel");
+    openModal();
+    createRemoveSingleContactModal(contactFullName);
 
-      confirmDeleteBtn.addEventListener("click", () => {
-        let removeIndex = mainModule.peopleData
-          .map((con) => con.phone)
-          .indexOf(contactId);
-        mainModule.peopleData.splice(removeIndex, 1);
-        parentEl.remove();
-        checkConLength();
-        localStorage.setItem("contacts", JSON.stringify(mainModule.peopleData));
+    const deleteButton = document.querySelector(".confirm-delete");
+    const cancelButton = document.querySelector(".confirm-cancel");
 
-        mainModule.modalOverlay.classList.remove("open-modal");
-        mainModule.modalContainerRemoveSelected.classList.remove("open-modal");
-
-        mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
-
-        mainModule.sideLettersContainer.innerHTML = sideLetters();
-
-        showAllContacts();
-      });
-
-      confirmCancelBtn.addEventListener("click", () => {
-        mainModule.modalOverlay.classList.remove("open-modal");
-        mainModule.modalContainerRemoveSelected.classList.remove("open-modal");
-      });
-    });
-  });
+    deleteButton.addEventListener("click", deleteContact);
+    cancelButton.addEventListener("click", closeModal);
+  }
 };

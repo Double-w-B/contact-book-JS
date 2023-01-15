@@ -1,199 +1,116 @@
-import * as mainModule from "../main.js";
-import { validationFunction } from "../validation.js";
-import { addEditModalStructure } from "./addEditModalStructure.js";
-
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+import * as main from "../main.js";
+import * as utils from "../utils.js";
+import { validation } from "../validation.js";
+import { showAllContacts } from "../showAllContacts.js";
+import { createEditContactModalContent } from "./constructor.js";
 
 export const editContactModal = () => {
-  const editBtns = $$(".editCon");
+  main.listOfContacts.addEventListener("click", handleListClick);
 
-  editBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const themeMode = document.body.className;
-      mainModule.modalOverlay.classList.add("open-modal");
-      mainModule.modalContainerAddEdit.classList.add("open-modal");
+  function openModal() {
+    main.modalBackdrop.classList.add("open-modal");
+    main.modalContactAddEdit.classList.add("open-modal");
+  }
+  function closeModal() {
+    main.modalBackdrop.classList.remove("open-modal");
+    main.modalContactAddEdit.classList.remove("open-modal");
+  }
 
-      const filteredContact = mainModule.peopleData.find(
-        (person) => btn.closest("li").id === person.phone
-      );
+  function handleListClick(e) {
+    if (!e.target.className || e.target.className !== "editCon") return;
 
-      const {
-        img: { src, name },
-      } = filteredContact;
+    function handleAddImage() {
+      function loadLogic() {
+        const inputImage = document.querySelector("input[type=file]").files[0];
 
-      mainModule.modalContainerAddEdit.innerHTML = `
-                    <div class="contact-img-upload">
-                        <div class="avatar-container">
-                            <label>
-                            ${
-                              src
-                                ? `<img src=${src} alt='avatar'/>`
-                                : themeMode === "light-mode"
-                                ? `<img class="img-icon" src="../../icons/camera_plus_dark.svg" alt="icon"/>`
-                                : `<img class="img-icon" src="../../icons/camera_plus_light.svg" alt="icon"/>`
-                            }
-                            <input type="file" />
-                            </label>
-
-                            ${
-                              src
-                                ? '<i class="fas fa-times"></i>'
-                                : '<i class="fas fa-times hide"></i>'
-                            }
-                          
-                        </div>
-                        <p>${
-                          name
-                            ? name.length > 15
-                              ? `...${name.slice(-15)}`
-                              : name
-                            : "add an image"
-                        }</p>
-                    </div>
-                    <div class="new-con-main-info">
-                        ${addEditModalStructure}
-                        <button class="save">Save</button>
-                        <button class="cancel">Cancel</button>
-                    </div>`;
-
-      const inputName = document.getElementById("name");
-      const inputSurname = document.getElementById("surname");
-      const inputPhone = document.getElementById("phone");
-      const inputEmail = document.getElementById("email");
-      const inputAddress = document.getElementById("address");
-      const inputNotes = document.getElementById("notes");
-
-      const inputImgContainer = $(".avatar-container label");
-      const inputImgRemoveBtn = $(".avatar-container .fa-times");
-      const inputImgInput = $("input[type=file]");
-      const inputImgName = $(".contact-img-upload p");
-
-      let imgSrc = src;
-      let imgName = name;
-
-      /* Remove avatar image*/
-      const removeImage = () => {
-        const themeMode = document.body.className;
-        const avatarImg = document.createElement("img");
-        inputImgContainer.insertBefore(avatarImg, inputImgInput);
-        inputImgContainer.removeChild(inputImgContainer.children[0]);
-
-        const inputImg = $(".avatar-container label img");
-        inputImg.classList.add("img-icon");
-        inputImgRemoveBtn.classList.add("hide");
-        themeMode === "light-mode"
-          ? (inputImg.src = "../../icons/camera_plus_dark.svg")
-          : (inputImg.src = "../../icons/camera_plus_light.svg");
-        inputImgName.innerText = "add an image";
-        imgSrc = "";
-        imgName = "";
-      };
-      inputImgRemoveBtn.addEventListener("click", removeImage);
-
-      const btnSave = $(".save");
-      const btnCancel = $(".cancel");
-
-      const checkNumber = mainModule.peopleData.map((person) => person.phone);
-      const contactId = e.target.closest("li").id;
-      const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
-      const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-
-      mainModule.peopleData.find((person) => {
-        const { name, surname, phone, mail, address, notes } = person;
-
-        if (contactId === phone) {
-          inputName.value = `${name}`;
-          inputSurname.value = `${surname}`;
-          inputPhone.value = `${phone}`;
-          inputEmail.value = `${mail}`;
-          inputAddress.value = `${address}`;
-          inputNotes.value = `${notes}`;
-        }
-      });
-
-      /* Add avatar image */
-      const addImage = (reader) => {
-        const uploaded = reader.result;
-        const inputImage = $("input[type=file]").files[0];
-        const avatarImg = document.createElement("img");
-
-        inputImgName.innerText =
-          inputImage.name.length > 20
-            ? `...${inputImage.name.slice(-15)}`
-            : `../${inputImage.name}`;
-
-        inputImgContainer.insertBefore(avatarImg, inputImgInput);
-        inputImgContainer.removeChild(inputImgContainer.children[0]);
-        inputImgContainer.children[0].src = uploaded;
-        inputImgContainer.children[0].draggable = false;
-        inputImgContainer.children[0].className = "no-select";
-        inputImgRemoveBtn.classList.remove("hide");
-
-        imgSrc = uploaded;
+        utils.addImage(reader);
+        imgSrc = reader.result;
         imgName = `../${inputImage.name}`;
-      };
+      }
+      const reader = new FileReader();
+      reader.addEventListener("load", loadLogic);
+      reader.readAsDataURL(imgInput.files[0]);
+    }
 
-      inputImgInput.addEventListener("change", () => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => addImage(reader));
-        reader.readAsDataURL(inputImgInput.files[0]);
-      });
+    function handleRemoveImage() {
+      utils.removeImage();
+      imgSrc = "";
+      imgName = "";
+    }
 
-      /* Save changes */
-      btnSave.addEventListener("click", (e) => {
-        e.stopPropagation();
+    function saveChanges() {
+      const contactsNumbers = main.contactsData.map((person) => person.phone);
 
-        validationFunction(inputName, inputSurname, inputPhone, inputEmail);
+      validation(inputName, inputSurname, inputPhone, inputEmail);
 
-        if (
-          inputName.value &&
-          inputSurname.value &&
-          !inputName.value.match(textRegExp) &&
-          !inputSurname.value.match(textRegExp) &&
-          inputPhone.value.match(/^[0-9]+$/) &&
-          inputPhone.value.length >= 6 &&
-          (!inputEmail.value || inputEmail.value.match(emailRegExp)) &&
-          ((checkNumber.includes(inputPhone.value) &&
-            inputPhone.value === contactId) ||
-            (!checkNumber.includes(inputPhone.value) &&
-              inputPhone.value !== contactId))
-        ) {
-          inputPhone.classList.remove("invalid-input");
-          inputPhone.nextElementSibling.nextElementSibling.nextElementSibling.classList.remove(
-            "invalid-input"
-          );
+      if (
+        inputName.value &&
+        inputSurname.value &&
+        !inputName.value.match(main.textRegExp) &&
+        !inputSurname.value.match(main.textRegExp) &&
+        inputPhone.value.match(/^[0-9]+$/) &&
+        inputPhone.value.length >= 6 &&
+        (!inputEmail.value || inputEmail.value.match(main.emailRegExp)) &&
+        ((contactsNumbers.includes(inputPhone.value) &&
+          inputPhone.value === contactId) ||
+          (!contactsNumbers.includes(inputPhone.value) &&
+            inputPhone.value !== contactId))
+      ) {
+        inputPhone.classList.remove("invalid-input");
+        const siblingElement = [...inputPhone.parentElement.children].find(
+          (el) => el.className === "error-hint"
+        );
+        siblingElement.remove("invalid-input");
 
-          mainModule.peopleData.map((person) => {
-            if (person.phone === contactId) {
-              person.name = inputName.value.toLowerCase();
-              person.surname = inputSurname.value.toLowerCase();
-              person.phone = inputPhone.value;
-              person.mail = inputEmail.value.toLowerCase();
-              person.address = inputAddress.value;
-              person.notes = inputNotes.value;
-              person.img = { src: imgSrc, name: imgName };
-            }
-          });
-        } else {
-          return;
-        }
+        contact.name = inputName.value.toLowerCase();
+        contact.surname = inputSurname.value.toLowerCase();
+        contact.phone = inputPhone.value;
+        contact.email = inputEmail.value.toLowerCase();
+        contact.address = inputAddress.value;
+        contact.notes = inputNotes.value;
+        contact.img = { src: imgSrc, name: imgName };
+      } else {
+        return;
+      }
 
-        mainModule.modalOverlay.classList.remove("open-modal");
-        mainModule.modalContainerAddEdit.classList.remove("open-modal");
+      closeModal();
+      showAllContacts();
+    }
 
-        mainModule.contactsAmount.innerHTML = `<p>Contacts: ${mainModule.peopleData.length}</p>`;
+    const contactId = e.target.closest(".one-child").id;
+    const contact = main.contactsData.find(
+      (person) => contactId === person.phone
+    );
+    const { name, surname, phone, email, address, notes, img } = contact;
 
-        mainModule.showAllContacts();
-        localStorage.setItem("contacts", JSON.stringify(mainModule.peopleData));
-      });
+    openModal();
+    createEditContactModalContent(img.name, img.src);
 
-      /* Cancel changes */
-      btnCancel.addEventListener("click", (e) => {
-        e.stopPropagation();
-        mainModule.modalOverlay.classList.remove("open-modal");
-        mainModule.modalContainerAddEdit.classList.remove("open-modal");
-      });
-    });
-  });
+    const inputName = document.getElementById("name");
+    const inputSurname = document.getElementById("surname");
+    const inputPhone = document.getElementById("phone");
+    const inputEmail = document.getElementById("email");
+    const inputAddress = document.getElementById("address");
+    const inputNotes = document.getElementById("notes");
+    const imgInput = document.querySelector("input[type=file]");
+    const imgRemoveBtn = document.querySelector(".avatar-container .fa-times");
+
+    const saveButton = document.querySelector(".save");
+    const cancelButton = document.querySelector(".cancel");
+
+    let imgSrc = img.src;
+    let imgName = img.name;
+
+    inputName.value = name;
+    inputSurname.value = surname;
+    inputPhone.value = phone;
+    inputEmail.value = email;
+    inputAddress.value = address;
+    inputNotes.value = notes;
+
+    imgInput.addEventListener("change", handleAddImage);
+    imgRemoveBtn.addEventListener("click", handleRemoveImage);
+    saveButton.addEventListener("click", saveChanges);
+    cancelButton.addEventListener("click", closeModal);
+  }
 };
