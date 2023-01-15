@@ -79,7 +79,7 @@ export const selectIcons = () => {
 
   /* Show icon on hover if user not using mobile device  */
   if (utils.deviceType() === "desktop") {
-    main.contacts.addEventListener("mouseover", (e) => {
+    main.listOfContacts.addEventListener("mouseover", (e) => {
       if (
         e.target.classList.contains("hover") &&
         !e.target.previousElementSibling.classList.contains("show-checked")
@@ -96,7 +96,7 @@ export const selectIcons = () => {
   }
 };
 
-/* Menu Select all and Unselect All buttons */
+/* Select all and Unselect All buttons */
 export const handleSelection = (type) => {
   const contactImg = document.querySelectorAll(".contact-img");
   if (type === "selectAll") {
@@ -110,7 +110,7 @@ export const handleSelection = (type) => {
   }
 };
 
-/* Menu RemoveSelected button */
+/* Remove selected button */
 export const handleRemoveSelected = () => {
   const contactImg = document.querySelectorAll(".contact-img");
   let itemsToRemove = [];
@@ -123,23 +123,22 @@ export const handleRemoveSelected = () => {
 
   if (itemsToRemove.length === 0) return;
 
-  utils.removeChildrenElements(main.modalContainerRemoveSelected);
-  constructor.createRemoveModalContent(itemsToRemove);
+  function openModal() {
+    main.menu.classList.remove("show-menu");
+    main.modalBackdrop.classList.add("open-modal");
+    main.modalContactRemove.classList.add("open-modal");
+  }
+  function closeModal() {
+    main.modalBackdrop.classList.remove("open-modal");
+    main.modalContactRemove.classList.remove("open-modal");
+    itemsToRemove = [];
+  }
 
-  main.menu.classList.remove("show-menu");
-  main.modalOverlay.classList.add("open-modal");
-  main.modalContainerRemoveSelected.classList.add("open-modal");
-
-  const deleteButton = document.querySelector(".confirm-delete");
-  const cancelButton = document.querySelector(".confirm-cancel");
-
-  deleteButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-
+  function deleteContacts() {
     for (const number of itemsToRemove) {
-      for (const contact of main.peopleData) {
+      for (const contact of main.contactsData) {
         if (contact.phone === number) {
-          main.peopleData.splice(main.peopleData.indexOf(contact), 1);
+          main.contactsData.splice(main.contactsData.indexOf(contact), 1);
         }
       }
     }
@@ -150,19 +149,17 @@ export const handleRemoveSelected = () => {
       }
     });
 
-    main.modalOverlay.classList.remove("open-modal");
-    main.modalContainerRemoveSelected.classList.remove("open-modal");
-
     utils.checkLetterSection();
-    itemsToRemove = [];
-    localStorage.setItem("contacts", JSON.stringify(main.peopleData));
-  });
+    closeModal();
+  }
 
-  cancelButton.addEventListener("click", (e) => {
-    e.stopPropagation();
+  utils.removeChildrenElements(main.modalContactRemove);
+  constructor.createRemoveModalContent(itemsToRemove);
+  openModal();
 
-    main.modalOverlay.classList.remove("open-modal");
-    main.modalContainerRemoveSelected.classList.remove("open-modal");
-    itemsToRemove = [];
-  });
+  const deleteButton = document.querySelector(".confirm-delete");
+  const cancelButton = document.querySelector(".confirm-cancel");
+
+  deleteButton.addEventListener("click", deleteContacts);
+  cancelButton.addEventListener("click", closeModal);
 };

@@ -163,6 +163,13 @@ body.dark-mode .input__container .fa-search {
   opacity: 0.25;
 }
 
+.input__container input:hover + .input__search-icon .fa-search {
+  opacity: 0.15;
+}
+.input__container input:focus + .input__search-icon .fa-search {
+  opacity: 0;
+}
+
 nav button {
   height: 65%;
   border: none;
@@ -916,14 +923,6 @@ input[type="number"] {
 .fa-check.show-checked,
 li .submenu-icon.show-icons {
   opacity: 1;
-}
-
-.fa-search.input-hover {
-  opacity: 0.15;
-}
-
-.fa-search.input-focus {
-  opacity: 0;
 }
 
 .menu.show-menu {

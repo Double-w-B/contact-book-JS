@@ -1,26 +1,27 @@
-import { searchInput } from "./main.js";
+import * as main from "./main.js";
 
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+export const contactsSubmenu = () => {
+  function hideActiveSubmenu() {
+    const submenuButtons = document.querySelectorAll(".submenu-icon");
+    const submenuIcons = document.querySelectorAll(".submenu-icon img");
+    const allContacts = document.querySelectorAll(".contact-list li");
 
-const hideActiveSubmenu = () => {
-  $$(".submenu-icon img").forEach((btn) => {
-    btn.classList.remove("active");
-  });
-  $$(".contact-list li").forEach((contact) => {
-    contact.classList.remove("showSubmenu");
-    contact.lastElementChild.classList.remove("show");
-  });
-  $$(".submenu-icon").forEach((icon) => {
-    icon.classList.remove("show-icons");
-  });
-};
+    submenuIcons.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    allContacts.forEach((contact) => {
+      contact.classList.remove("showSubmenu");
+      contact.lastElementChild.classList.remove("show");
+    });
+    submenuButtons.forEach((icon) => {
+      icon.classList.remove("show-icons");
+    });
+  }
 
-export const contactSubmenu = () => {
-  /* Show/hide submenu icon */
+  function handleSubmenuIcons(e) {
+    const submenuButtons = document.querySelectorAll(".submenu-icon");
 
-  $(".list__contacts").addEventListener("mouseover", (e) => {
-    searchInput.blur();
+    main.searchInput.blur();
     const element = e.target.lastElementChild;
 
     if (element?.classList?.contains("submenu")) {
@@ -30,18 +31,21 @@ export const contactSubmenu = () => {
     } else if (e.target.closest(".submenu-icon")) {
       e.target.parentElement.classList.add("show-icons");
     } else {
-      $$(".submenu-icon").forEach((icon) => {
+      submenuButtons.forEach((icon) => {
         if (!icon.firstElementChild.classList.contains("active"))
           icon.classList.remove("show-icons");
       });
     }
-  });
+  }
 
-  /* Show/hide submenu */
+  function handleSubmenu(e) {
+    const submenuButtons = document.querySelectorAll(".submenu-icon");
+    const submenuIcons = document.querySelectorAll(".submenu-icon img");
+    const allContacts = document.querySelectorAll(".contact-list li");
 
-  $(".list__contacts").addEventListener("click", (e) => {
-    $(".menu").classList.contains("show-menu") &&
-      $(".menu").classList.remove("show-menu");
+    if (main.menu.classList.contains("show-menu")) {
+      main.menu.classList.remove("show-menu");
+    }
 
     e.stopPropagation();
     const targetClass = e.target.classList;
@@ -66,18 +70,18 @@ export const contactSubmenu = () => {
       !e.target.parentElement.classList.contains("contact") &&
       !e.target.parentElement.classList.contains("contact-img")
     ) {
-      $$(".submenu-icon img").forEach((btn) => {
+      submenuIcons.forEach((btn) => {
         btn.classList.remove("active");
       });
 
-      $$(".contact-list li").forEach((contact) => {
+      allContacts.forEach((contact) => {
         contact.classList.remove("showSubmenu");
         contact.lastElementChild.classList.remove("show");
       });
 
       liElmImg?.classList.add("active");
 
-      $$(".submenu-icon").forEach((icon) => {
+      submenuButtons.forEach((icon) => {
         if (!icon.firstElementChild.classList.contains("active")) {
           icon.classList.remove("show-icons");
         }
@@ -89,12 +93,19 @@ export const contactSubmenu = () => {
     }
 
     /* Hide submenu icon & submenu on a side click */
-    (targetClass.contains("first-letter") ||
-      targetClass.contains("list__contacts")) &&
+    if (
+      targetClass.contains("first-letter") ||
+      targetClass.contains("list__contacts")
+    ) {
       hideActiveSubmenu();
-  });
+    }
+  }
 
+  /* Handle submenu */
+  main.listOfContacts.addEventListener("click", handleSubmenu);
+  /* Handle submenu icon */
+  main.listOfContacts.addEventListener("mouseover", handleSubmenuIcons);
   /* Hide submenu icon & submenu on a side click */
-  $(".list").addEventListener("click", hideActiveSubmenu);
-  $(".letters__container").addEventListener("click", hideActiveSubmenu);
+  main.list.addEventListener("click", hideActiveSubmenu);
+  main.navigationLetters.addEventListener("click", hideActiveSubmenu);
 };

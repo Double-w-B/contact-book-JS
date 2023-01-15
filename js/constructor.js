@@ -2,7 +2,7 @@ import { alphabet } from "./data/data.js";
 import * as utils from "./utils.js";
 import * as main from "./main.js";
 
-/* Call to action icon */
+/* Info icon */
 export const createInfoIcon = () => {
   const addContacts = "add your first contact";
   const noMatch = "It looks like there aren't any matches for your search";
@@ -15,18 +15,19 @@ export const createInfoIcon = () => {
   const iconContainer = document.createElement("div");
   iconContainer.className = "add-contact-info__icon no-select";
   const icon = document.createElement("i");
-  icon.className = main.peopleData.length === 0 ? addContactsIcon : noMatchIcon;
+  icon.className =
+    main.contactsData.length === 0 ? addContactsIcon : noMatchIcon;
   iconContainer.append(icon);
 
   const pElm = document.createElement("p");
   pElm.className = "add-contact-info__text no-select";
   const textNode = document.createTextNode(
-    main.peopleData.length === 0 ? addContacts : noMatch
+    main.contactsData.length === 0 ? addContacts : noMatch
   );
   pElm.append(textNode);
 
   container.append(iconContainer, pElm);
-  main.contacts.append(container);
+  main.listOfContacts.append(container);
 };
 
 /* Contacts length */
@@ -62,7 +63,7 @@ export const createNavigationLetters = () => {
   return main.navigationLetters;
 };
 
-/* Remove Selected modal */
+/* Single button */
 export const createButton = (className, text) => {
   const button = document.createElement("button");
   button.className = className;
@@ -71,6 +72,7 @@ export const createButton = (className, text) => {
   return button;
 };
 
+/* RemoveSelected modal */
 export const createRemoveModalContent = (itemsToRemove) => {
   const content = document.createElement("div");
   content.className = "confirm-container";
@@ -105,8 +107,8 @@ export const createRemoveModalContent = (itemsToRemove) => {
 
   buttonsContainer.append(deleteBtn, cancelBtn);
   content.append(questionContainer, buttonsContainer);
-  main.modalContainerRemoveSelected.append(content);
-  return main.modalContainerRemoveSelected;
+  main.modalContactRemove.append(content);
+  return main.modalContactRemove;
 };
 
 /* Footer */
@@ -131,9 +133,9 @@ export const createFooter = () => {
   return footer;
 };
 
+/* Single contact */
 export const createContact = (contact, goal) => {
   const { name, surname, phone, mail, img } = contact;
-  const everyThirdRegExp = /(?!^)(?=(?:\d{3})+(?:\.|$))/gm;
   const parentLiElm = document.createElement("li");
 
   const ulElm = document.createElement("ul");
@@ -157,13 +159,14 @@ export const createContact = (contact, goal) => {
   const infoContainer = document.createElement("div");
   infoContainer.className = "contact";
   const fullNameEl = document.createElement("p");
+  fullNameEl.className = "fullName";
   const fullNameNode = document.createTextNode(`${name} ${surname}`);
   fullNameEl.append(fullNameNode);
   const phoneElm = document.createElement("p");
   const phoneIcon = document.createElement("i");
   phoneIcon.className = "fas fa-phone-alt";
   const phoneElNode = document.createTextNode(
-    `${phone.replace(everyThirdRegExp, " ")}`
+    `${phone.replace(main.everyThirdRegExp, " ")}`
   );
   phoneElm.append(phoneIcon, phoneElNode);
   infoContainer.append(fullNameEl, phoneElm);
@@ -194,6 +197,7 @@ export const createContact = (contact, goal) => {
   return parentLiElm;
 };
 
+/* Letter section */
 export const createLetterSection = (letter) => {
   const parentLi = document.createElement("li");
   parentLi.className = "letter-section";

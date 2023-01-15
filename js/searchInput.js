@@ -7,8 +7,8 @@ import { infoContactModal } from "./modals/infoContactModal.js";
 import { removeContactModal } from "./modals/removeContactModal.js";
 import { editContactModal } from "./modals/editContactModal.js";
 
-const findMatches = (wordToMatch, peopleData) => {
-  return peopleData.filter((person) => {
+const findMatches = (wordToMatch, contactsData) => {
+  return contactsData.filter((person) => {
     const regex = new RegExp(wordToMatch, "gi");
     return (
       person.name.match(regex) ||
@@ -19,7 +19,7 @@ const findMatches = (wordToMatch, peopleData) => {
 };
 
 export const displayMatches = () => {
-  const matchArray = findMatches(main.searchInput.value, main.peopleData);
+  const matchArray = findMatches(main.searchInput.value, main.contactsData);
   const contactsLengthElm = main.contactsAmount.children[0];
 
   const sortedMatchArray = matchArray.sort((a, b) =>
@@ -31,16 +31,16 @@ export const displayMatches = () => {
     selectIcons();
   } else {
     if (matchArray.length > 0) {
-      removeChildrenElements(main.contacts);
+      removeChildrenElements(main.listOfContacts);
       for (const contact of sortedMatchArray) {
-        main.contacts.append(constructor.createContact(contact, "match"));
+        main.listOfContacts.append(constructor.createContact(contact, "match"));
       }
       contactsLengthElm.textContent = `Contacts: ${matchArray.length}`;
     }
   }
 
-  if (matchArray.length === 0 && main.peopleData.length > 0) {
-    removeChildrenElements(main.contacts);
+  if (matchArray.length === 0 && main.contactsData.length > 0) {
+    removeChildrenElements(main.listOfContacts);
     constructor.createInfoIcon();
     contactsLengthElm.textContent = `Contacts: ${matchArray.length}`;
   }

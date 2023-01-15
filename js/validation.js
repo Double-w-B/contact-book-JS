@@ -1,4 +1,4 @@
-import { peopleData } from "./main.js";
+import * as main from "./main.js";
 
 /* Invalid data validation */
 const invalidItem = (elm) => {
@@ -59,10 +59,8 @@ const unavailableNumber = (elm) => {
   }, 1500);
 };
 
-function validationFunction(inputName, inputSurname, inputPhone, inputEmail) {
-  const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
-  const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-  const checkNumber = peopleData.map((person) => person.phone);
+function validation(inputName, inputSurname, inputPhone, inputEmail) {
+  const checkNumber = main.contactsData.map((person) => person.phone);
 
   /* Required data validation */
   !inputName.value && requiredInput(inputName);
@@ -76,25 +74,25 @@ function validationFunction(inputName, inputSurname, inputPhone, inputEmail) {
     shortLength(inputPhone);
 
   /* Invalid data validation */
-  inputName.value.match(textRegExp) && invalidItem(inputName);
-  inputSurname.value.match(textRegExp) && invalidItem(inputSurname);
+  inputName.value.match(main.textRegExp) && invalidItem(inputName);
+  inputSurname.value.match(main.textRegExp) && invalidItem(inputSurname);
 
   inputPhone.value &&
     !inputPhone.value.match(/^[0-9]+$/) &&
     invalidItem(inputPhone);
 
   inputEmail.value &&
-    !inputEmail.value.match(emailRegExp) &&
+    !inputEmail.value.match(main.emailRegExp) &&
     invalidItem(inputEmail);
 
   /* Same number validation */
   inputName.value &&
     inputSurname.value &&
-    !inputName.value.match(textRegExp) &&
-    !inputSurname.value.match(textRegExp) &&
-    (!inputEmail.value || inputEmail.value.match(emailRegExp)) &&
+    !inputName.value.match(main.textRegExp) &&
+    !inputSurname.value.match(main.textRegExp) &&
+    (!inputEmail.value || inputEmail.value.match(main.emailRegExp)) &&
     checkNumber.includes(inputPhone.value) &&
     unavailableNumber(inputPhone);
 }
 
-export { validationFunction };
+export { validation };

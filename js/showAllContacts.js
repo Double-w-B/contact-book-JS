@@ -12,32 +12,32 @@ export const showAllContacts = () => {
   list.scrollTo(0, 0);
 
   main.searchInput.value = "";
-  main.peopleData.sort((a, b) => {
+  main.contactsData.sort((a, b) => {
     return a.name > b.name ? 1 : -1;
   });
 
-  utils.removeChildrenElements(main.contacts);
+  utils.removeChildrenElements(main.listOfContacts);
 
   const availableFirstLetters = utils.filteredFirstLetters();
 
   for (const letter of availableFirstLetters) {
     const letterSection = constructor.createLetterSection(letter);
 
-    for (const contact of main.peopleData) {
+    for (const contact of main.contactsData) {
       if (letter === contact.name.slice(0, 1)) {
         const tempContact = constructor.createContact(contact, "shawAll");
         letterSection.children[1].append(tempContact);
       }
     }
-    main.contacts.append(letterSection);
+    main.listOfContacts.append(letterSection);
   }
 
-  main.peopleData.length === 0 && constructor.createInfoIcon();
+  main.contactsData.length === 0 && constructor.createInfoIcon();
   constructor.createNavigationLetters();
   selectIcons();
   infoContactModal();
   editContactModal();
   removeContactModal();
-  contactsLengthElm.textContent = `Contacts: ${main.peopleData.length}`;
-  localStorage.setItem("contacts", JSON.stringify(main.peopleData));
+  contactsLengthElm.textContent = `Contacts: ${main.contactsData.length}`;
+  localStorage.setItem("contacts", JSON.stringify(main.contactsData));
 };
