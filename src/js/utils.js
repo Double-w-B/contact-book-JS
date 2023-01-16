@@ -22,9 +22,9 @@ export const checkLetterSection = () => {
 export const deviceType = () => {
   const userAgent = navigator.userAgent;
 
-  if (main.tabletRegExp.test(userAgent)) {
+  if (tabletRegExp.test(userAgent)) {
     return "tablet";
-  } else if (main.mobileRegExp.test(userAgent)) {
+  } else if (mobileRegExp.test(userAgent)) {
     return "mobile";
   }
   return "desktop";
@@ -81,8 +81,39 @@ export const removeImage = () => {
   inputImgRemoveBtn.classList.add("hide");
   inputImg.src =
     themeMode === "light-mode"
-      ? "../../icons/camera_plus_dark.svg"
-      : "../../icons/camera_plus_light.svg";
+      ? "../../../src/assets/camera_plus_dark.svg"
+      : "../../../src/assets/camera_plus_light.svg";
 
   inputImgName.textContent = "add an image";
+};
+
+class Person {
+  constructor(name, surname, phone, email, address, notes, imgSrc, imgName) {
+    this.name = name.toLowerCase();
+    this.surname = surname.toLowerCase();
+    this.phone = phone;
+    this.email = email.toLowerCase();
+    this.address = address;
+    this.notes = notes;
+    this.img = { src: imgSrc, name: imgName };
+  }
+}
+
+/* Regular expressions */
+const onlyNumbersRegExp = /^[0-9]+$/;
+const textRegExp = /[ĄĆĘÓŚŻŹŁŃŚąćęóśżźłńś^0-9^а-я]/;
+const emailRegExp = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+const everyThirdRegExp = /(?!^)(?=(?:\d{3})+(?:\.|$))/gm;
+const mobileRegExp =
+  /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/;
+const tabletRegExp = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i;
+
+export {
+  Person,
+  onlyNumbersRegExp,
+  textRegExp,
+  emailRegExp,
+  everyThirdRegExp,
+  mobileRegExp,
+  tabletRegExp,
 };

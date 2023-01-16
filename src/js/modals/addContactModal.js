@@ -3,6 +3,7 @@ import * as utils from "../utils.js";
 import { validation } from "../validation.js";
 import { showAllContacts } from "../showAllContacts.js";
 import { createAddContactModalContent } from "./constructor.js";
+import { createNavigationLetters } from "../constructor.js";
 
 export const addContactModal = () => {
   function closeModal() {
@@ -37,14 +38,14 @@ export const addContactModal = () => {
     if (
       inputName.value &&
       inputSurname.value &&
-      !inputName.value.match(main.textRegExp) &&
-      !inputSurname.value.match(main.textRegExp) &&
-      inputPhone.value.match(main.onlyNumbers) &&
+      !inputName.value.match(utils.textRegExp) &&
+      !inputSurname.value.match(utils.textRegExp) &&
+      inputPhone.value.match(utils.onlyNumbersRegExp) &&
       !contactsNumbers.includes(inputPhone.value) &&
       inputPhone.value.length >= 6 &&
-      (!inputEmail.value || inputEmail.value.match(main.emailRegExp))
+      (!inputEmail.value || inputEmail.value.match(utils.emailRegExp))
     ) {
-      const newContact = new main.Person(
+      const newContact = new utils.Person(
         inputName.value,
         inputSurname.value,
         inputPhone.value,
@@ -56,8 +57,9 @@ export const addContactModal = () => {
       );
 
       main.contactsData.push(newContact);
-      closeModal();
+      createNavigationLetters();
       showAllContacts();
+      closeModal();
     }
   }
 

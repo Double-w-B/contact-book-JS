@@ -166,7 +166,7 @@ export const createContact = (contact, goal) => {
   const phoneIcon = document.createElement("i");
   phoneIcon.className = "fas fa-phone-alt";
   const phoneElNode = document.createTextNode(
-    `${phone.replace(main.everyThirdRegExp, " ")}`
+    `${phone.replace(utils.everyThirdRegExp, " ")}`
   );
   phoneElm.append(phoneIcon, phoneElNode);
   infoContainer.append(fullNameEl, phoneElm);
@@ -174,7 +174,8 @@ export const createContact = (contact, goal) => {
   const submenuImg = document.createElement("div");
   submenuImg.className = "submenu-icon";
   const submenuIcon = document.createElement("img");
-  submenuIcon.src = "../icons/arrowDown.svg";
+  submenuIcon.src = "../src/assets/arrowDown.svg";
+  // submenuIcon.alt = "";
   submenuImg.append(submenuIcon);
 
   const submenuContainer = document.createElement("div");

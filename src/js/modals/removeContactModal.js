@@ -1,6 +1,7 @@
 import * as main from "../main.js";
 import { checkLetterSection } from "../utils.js";
 import { createRemoveSingleContactModal } from "./constructor.js";
+import { createNavigationLetters } from "../constructor.js";
 
 export const removeContactModal = () => {
   main.listOfContacts.addEventListener("click", handleListClick);
@@ -33,8 +34,9 @@ export const removeContactModal = () => {
         }
       }
 
-      closeModal();
       checkLetterSection();
+      createNavigationLetters();
+      closeModal();
     }
 
     openModal();

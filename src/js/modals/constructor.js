@@ -1,6 +1,6 @@
 import { createButton } from "../constructor.js";
 import * as main from "../main.js";
-import { removeChildrenElements } from "../utils.js";
+import * as utils from "../utils.js";
 
 /* Single input */
 const createInputContent = (type, className) => {
@@ -91,8 +91,9 @@ export const createImgInput = (name, src) => {
 
   function setImgSrc() {
     if (src) return src;
-    if (themeMode === "light-mode") return "../../icons/camera_plus_dark.svg";
-    return "../../icons/camera_plus_light.svg";
+    if (themeMode === "light-mode")
+      return "../../../src/assets/camera_plus_dark.svg";
+    return "../../../src/assets/camera_plus_light.svg";
   }
 
   function setTextNode() {
@@ -173,7 +174,7 @@ export const createSecondaryInfoStructure = () => {
 
 /* Add contact modal */
 export const createAddContactModalContent = () => {
-  removeChildrenElements(main.modalContactAddEdit);
+  utils.removeChildrenElements(main.modalContactAddEdit);
 
   const imgSection = createImgInput(false, false);
   const mainInfo = createMainInfoStructure();
@@ -196,7 +197,7 @@ export const createAddContactModalContent = () => {
 
 /* Edit contact modal */
 export const createEditContactModalContent = (name, src) => {
-  removeChildrenElements(main.modalContactAddEdit);
+  utils.removeChildrenElements(main.modalContactAddEdit);
 
   const imgSection = createImgInput(name, src);
   const mainInfo = createMainInfoStructure();
@@ -219,7 +220,7 @@ export const createEditContactModalContent = (name, src) => {
 };
 
 export const createRemoveSingleContactModal = (selectedContact) => {
-  removeChildrenElements(main.modalContactRemove);
+  utils.removeChildrenElements(main.modalContactRemove);
 
   const container = document.createElement("div");
   container.className = "confirm-container  no-select";
@@ -249,7 +250,7 @@ export const createRemoveSingleContactModal = (selectedContact) => {
 
 export const createContactInfoModal = (contact) => {
   const { name, surname, phone, email, address, notes, img } = contact;
-  removeChildrenElements(main.modalContactInfo);
+  utils.removeChildrenElements(main.modalContactInfo);
 
   function creteIcon(className) {
     const icon = document.createElement("i");
@@ -297,7 +298,7 @@ export const createContactInfoModal = (contact) => {
   const pElmPhone = document.createElement("p");
   const phoneIcon = creteIcon("fas fa-phone-alt no-select");
   const pElmPhoneNode = document.createTextNode(
-    `${phone.replace(main.everyThirdRegExp, " ")}`
+    `${phone.replace(utils.everyThirdRegExp, " ")}`
   );
   pElmPhone.append(phoneIcon, pElmPhoneNode);
 

@@ -150,6 +150,7 @@ export const handleRemoveSelected = () => {
     });
 
     utils.checkLetterSection();
+    constructor.createNavigationLetters();
     closeModal();
   }
 

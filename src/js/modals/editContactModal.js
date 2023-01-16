@@ -46,11 +46,11 @@ export const editContactModal = () => {
       if (
         inputName.value &&
         inputSurname.value &&
-        !inputName.value.match(main.textRegExp) &&
-        !inputSurname.value.match(main.textRegExp) &&
+        !inputName.value.match(utils.textRegExp) &&
+        !inputSurname.value.match(utils.textRegExp) &&
         inputPhone.value.match(/^[0-9]+$/) &&
         inputPhone.value.length >= 6 &&
-        (!inputEmail.value || inputEmail.value.match(main.emailRegExp)) &&
+        (!inputEmail.value || inputEmail.value.match(utils.emailRegExp)) &&
         ((contactsNumbers.includes(inputPhone.value) &&
           inputPhone.value === contactId) ||
           (!contactsNumbers.includes(inputPhone.value) &&
