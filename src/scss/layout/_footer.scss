@@ -1,0 +1,18 @@
+@use "../utils/_mixins" as shared;
+
+footer {
+  @include shared.centerElements;
+  width: 100%;
+  height: 6vh;
+  font-size: 0.7rem;
+  font-family: sans-serif;
+  color: $grey-dark;
+
+  a {
+    text-decoration: none;
+    color: $blue-primary;
+    font-family: "Lobster", cursive;
+    letter-spacing: 0.05rem;
+    font-size: 0.8rem;
+  }
+}

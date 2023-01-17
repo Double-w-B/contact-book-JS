@@ -1,0 +1,230 @@
+@use "../utils/_mixins" as shared;
+
+.modal__contact-add {
+  @include shared.modalContainer;
+  width: 410px;
+  height: 420px;
+  padding-top: 0.5rem;
+  justify-content: space-around;
+  transform: translateY(12%);
+
+  &.open-modal {
+    @include shared.showModal;
+  }
+
+  .contact-img-upload {
+    width: 100%;
+    height: 15%;
+    margin-top: 0.5rem;
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+
+    .avatar-container {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      margin: 0 0.5rem 0 8.5rem;
+      border: 0.15rem solid $grey-semi-light;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 4px;
+      position: relative;
+      transition: 0.3s linear;
+
+      &:hover *:not(i) {
+        opacity: 0.8;
+      }
+
+      input {
+        display: none;
+      }
+
+      label {
+        width: 100%;
+        height: 100%;
+        font-size: 1rem;
+        border-radius: 50%;
+        color: $grey-semi-dark;
+        cursor: pointer;
+        display: flex;
+        transition: 0.2s linear;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          color: transparent;
+          transition: 0.2s linear;
+
+          &.img-icon {
+            width: 65%;
+            height: 65%;
+            border-radius: 0;
+            align-self: center;
+            margin: 0 auto;
+            transition: 0.3s linear;
+
+            &:active {
+              transform: scale(0.9);
+            }
+          }
+        }
+      }
+
+      .fa-times {
+        font-size: 0.8rem;
+        color: $red-secondary;
+        position: absolute;
+        top: -0.2rem;
+        right: -0.8rem;
+        cursor: pointer;
+
+        &.hide {
+          visibility: hidden;
+          pointer-events: none;
+        }
+      }
+    }
+
+    p {
+      color: $grey-semi-light;
+      font-size: 1.1rem;
+      font-style: italic;
+      cursor: default;
+    }
+  }
+
+  .error-hint,
+  .error-hint-length,
+  .error-hint-number,
+  .error-hint-required {
+    position: absolute;
+    bottom: -1rem;
+    font-size: 0.8rem;
+    visibility: hidden;
+  }
+
+  .new-con-main-info {
+    width: 100%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    form {
+      @include shared.centerElements;
+      height: 100%;
+      width: 100%;
+      flex-wrap: wrap;
+      flex-direction: column;
+
+      .info-one,
+      .info-two {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+      }
+
+      div {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        transition: all 0.1s ease-in;
+
+        .invalid-input {
+          color: $red-secondary;
+          visibility: visible;
+        }
+
+        input {
+          @include shared.modalAddEditInput;
+          width: 80%;
+          margin: 0 0.5rem;
+          padding-left: 0.2rem;
+        }
+
+        label {
+          font-size: 1.1rem;
+          color: $grey-semi-light;
+          position: absolute;
+          left: 1.6rem;
+          bottom: 0.2rem;
+          transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          pointer-events: none;
+        }
+      }
+
+      .phone-input,
+      .email-input {
+        label {
+          left: 0.8rem;
+        }
+        input {
+          width: 100%;
+          text-transform: lowercase;
+        }
+      }
+      .phone-input {
+        width: 35%;
+        margin: 0 0 0 0.7rem;
+        text-align: center;
+      }
+
+      .email-input {
+        width: 65%;
+        margin: 0 0.6rem;
+      }
+    }
+  }
+
+  .new-con-secondary-info {
+    width: 100%;
+    height: 35%;
+
+    form {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        input {
+          @include shared.modalAddEditInput;
+          margin: 0 1.2rem;
+          width: 90%;
+        }
+
+        label {
+          font-size: 1.1rem;
+          color: $grey-semi-light;
+          position: absolute;
+          left: 1.6rem;
+          bottom: 0.2rem;
+          transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .new-con-btns {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    button {
+      @include shared.modalButton;
+    }
+  }
+}

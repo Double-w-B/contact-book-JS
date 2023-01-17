@@ -1,0 +1,295 @@
+body {
+  &.dark-mode {
+    background-color: $dark-mode-primary;
+
+    ::selection {
+      background-color: $dark-mode-clr;
+    }
+
+    main {
+      border: 1.5px solid #2d2d2d;
+
+      nav {
+        background-color: $dark-mode-secondary;
+
+        .input__container {
+          input {
+            color: $grey-light;
+            background-color: $dark-mode-2;
+            border: 1px solid $grey-semi-dark;
+
+            &::placeholder {
+              color: $grey-light;
+            }
+          }
+          .fa-search {
+            color: $grey-light;
+          }
+        }
+
+        button {
+          background-color: $grey-semi-light;
+          color: $grey-dark;
+
+          &.nav__btn--add {
+            background-color: $dark-mode-clr;
+            color: $white-secondary;
+          }
+        }
+      }
+
+      .list__container {
+        .list {
+          background-color: $dark-mode-1;
+          scrollbar-color: $dark-mode-1 $dark-mode-1;
+
+          &::-webkit-scrollbar-track {
+            background-color: $dark-mode-1;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: $dark-mode-1;
+          }
+
+          &.move {
+            background-color: $dark-mode-1;
+            scrollbar-color: $dark-mode-clr $dark-mode-1;
+
+            &::-webkit-scrollbar-thumb {
+              background-color: $dark-mode-clr;
+            }
+          }
+
+          &__top-opacity {
+            background: linear-gradient($dark-mode-1 25%, transparent);
+          }
+
+          &__content {
+            .list__bottom-opacity {
+              background: linear-gradient(transparent, $dark-mode-1 75%);
+            }
+
+            .list__contacts {
+              .message {
+                &__icon,
+                &__text {
+                  color: $white-secondary;
+                }
+              }
+
+              .alphabet-sequence {
+                background-color: $dark-mode-secondary;
+                color: $dark-mode-clr;
+              }
+
+              .contact-list li {
+                background-color: $dark-mode-4;
+
+                .contact-img {
+                  background-color: $dark-mode-clr;
+                  color: $white-secondary;
+
+                  .fa-check {
+                    color: $dark-mode-clr;
+                    background-color: $white-secondary;
+                    box-shadow: rgba(0, 0, 0, 0.5) inset 0px 0px 3px;
+
+                    &.hover {
+                      background-color: $dark-mode-clr;
+                      color: $white-secondary;
+                    }
+                  }
+                }
+
+                .contact {
+                  color: $white-secondary;
+                  p {
+                    &:first-child:hover {
+                      color: $dark-mode-clr;
+                    }
+                    &:nth-child(2) {
+                      color: $grey-light-2;
+                    }
+                  }
+                }
+
+                .submenu {
+                  background-color: $dark-mode-4;
+
+                  &.show button {
+                    cursor: pointer;
+                    pointer-events: all;
+                  }
+
+                  button {
+                    color: $grey-light;
+
+                    &:hover {
+                      color: $dark-mode-clr;
+                    }
+                  }
+                }
+
+                .submenu-icon img {
+                  filter: invert(40%) sepia(7%) saturate(214%)
+                    hue-rotate(177deg) brightness(96%) contrast(82%);
+
+                  &.active {
+                    filter: invert(50%) sepia(97%) saturate(1486%)
+                      hue-rotate(205deg) brightness(90%) contrast(98%);
+                  }
+                }
+              }
+            }
+
+            .list__contacts-amount {
+              color: $white-secondary;
+            }
+          }
+        }
+
+        .letters__container {
+          background-color: $dark-mode-2;
+
+          .letters__letter,
+          .no-name {
+            background-color: $dark-mode-2;
+
+            a {
+              color: $white-secondary;
+            }
+          }
+        }
+
+        .menu {
+          background-color: $dark-mode-secondary;
+
+          button {
+            color: $grey-light-2;
+            &:hover {
+              color: $dark-mode-clr;
+            }
+          }
+        }
+      }
+
+      /* modals */
+      .modal__overlay {
+        .modal__contact-info {
+          background-color: $dark-mode-2;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1a1d24;
+
+          .top_info {
+            background-color: $dark-mode-clr;
+
+            &-avatar {
+              border: 5px solid $dark-mode-2;
+              background-color: $white-secondary;
+              box-shadow: none;
+
+              p {
+                color: $dark-mode-clr;
+              }
+            }
+          }
+
+          .bottom_info {
+            &-name {
+              color: $dark-mode-clr;
+            }
+            &-details p {
+              color: $grey-light-2;
+
+              &:first-child {
+                color: $white-secondary;
+              }
+              &:nth-child(2) .copied {
+                color: $dark-mode-clr;
+              }
+
+              .fas,
+              .far {
+                color: $dark-mode-clr;
+              }
+
+              .fas.fa-copy,
+              .fas.fa-location-arrow {
+                color: $grey-semi-light-2;
+
+                &:hover {
+                  color: $grey-light-2;
+                }
+              }
+
+              .fa-phone-alt {
+                color: $green-primary;
+              }
+            }
+
+            .bottom_info-close-btn {
+              &:hover {
+                background-color: $dark-mode-clr;
+                color: $white-secondary;
+              }
+            }
+          }
+        }
+
+        .modal__contact-add {
+          background-color: $dark-mode-2;
+          color: $white-primary;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1a1d24;
+
+          form input {
+            color: $dark-mode-clr;
+            border-bottom: 0.15rem solid $grey-semi-light;
+
+            &:focus,
+            &:valid {
+              border-bottom: 0.15rem solid $grey-light;
+
+              & + label,
+              & + label {
+                color: $grey-light;
+              }
+            }
+          }
+
+          .new-con-btns button:hover {
+            background-color: $dark-mode-clr;
+            color: $white-secondary;
+          }
+        }
+
+        .modal__contact-delete {
+          background-color: $dark-mode-2;
+          color: $white-primary;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #1a1d24;
+
+          .confirm-question p {
+            .selected-contact {
+              color: $dark-mode-clr;
+              text-shadow: none;
+            }
+          }
+
+          .confirm-btns button:hover {
+            background-color: $dark-mode-clr;
+            color: $white-secondary;
+          }
+        }
+      }
+    }
+
+    footer {
+      color: $white-secondary;
+
+      a {
+        color: $dark-mode-clr;
+      }
+    }
+  }
+}

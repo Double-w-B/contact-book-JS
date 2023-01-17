@@ -1,0 +1,101 @@
+@media screen and (max-width: 900px) {
+  .modal__contact-info,
+  .modal__contact-add,
+  .modal__contact-delete {
+    -moz-box-shadow: inset 0 0 1px #000000;
+    -webkit-box-shadow: inset 0 0 1px #000000;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px #141e30;
+  }
+
+  .bottom_info-close-btn,
+  .new-con-btns button,
+  .confirm-btns button {
+    background-color: $blue-primary;
+    color: $white-secondary;
+  }
+
+  body.dark-mode .bottom_info-close-btn,
+  body.dark-mode .new-con-btns button,
+  body.dark-mode .confirm-btns button {
+    background-color: $dark-mode-clr;
+    color: $white-secondary;
+  }
+
+  .confirm-btns button {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .btn-container .fas {
+    font-size: 1.8rem;
+  }
+
+  .new-con-btns button {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .confirm-question {
+    font-size: 1.1rem;
+  }
+
+  .modal__contact-add {
+    width: 330px;
+    height: 480px;
+
+    .contact-img-upload .avatar-container {
+      margin: 0 0.5rem 0 5rem;
+    }
+
+    .new-con-main-info {
+      height: 45%;
+      .info-one,
+      .info-two {
+        flex-direction: column;
+        justify-content: space-around;
+
+        div {
+          width: 100%;
+          margin: 0;
+
+          input {
+            width: 100%;
+            margin: 0 1.2rem;
+
+            &:focus + label,
+            &:valid + label {
+              transform: translateY(-25px);
+            }
+          }
+        }
+
+        .phone-input label,
+        .email-input label {
+          left: 1.6rem;
+        }
+      }
+    }
+
+    .new-con-secondary-info {
+      height: 20%;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .modal__contact-add {
+    width: 305px;
+  }
+
+  div input {
+    font-size: 1.1rem;
+  }
+
+  .modal__contact-delete {
+    width: 270px;
+    height: 150px;
+  }
+}

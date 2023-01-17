@@ -1,0 +1,52 @@
+@use "../utils/_mixins" as shared;
+
+.modal__contact-delete {
+  @include shared.modalContainer;
+  width: 330px;
+  height: 130px;
+  transform: translateY(35%);
+
+  &.open-modal {
+    @include shared.showModal;
+  }
+
+  .confirm-container {
+    width: 100%;
+    height: 100%;
+
+    .confirm-question {
+      width: 100%;
+      height: 65%;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+
+      p {
+        text-align: justify;
+        line-height: 1.5;
+
+        .selected-contact {
+          text-transform: capitalize;
+          font-weight: bold;
+          font-size: 1.2rem;
+          color: $blue-primary;
+        }
+      }
+    }
+
+    .confirm-btns {
+      width: 100%;
+      height: 35%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      button {
+        @include shared.modalButton;
+        margin: 0 1rem 0 0.5rem;
+        width: 80px;
+      }
+    }
+  }
+}

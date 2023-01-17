@@ -1,0 +1,50 @@
+@use "../utils/_mixins" as shared;
+
+.letters__container {
+  width: 3%;
+  height: 100%;
+  background-color: $white-dark;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  border-bottom-right-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+
+  .letters__letter,
+  .no-name {
+    @include shared.centerElements;
+    width: 100%;
+    height: 25px;
+    background-color: $white-dark;
+
+    cursor: pointer;
+    a {
+      text-decoration: none;
+      color: $grey-semi-dark;
+      color: $blue-primary;
+      font-weight: 500;
+      transition: all 0.1s linear;
+      text-transform: capitalize;
+      font-family: inherit;
+    }
+  }
+
+  .no-name {
+    cursor: default;
+    a {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  .letters__letter:hover a {
+    transform: scale(1.1);
+    font-weight: bold;
+    opacity: 1;
+  }
+
+  .free-space {
+    width: 100%;
+    height: 25px;
+  }
+}

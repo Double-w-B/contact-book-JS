@@ -1,0 +1,22 @@
+@use "../utils/_mixins" as shared;
+
+.message {
+  @include shared.centerElements;
+  width: 100%;
+  height: 25rem;
+  color: $white-primary;
+  flex-direction: column;
+  opacity: 0.2;
+
+  &__icon {
+    font-size: 5rem;
+    padding-left: 0.8rem;
+    color: $grey-dark;
+  }
+  &__text {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: $grey-dark;
+  }
+}

@@ -10,17 +10,17 @@ export const createInfoIcon = () => {
   const noMatchIcon = "fas fa-search";
 
   const container = document.createElement("div");
-  container.className = "add-contact-info";
+  container.className = "message";
 
   const iconContainer = document.createElement("div");
-  iconContainer.className = "add-contact-info__icon no-select";
+  iconContainer.className = "message__icon no-select";
   const icon = document.createElement("i");
   icon.className =
     main.contactsData.length === 0 ? addContactsIcon : noMatchIcon;
   iconContainer.append(icon);
 
   const pElm = document.createElement("p");
-  pElm.className = "add-contact-info__text no-select";
+  pElm.className = "message__text no-select";
   const textNode = document.createTextNode(
     main.contactsData.length === 0 ? addContacts : noMatch
   );
@@ -135,7 +135,7 @@ export const createFooter = () => {
 
 /* Single contact */
 export const createContact = (contact, goal) => {
-  const { name, surname, phone, mail, img } = contact;
+  const { name, surname, phone, email, img } = contact;
   const parentLiElm = document.createElement("li");
 
   const ulElm = document.createElement("ul");
@@ -151,17 +151,22 @@ export const createContact = (contact, goal) => {
   firstIcon.className = "fas fa-check";
   const secondIcon = document.createElement("i");
   secondIcon.className = "fas fa-check hover hide";
-  const imgEl = document.createElement("img");
-  imgEl.src = img.src ? img.src : "";
-  const avatar = img.src ? imgEl : name.slice(0, 1) + surname.slice(0, 1);
+  const imgElm = document.createElement("img");
+  imgElm.src = img.src ? img.src : "";
+  const pElmInitials = document.createElement("p");
+  const pElmInitialsNode = document.createTextNode(
+    `${name.slice(0, 1)}${surname.slice(0, 1)}`
+  );
+  pElmInitials.append(pElmInitialsNode);
+  const avatar = img.src ? imgElm : pElmInitials;
   contactImg.append(firstIcon, secondIcon, avatar);
 
   const infoContainer = document.createElement("div");
   infoContainer.className = "contact";
-  const fullNameEl = document.createElement("p");
-  fullNameEl.className = "fullName";
+  const fullNameElm = document.createElement("p");
+  fullNameElm.className = "fullName";
   const fullNameNode = document.createTextNode(`${name} ${surname}`);
-  fullNameEl.append(fullNameNode);
+  fullNameElm.append(fullNameNode);
   const phoneElm = document.createElement("p");
   const phoneIcon = document.createElement("i");
   phoneIcon.className = "fas fa-phone-alt";
@@ -169,13 +174,13 @@ export const createContact = (contact, goal) => {
     `${phone.replace(utils.everyThirdRegExp, " ")}`
   );
   phoneElm.append(phoneIcon, phoneElNode);
-  infoContainer.append(fullNameEl, phoneElm);
+  infoContainer.append(fullNameElm, phoneElm);
 
   const submenuImg = document.createElement("div");
   submenuImg.className = "submenu-icon";
   const submenuIcon = document.createElement("img");
   submenuIcon.src = "../src/assets/arrowDown.svg";
-  // submenuIcon.alt = "";
+  submenuIcon.alt = "";
   submenuImg.append(submenuIcon);
 
   const submenuContainer = document.createElement("div");
@@ -184,7 +189,7 @@ export const createContact = (contact, goal) => {
   const sendEmailButton = createButton("sendEm", "Send email");
   const deleteButton = createButton("deleteCon", "Delete");
   const emailLink = document.createElement("a");
-  emailLink.setAttribute("href", `mailto:${mail}`);
+  emailLink.setAttribute("href", `mailto:${email ? email : ""}`);
   emailLink.append(sendEmailButton);
   submenuContainer.append(editButton, emailLink, deleteButton);
 
@@ -205,7 +210,7 @@ export const createLetterSection = (letter) => {
   parentLi.id = `${letter}`;
 
   const letterSection = document.createElement("div");
-  letterSection.className = "first-letter no-select";
+  letterSection.className = "alphabet-sequence no-select";
   const pElm = document.createElement("p");
   const pElmNode = document.createTextNode(`${letter}`);
   pElm.append(pElmNode);

@@ -94,7 +94,7 @@ export const contactsSubmenu = () => {
 
     /* Hide submenu icon & submenu on a side click */
     if (
-      targetClass.contains("first-letter") ||
+      targetClass.contains("alphabet-sequence") ||
       targetClass.contains("list__contacts")
     ) {
       hideActiveSubmenu();
