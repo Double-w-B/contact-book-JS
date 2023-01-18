@@ -81,8 +81,8 @@ export const removeImage = () => {
   inputImgRemoveBtn.classList.add("hide");
   inputImg.src =
     themeMode === "light-mode"
-      ? "../../../src/assets/camera_plus_dark.svg"
-      : "../../../src/assets/camera_plus_light.svg";
+      ? "./assets/camera_plus_dark.svg"
+      : "./assets/camera_plus_light.svg";
 
   inputImgName.textContent = "add an image";
 };

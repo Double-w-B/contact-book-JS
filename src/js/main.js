@@ -4,6 +4,7 @@ import { displayMatches } from "./searchInput.js";
 import { contactsSubmenu } from "./contactsSubmenu.js";
 import { showAllContacts } from "./showAllContacts.js";
 import { addContactModal } from "./modals/addContactModal.js";
+import "../../src/scss/style.scss";
 
 const navigationLetters = document.querySelector(".letters__container");
 const list = document.querySelector(".list");

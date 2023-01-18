@@ -91,9 +91,8 @@ export const createImgInput = (name, src) => {
 
   function setImgSrc() {
     if (src) return src;
-    if (themeMode === "light-mode")
-      return "../../../src/assets/camera_plus_dark.svg";
-    return "../../../src/assets/camera_plus_light.svg";
+    if (themeMode === "light-mode") return "./assets/camera_plus_dark.svg";
+    return "./assets/camera_plus_light.svg";
   }
 
   function setTextNode() {

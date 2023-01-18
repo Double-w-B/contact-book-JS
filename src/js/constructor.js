@@ -179,7 +179,7 @@ export const createContact = (contact, goal) => {
   const submenuImg = document.createElement("div");
   submenuImg.className = "submenu-icon";
   const submenuIcon = document.createElement("img");
-  submenuIcon.src = "../src/assets/arrowDown.svg";
+  submenuIcon.src = "./assets/arrowDown.svg";
   submenuIcon.alt = "";
   submenuImg.append(submenuIcon);
 
