@@ -14,7 +14,7 @@ const navAllContactsBtn = document.querySelector(".nav__btn--show");
 const navMenuBtn = document.querySelector(".nav__btn--menu");
 const searchInput = document.getElementById("search");
 
-const modalBackdrop = document.querySelector(".modal__overlay");
+const modalBackdrop = document.querySelector(".modal__backdrop");
 const modalContactInfo = document.querySelector(".modal__contact-info");
 const modalContactAddEdit = document.querySelector(".modal__contact-add");
 const modalContactRemove = document.querySelector(".modal__contact-delete");

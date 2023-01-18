@@ -1,6 +1,6 @@
 @use "../utils/_mixins" as shared;
 
-.modal__overlay {
+.modal__backdrop {
   @include shared.centerElements;
   position: fixed;
   top: 0;

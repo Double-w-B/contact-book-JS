@@ -52,6 +52,7 @@
 
     .new-con-main-info {
       height: 45%;
+
       .info-one,
       .info-two {
         flex-direction: column;
@@ -72,9 +73,11 @@
           }
         }
 
-        .phone-input label,
-        .email-input label {
-          left: 1.6rem;
+        .phone-input,
+        .email-input {
+          label {
+            left: 1.6rem;
+          }
         }
       }
     }
