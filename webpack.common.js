@@ -7,6 +7,13 @@ module.exports = {
       patterns: [{ from: "./src/assets", to: "assets" }],
     }),
   ],
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+      },
+    },
+  },
   module: {
     rules: [
       {

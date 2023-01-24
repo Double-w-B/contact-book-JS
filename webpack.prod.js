@@ -16,7 +16,7 @@ module.exports = merge(common, {
   optimization: {
     minimizer: [
       new CssMinimizerPlugin(),
-      new TerserPlugin(),
+      new TerserPlugin({ extractComments: false }),
       new HtmlWebpackPlugin({
         template: "./public/index.html",
         minify: {
