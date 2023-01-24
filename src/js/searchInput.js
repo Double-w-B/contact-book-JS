@@ -40,8 +40,11 @@ export const displayMatches = () => {
   }
 
   if (matchArray.length === 0 && main.contactsData.length > 0) {
+    const textInfo = "It looks like there aren't any matches for your search";
+    const iconClassName = "fas fa-search";
+    
     removeChildrenElements(main.listOfContacts);
-    constructor.createInfoIcon();
+    constructor.createInfoIcon(textInfo,iconClassName);
     contactsLengthElm.textContent = `Contacts: ${matchArray.length}`;
   }
 

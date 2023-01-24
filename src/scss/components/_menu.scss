@@ -1,5 +1,4 @@
 .menu {
-  height: 7.5rem;
   width: 9rem;
   border-radius: 0 0 0.5rem 0.5rem;
   top: -7.5rem;
@@ -36,6 +35,10 @@
     font-size: 1rem;
     color: $almost-black;
 
+    &:not(.menu__btn--login).hide {
+      display: none;
+    }
+
     &:hover {
       color: $blue-primary;
     }
@@ -43,4 +46,6 @@
       transform: scale(0.98);
     }
   }
+
+ 
 }

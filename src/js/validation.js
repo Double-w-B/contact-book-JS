@@ -32,7 +32,7 @@ const shortLength = (elm) => {
 };
 
 /* Required data validation */
-const requiredInput = (elm) => {
+export const requiredInput = (elm) => {
   const siblingElement = [...elm.parentElement.children].find(
     (el) => el.className === "error-hint-required"
   );

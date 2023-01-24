@@ -42,9 +42,11 @@ export const contactsSubmenu = () => {
     const submenuButtons = document.querySelectorAll(".submenu-icon");
     const submenuIcons = document.querySelectorAll(".submenu-icon img");
     const allContacts = document.querySelectorAll(".contact-list li");
+    const hintIcon = document.querySelector(".hintIcon");
 
     if (main.menu.classList.contains("show-menu")) {
       main.menu.classList.remove("show-menu");
+      hintIcon.classList.toggle("opacity");
     }
 
     e.stopPropagation();

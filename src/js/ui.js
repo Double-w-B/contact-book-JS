@@ -1,6 +1,8 @@
 import * as main from "./main.js";
 import * as utils from "./utils.js";
 import * as constructor from "./constructor.js";
+import { showAllContacts } from "./showAllContacts.js";
+// import { showAllContacts } from "./showAllContacts.js";
 
 /* Dark/Light mode */
 export const themeMode = () => {
@@ -52,12 +54,17 @@ export const hideScrollbarThumb = () => {
 
 /* Hide menu */
 export const hideMenu = (e) => {
-  main.menu.classList.contains("show-menu") &&
+  const hintIcon = document.querySelector(".hintIcon");
+  if (
+    main.menu.classList.contains("show-menu") &&
     e.target !== main.menuSelectAllBtn &&
     e.target !== main.menuUnselectAllBtn &&
     e.target !== main.menuRemoveSelectedBtn &&
-    e.target !== main.navMenuBtn &&
+    e.target !== main.navMenuBtn
+  ) {
     main.menu.classList.remove("show-menu");
+    hintIcon.classList.remove("opacity");
+  }
 };
 
 /* Select icons */
@@ -163,4 +170,34 @@ export const handleRemoveSelected = () => {
 
   deleteButton.addEventListener("click", deleteContacts);
   cancelButton.addEventListener("click", closeModal);
+};
+
+/* Open Auth modal */
+export const openAuthModal = async () => {
+  const authButton = document.querySelector(".menu__btn--auth");
+  const hintIcon = document.querySelector(".hintIcon");
+  hintIcon.classList.add("hide");
+
+  if (authButton.textContent === "Log in") {
+    main.modalBackdrop.classList.add("open-modal");
+    main.modalAuth.classList.add("open-modal");
+  } else {
+    const url = "/api/v1/auth/logout";
+    try {
+      await fetch(url);
+      main.menuButtons.forEach((button) => button.classList.add("hide"));
+      main.inputContainer.classList.add("disable");
+      main.navNewContactBtn.classList.add("hide");
+      main.navAllContactsBtn.classList.add("hide");
+      main.menuAuthBtn.textContent = "Log in";
+      main.userAuth.isUserLoggedIn = false;
+      
+      setTimeout(() => {
+        showAllContacts()
+        hintIcon.classList.remove("hide");
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };

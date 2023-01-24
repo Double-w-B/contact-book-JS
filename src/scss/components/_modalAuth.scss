@@ -1,0 +1,123 @@
+@use "../utils/_mixins" as shared;
+
+.modal__auth {
+  @include shared.modalContainer;
+
+  width: 350px;
+  height: 300px;
+  justify-content: space-between;
+  transform: translateY(12%);
+
+  &.open-modal {
+    @include shared.showModal;
+  }
+
+  .modal__auth__change {
+    @include shared.centerElements;
+    width: 100%;
+    height: 15%;
+    position: relative;
+
+    &__button {
+      outline: none;
+      border: none;
+      font-size: 1.1rem;
+      text-transform: capitalize;
+      align-self: center;
+      background-color: transparent;
+      transition: $transition;
+      cursor: pointer;
+      color: #aaaeb3;
+
+      &.hide {
+        visibility: hidden;
+        transition: none;
+      }
+
+      &:hover {
+        color: $blue-primary;
+      }
+
+      &:active {
+        transform: scale(0.8);
+      }
+    }
+  }
+
+  &__credentials {
+    width: 100%;
+    height: 65%;
+    padding-top: 1.3rem;
+    // background-color: tomato;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .error-hint,
+    .error-hint-length,
+    .error-hint-number,
+    .error-hint-required {
+      position: absolute;
+      bottom: -1rem;
+      font-size: 0.8rem;
+      visibility: hidden;
+    }
+
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      transition: all 0.1s ease-in;
+
+      .invalid-input {
+        color: $red-secondary;
+        visibility: visible;
+      }
+
+      input {
+        @include shared.modalAddEditInput;
+        width: 90%;
+        margin: 0 0.5rem;
+        padding-left: 0.2rem;
+      }
+
+      label {
+        font-size: 1.1rem;
+        color: $grey-semi-light;
+        position: absolute;
+        left: 1.6rem;
+        bottom: 0.2rem;
+        transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        pointer-events: none;
+      }
+    }
+    .userName-input input {
+      text-transform: capitalize;
+    }
+    .userEmail-input input {
+      text-transform: lowercase;
+    }
+  }
+
+  &__buttons {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    button {
+      @include shared.modalButton;
+      text-transform: capitalize;
+    }
+
+    &-auth {
+      &.disable {
+        background-color: $blue-primary;
+        color: $white-secondary;
+        pointer-events: none;
+      }
+    }
+  }
+}

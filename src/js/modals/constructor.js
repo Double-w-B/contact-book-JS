@@ -1,28 +1,34 @@
-import { createButton } from "../constructor.js";
 import * as main from "../main.js";
 import * as utils from "../utils.js";
+import { createButton } from "../constructor.js";
+import { createLoadingSpinner } from "../constructor.js";
 
 /* Single input */
-const createInputContent = (type, className) => {
-  const setTitle = () => {
+export const createInputContent = (type, className) => {
+  function setTitle() {
     if (type === "phone") {
       return "- only numbers - from 6 to 9 characters";
     }
     if (type === "email") {
       return "- e.g. name@mail.com";
     }
+    if (type === "password") {
+      return "";
+    }
     return "- only Latin characters";
-  };
+  }
 
   const inputContainer = document.createElement("div");
   inputContainer.className = className;
 
   const input = document.createElement("input");
   input.id = type;
-  input.type = "text";
+  input.type = type === "password" ? "password" : "text";
   input.name = type;
   input.title = setTitle();
   input.required = true;
+
+  if (type.startsWith("user")) type = type.split("-").join(" ");
   if (type === "phone") input.maxLength = "9";
   if (type === "address" || type === "notes") input.maxLength = "40";
 
@@ -33,14 +39,24 @@ const createInputContent = (type, className) => {
   const labelNode = document.createTextNode(
     `${type.substring(0, 1).toUpperCase() + type.substring(1)}`
   );
-  if (type === "email" || type === "address" || type === "notes") {
-    label.append(labelNode);
-  } else {
+  if (type === "name" || type === "surname" || type === "phone") {
     label.append(labelNode, labelSpan);
+  } else {
+    label.append(labelNode);
   }
 
   if (type === "address" || type === "notes") {
     inputContainer.append(input, label);
+    return inputContainer;
+  }
+
+  if (type === "user name" || type === "user email" || type === "password") {
+    const pElmErrorRequired = document.createElement("p");
+    pElmErrorRequired.className = "error-hint-required";
+    const pElmErrorNameReqNode = document.createTextNode(`${type} is required`);
+    pElmErrorRequired.append(pElmErrorNameReqNode);
+
+    inputContainer.append(input, label, pElmErrorRequired);
     return inputContainer;
   }
 
@@ -50,6 +66,7 @@ const createInputContent = (type, className) => {
     `invalid ${type === "phone" ? "number" : type}`
   );
   pElmErrorName.append(pElmErrorNameNode);
+
   const pElmErrorNameReq = document.createElement("p");
   pElmErrorNameReq.className = "error-hint-required";
   const pElmErrorNameReqNode = document.createTextNode(
@@ -360,4 +377,30 @@ export const createContactInfoModal = (contact) => {
   bottomInfo.append(bottomInfoName, bottomInfoDetails);
   main.modalContactInfo.append(topInfo, bottomInfo);
   return main.modalContactInfo;
+};
+
+export const createAuthModal = () => {
+  utils.removeChildrenElements(main.modalAuth);
+
+  const credentials = document.createElement("div");
+  credentials.className = "modal__auth__credentials";
+  const emailInput = createInputContent("user-email", "userEmail-input");
+  const passwordInput = createInputContent("password", "password-input");
+  credentials.append(emailInput, passwordInput);
+
+  const changeButtonContainer = document.createElement("div");
+  changeButtonContainer.className = "modal__auth__change";
+  const changeButton = createButton("modal__auth__change__button", "register");
+  const loadingIcon = createLoadingSpinner();
+  changeButtonContainer.append(changeButton, loadingIcon);
+
+  const buttonsContainer = document.createElement("div");
+  buttonsContainer.className = "modal__auth__buttons";
+  const loginButton = createButton("modal__auth__buttons-auth", "login");
+  const closeButton = createButton("modal__auth__buttons-close", "close");
+  buttonsContainer.append(loginButton, closeButton);
+
+  main.modalAuth.append(credentials, changeButtonContainer, buttonsContainer);
+
+  return main.modalAuth;
 };
