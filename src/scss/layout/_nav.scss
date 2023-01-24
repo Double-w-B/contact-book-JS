@@ -9,6 +9,45 @@ nav {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  position: relative;
+
+  .hintIcon {
+    position: absolute;
+    top: 50%;
+    right: 7rem;
+    transform: translateY(-50%) rotate(-90deg);
+    transition: $transition;
+
+    &.opacity {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &.hide {
+      display: none;
+    }
+
+    div {
+      border-radius: 3px;
+      display: block;
+
+      width: 16px;
+      height: 16px;
+      border-bottom: 4px solid #fafafa;
+      border-right: 4px solid #fafafa;
+      transform: rotate(45deg);
+      margin: -10px;
+      animation: animate 2s infinite;
+
+      &:nth-child(2) {
+        animation-delay: -0.2s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: -0.4s;
+      }
+    }
+  }
 
   .input__container {
     width: 40%;
@@ -16,6 +55,10 @@ nav {
     display: flex;
     align-items: center;
     position: relative;
+
+    &.disable {
+      pointer-events: none;
+    }
 
     input {
       width: 100%;
@@ -111,6 +154,10 @@ nav {
     &.nav__btn--show {
       width: 11%;
       padding: 0 0.4rem 0 0.4rem;
+
+      &.hide {
+        visibility: hidden;
+      }
     }
 
     &.nav__btn--add {
@@ -118,6 +165,10 @@ nav {
       padding: 0 0.4rem 0 0.4rem;
       background-color: $blue-primary;
       color: $white-secondary;
+
+      &.hide {
+        visibility: hidden;
+      }
     }
 
     &.nav__btn--menu {

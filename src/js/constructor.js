@@ -3,27 +3,19 @@ import * as utils from "./utils.js";
 import * as main from "./main.js";
 
 /* Info icon */
-export const createInfoIcon = () => {
-  const addContacts = "add your first contact";
-  const noMatch = "It looks like there aren't any matches for your search";
-  const addContactsIcon = "fas fa-user-plus";
-  const noMatchIcon = "fas fa-search";
-
+export const createInfoIcon = (text, iconClassName) => {
   const container = document.createElement("div");
   container.className = "message";
 
   const iconContainer = document.createElement("div");
   iconContainer.className = "message__icon no-select";
   const icon = document.createElement("i");
-  icon.className =
-    main.contactsData.length === 0 ? addContactsIcon : noMatchIcon;
+  icon.className = iconClassName;
   iconContainer.append(icon);
 
   const pElm = document.createElement("p");
   pElm.className = "message__text no-select";
-  const textNode = document.createTextNode(
-    main.contactsData.length === 0 ? addContacts : noMatch
-  );
+  const textNode = document.createTextNode(text);
   pElm.append(textNode);
 
   container.append(iconContainer, pElm);
@@ -221,4 +213,27 @@ export const createLetterSection = (letter) => {
 
   parentLi.append(letterSection, ulElm);
   return parentLi;
+};
+
+export const createLoadingSpinner = () => {
+  const container = document.createElement("div");
+  container.className = "loadingIcon";
+  const divOne = document.createElement("div");
+  const divTwo = document.createElement("div");
+  const divThree = document.createElement("div");
+  const divFour = document.createElement("div");
+  container.append(divOne, divTwo, divThree, divFour);
+  return container;
+};
+
+export const createHintIcon = () => {
+  const nav = document.querySelector("nav");
+
+  const container = document.createElement("div");
+  container.className = "hintIcon";
+  const divOne = document.createElement("div");
+  const divTwo = document.createElement("div");
+  const divThree = document.createElement("div");
+  container.append(divOne, divTwo, divThree);
+  nav.append(container);
 };

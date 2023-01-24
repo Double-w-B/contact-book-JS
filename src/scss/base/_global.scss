@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Lobster&display=swap");
-@import "../utils/_variables.scss";
+@import "../utils/_variables";
+@import "../utils/keyframes";
 
 ::selection {
   background-color: $blue-primary;
@@ -48,4 +49,50 @@ main {
   border: 1.5px solid #aaaeb3;
   border-top: 1.5px solid #9b9ea3;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.loadingIcon {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 45px;
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &.show {
+    visibility: visible;
+  }
+
+  div {
+    position: absolute;
+    // top: 33px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: $blue-primary;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+
+    &:nth-child(1) {
+      left: 8px;
+      animation: lds-ellipsis1 0.6s infinite;
+    }
+    &:nth-child(2) {
+      left: 8px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    &:nth-child(3) {
+      left: 32px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    &:nth-child(4) {
+      left: 56px;
+      animation: lds-ellipsis3 0.6s infinite;
+    }
+  }
 }
