@@ -61,7 +61,7 @@ const unavailableNumber = (elm) => {
 };
 
 function validation(inputName, inputSurname, inputPhone, inputEmail) {
-  const checkNumber = main.contactsData.map((person) => person.phone);
+  const contactsNumbers = main.data.contacts.map((person) => person.phone);
 
   /* Required data validation */
   !inputName.value && requiredInput(inputName);
@@ -92,7 +92,7 @@ function validation(inputName, inputSurname, inputPhone, inputEmail) {
     !inputName.value.match(utils.textRegExp) &&
     !inputSurname.value.match(utils.textRegExp) &&
     (!inputEmail.value || inputEmail.value.match(utils.emailRegExp)) &&
-    checkNumber.includes(inputPhone.value) &&
+    contactsNumbers.includes(inputPhone.value) &&
     unavailableNumber(inputPhone);
 }
 

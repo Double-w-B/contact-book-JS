@@ -190,6 +190,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      position: relative;
 
       div {
         width: 100%;
@@ -212,6 +213,20 @@
           bottom: 0.2rem;
           transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
           pointer-events: none;
+        }
+      }
+
+      .infoMsg {
+        position: absolute;
+        bottom: -0.2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        visibility: hidden;
+        font-size: 0.9rem;
+        color: $red-secondary;
+
+        &.show {
+          visibility: visible;
         }
       }
     }

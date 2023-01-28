@@ -1,9 +1,8 @@
 import * as main from "../main.js";
 import * as utils from "../utils.js";
 import { validation } from "../validation.js";
-import { showAllContacts } from "../showAllContacts.js";
+import * as fetchData from "../fetch/index.js";
 import { createAddContactModalContent } from "./constructor.js";
-import { createNavigationLetters } from "../constructor.js";
 
 export const addContactModal = () => {
   function closeModal() {
@@ -17,6 +16,10 @@ export const addContactModal = () => {
       utils.addImage(reader);
       imgSrc = reader.result;
       imgName = `../${inputImage.name}`;
+
+      const contactImage = new FormData();
+      contactImage.append("image", inputImage);
+      fetchData.uploadContactImage(contactImage)
     }
 
     const reader = new FileReader();
@@ -31,7 +34,7 @@ export const addContactModal = () => {
   }
 
   function addContact() {
-    const contactsNumbers = main.contactsData.map((person) => person.phone);
+    const contactsNumbers = main.data.contacts.map((person) => person.phone);
 
     validation(inputName, inputSurname, inputPhone, inputEmail);
 
@@ -46,20 +49,17 @@ export const addContactModal = () => {
       (!inputEmail.value || inputEmail.value.match(utils.emailRegExp))
     ) {
       const newContact = new utils.Person(
-        inputName.value,
-        inputSurname.value,
+        inputName.value.toLowerCase(),
+        inputSurname.value.toLowerCase(),
         inputPhone.value,
-        inputEmail.value,
+        inputEmail.value.toLowerCase(),
         inputAddress.value,
         inputNotes.value,
         imgSrc,
         imgName
       );
 
-      main.contactsData.push(newContact);
-      createNavigationLetters();
-      showAllContacts();
-      closeModal();
+      fetchData.addContactToDB(newContact, closeModal);
     }
   }
 
@@ -76,7 +76,6 @@ export const addContactModal = () => {
   const inputNotes = document.getElementById("notes");
   const imgInput = document.querySelector("input[type=file]");
   const imgRemoveBtn = document.querySelector(".avatar-container .fa-times");
-
   const addButton = document.querySelector(".accept");
   const cancelButton = document.querySelector(".cancel");
 

@@ -19,7 +19,8 @@ const findMatches = (wordToMatch, contactsData) => {
 };
 
 export const displayMatches = () => {
-  const matchArray = findMatches(main.searchInput.value, main.contactsData);
+  const matchArray = findMatches(main.searchInput.value, main.data.contacts);
+
   const contactsLengthElm = main.contactsAmount.children[0];
 
   const sortedMatchArray = matchArray.sort((a, b) =>
@@ -39,12 +40,12 @@ export const displayMatches = () => {
     }
   }
 
-  if (matchArray.length === 0 && main.contactsData.length > 0) {
+  if (matchArray.length === 0 && main.data.contacts.length > 0) {
     const textInfo = "It looks like there aren't any matches for your search";
     const iconClassName = "fas fa-search";
-    
+
     removeChildrenElements(main.listOfContacts);
-    constructor.createInfoIcon(textInfo,iconClassName);
+    constructor.createInfoIcon(textInfo, iconClassName);
     contactsLengthElm.textContent = `Contacts: ${matchArray.length}`;
   }
 

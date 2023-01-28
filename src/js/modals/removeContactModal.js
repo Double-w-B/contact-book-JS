@@ -1,7 +1,6 @@
 import * as main from "../main.js";
-import { checkLetterSection } from "../utils.js";
+import { deleteSingleContactFromDB } from "../fetch/index.js";
 import { createRemoveSingleContactModal } from "./constructor.js";
-import { createNavigationLetters } from "../constructor.js";
 
 export const removeContactModal = () => {
   main.listOfContacts.addEventListener("click", handleListClick);
@@ -19,24 +18,14 @@ export const removeContactModal = () => {
     if (!e.target.className || e.target.className !== "deleteCon") return;
 
     const contactId = e.target.closest(".one-child").id;
-    const contact = main.contactsData.find(
-      (person) => person.phone === contactId
+    const contact = main.data.contacts.find(
+      (person) => person._id === contactId
     );
     const { name, surname } = contact;
     const contactFullName = name + " " + surname;
 
     function deleteContact() {
-      for (const contact of main.contactsData) {
-        if (contact.phone === contactId) {
-          const contactEl = e.target.closest(".one-child");
-          main.contactsData.splice(main.contactsData.indexOf(contact), 1);
-          contactEl.remove();
-        }
-      }
-
-      checkLetterSection();
-      createNavigationLetters();
-      closeModal();
+      deleteSingleContactFromDB(contactId, closeModal);
     }
 
     openModal();

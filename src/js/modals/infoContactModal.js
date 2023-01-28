@@ -27,8 +27,8 @@ export const infoContactModal = () => {
     }
 
     const contactId = e.target.closest("li").id;
-    const contact = main.contactsData.find(
-      (person) => contactId === person.phone
+    const contact = main.data.contacts.find(
+      (person) => contactId === person._id
     );
 
     openModal();

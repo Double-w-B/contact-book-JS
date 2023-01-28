@@ -4,8 +4,8 @@ import { displayMatches } from "./searchInput.js";
 import { contactsSubmenu } from "./contactsSubmenu.js";
 import { showAllContacts } from "./showAllContacts.js";
 import { addContactModal } from "./modals/addContactModal.js";
-import "../../src/scss/style.scss";
 import { checkCurrentUser } from "./fetch/index.js";
+import "../../src/scss/style.scss";
 
 const navigationLetters = document.querySelector(".letters__container");
 const list = document.querySelector(".list");
@@ -33,15 +33,14 @@ const menuButtons = document.querySelectorAll(
   ".menu button:not(.menu__btn--auth)"
 );
 
-let userAuth = { isUserLoggedIn: false };
-const contactsData = JSON.parse(localStorage.getItem("contacts")) || [];
+const userAuth = { isUserLoggedIn: false };
+const data = { contacts: [] };
 
 if (!localStorage.theme) localStorage.theme = "light-mode";
 document.body.className = localStorage.theme;
 
-
 constructor.createHintIcon();
-constructor.createContactsLength(contactsData);
+constructor.createContactsLength(data.contacts);
 constructor.createNavigationLetters();
 constructor.createFooter();
 showAllContacts();
@@ -74,7 +73,7 @@ menuUnselectAllBtn.addEventListener("click", () =>
 menuAuthBtn.addEventListener("click", ui.openAuthModal);
 
 export {
-  contactsData,
+  data,
   navigationLetters,
   listOfContacts,
   modalBackdrop,

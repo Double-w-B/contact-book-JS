@@ -1,5 +1,5 @@
-import { showAllContacts } from "./showAllContacts.js";
 import * as main from "./main.js";
+import { showAllContacts } from "./showAllContacts.js";
 
 /* Remove children elements */
 export const removeChildrenElements = (parentElm) => {
@@ -32,7 +32,7 @@ export const deviceType = () => {
 
 /* Filter contacts names first letter */
 export const filteredFirstLetters = () => {
-  const namesFirstLetter = main.contactsData.map((i) => i.name.slice(0, 1));
+  const namesFirstLetter = main.data.contacts.map((i) => i.name.slice(0, 1));
   const filteredLetters = [...new Set(namesFirstLetter)];
   return filteredLetters;
 };

@@ -118,7 +118,7 @@ export const createFooter = () => {
   link.setAttribute("href", "https://github.com/Double-w-B");
   link.setAttribute = ("target", "_blank");
   link.setAttribute = ("rel", "noopener noreferrer");
-  const linkText = document.createTextNode("Władysław Balandin");
+  const linkText = document.createTextNode("");
   link.append(linkText);
   pElm.append(pElmText, link);
   footer.append(pElm);
@@ -127,7 +127,7 @@ export const createFooter = () => {
 
 /* Single contact */
 export const createContact = (contact, goal) => {
-  const { name, surname, phone, email, img } = contact;
+  const { name, surname, phone, email, img, _id } = contact;
   const parentLiElm = document.createElement("li");
 
   const ulElm = document.createElement("ul");
@@ -135,7 +135,7 @@ export const createContact = (contact, goal) => {
 
   const liElm = document.createElement("li");
   liElm.className = "one-child";
-  liElm.id = `${phone}`;
+  liElm.id = _id;
 
   const contactImg = document.createElement("div");
   contactImg.className = "contact-img no-select";
@@ -215,6 +215,7 @@ export const createLetterSection = (letter) => {
   return parentLi;
 };
 
+/* Loading Spinner */
 export const createLoadingSpinner = () => {
   const container = document.createElement("div");
   container.className = "loadingIcon";
@@ -226,6 +227,7 @@ export const createLoadingSpinner = () => {
   return container;
 };
 
+/* Hint Icon */
 export const createHintIcon = () => {
   const nav = document.querySelector("nav");
 

@@ -133,6 +133,7 @@ export const createImgInput = (name, src) => {
 
   const input = document.createElement("input");
   input.type = "file";
+  input.setAttribute("accept", "image/png, image/gif, image/jpeg, image/webp");
   label.append(imgEl, input);
   const icon = document.createElement("i");
   icon.className = `fas fa-times ${!src && "hide"}`;
@@ -147,7 +148,7 @@ export const createImgInput = (name, src) => {
   return imgContainer;
 };
 
-/* Main info */
+/* Main info AddContactModal */
 export const createMainInfoStructure = () => {
   const mainInfoContainer = document.createElement("div");
   mainInfoContainer.className = "new-con-main-info";
@@ -173,7 +174,7 @@ export const createMainInfoStructure = () => {
   return mainInfoContainer;
 };
 
-/* Secondary info */
+/* Secondary info AddContactModal*/
 export const createSecondaryInfoStructure = () => {
   const secondaryInfoContainer = document.createElement("div");
   secondaryInfoContainer.className = "new-con-secondary-info";
@@ -182,7 +183,11 @@ export const createSecondaryInfoStructure = () => {
 
   const addressInput = createInputContent("address", "address-input");
   const notesInput = createInputContent("notes", "notes-input");
-  secondaryInfoForm.append(addressInput, notesInput);
+
+  const pElm = document.createElement("p");
+  pElm.className = "infoMsg";
+
+  secondaryInfoForm.append(addressInput, notesInput, pElm);
   secondaryInfoContainer.append(secondaryInfoForm);
 
   return secondaryInfoContainer;
@@ -235,6 +240,7 @@ export const createEditContactModalContent = (name, src) => {
   return main.modalContactAddEdit;
 };
 
+/* Remove single contact modal */
 export const createRemoveSingleContactModal = (selectedContact) => {
   utils.removeChildrenElements(main.modalContactRemove);
 
@@ -264,6 +270,7 @@ export const createRemoveSingleContactModal = (selectedContact) => {
   return main.modalContactRemove;
 };
 
+/* Contact info modal */
 export const createContactInfoModal = (contact) => {
   const { name, surname, phone, email, address, notes, img } = contact;
   utils.removeChildrenElements(main.modalContactInfo);
@@ -379,6 +386,7 @@ export const createContactInfoModal = (contact) => {
   return main.modalContactInfo;
 };
 
+/* Auth modal */
 export const createAuthModal = () => {
   utils.removeChildrenElements(main.modalAuth);
 
@@ -386,7 +394,9 @@ export const createAuthModal = () => {
   credentials.className = "modal__auth__credentials";
   const emailInput = createInputContent("user-email", "userEmail-input");
   const passwordInput = createInputContent("password", "password-input");
-  credentials.append(emailInput, passwordInput);
+  const pElm = document.createElement("p");
+  pElm.className = "infoMsg";
+  credentials.append(emailInput, passwordInput, pElm);
 
   const changeButtonContainer = document.createElement("div");
   changeButtonContainer.className = "modal__auth__change";

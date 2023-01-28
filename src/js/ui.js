@@ -1,8 +1,8 @@
 import * as main from "./main.js";
 import * as utils from "./utils.js";
 import * as constructor from "./constructor.js";
-import { showAllContacts } from "./showAllContacts.js";
-// import { showAllContacts } from "./showAllContacts.js";
+import { logoutUser } from "./fetch/index.js";
+import { deleteManyContactsFromDB } from "./fetch/index.js";
 
 /* Dark/Light mode */
 export const themeMode = () => {
@@ -120,15 +120,15 @@ export const handleSelection = (type) => {
 /* Remove selected button */
 export const handleRemoveSelected = () => {
   const contactImg = document.querySelectorAll(".contact-img");
-  let itemsToRemove = [];
+  let contactsId = [];
 
   contactImg.forEach((li) => {
     const parentElId = li.parentElement.id;
     li.firstElementChild.classList.contains("show-checked") &&
-      itemsToRemove.push(parentElId);
+      contactsId.push(parentElId);
   });
 
-  if (itemsToRemove.length === 0) return;
+  if (contactsId.length === 0) return;
 
   function openModal() {
     main.menu.classList.remove("show-menu");
@@ -138,31 +138,15 @@ export const handleRemoveSelected = () => {
   function closeModal() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalContactRemove.classList.remove("open-modal");
-    itemsToRemove = [];
+    contactsId = [];
   }
 
   function deleteContacts() {
-    for (const number of itemsToRemove) {
-      for (const contact of main.contactsData) {
-        if (contact.phone === number) {
-          main.contactsData.splice(main.contactsData.indexOf(contact), 1);
-        }
-      }
-    }
-
-    contactImg.forEach((li) => {
-      if (li.firstElementChild.classList.contains("show-checked")) {
-        li.parentElement.remove();
-      }
-    });
-
-    utils.checkLetterSection();
-    constructor.createNavigationLetters();
-    closeModal();
+    deleteManyContactsFromDB(contactsId, closeModal);
   }
 
   utils.removeChildrenElements(main.modalContactRemove);
-  constructor.createRemoveModalContent(itemsToRemove);
+  constructor.createRemoveModalContent(contactsId);
   openModal();
 
   const deleteButton = document.querySelector(".confirm-delete");
@@ -172,7 +156,7 @@ export const handleRemoveSelected = () => {
   cancelButton.addEventListener("click", closeModal);
 };
 
-/* Open Auth modal */
+/* Open Auth modal / Logout */
 export const openAuthModal = async () => {
   const authButton = document.querySelector(".menu__btn--auth");
   const hintIcon = document.querySelector(".hintIcon");
@@ -182,22 +166,6 @@ export const openAuthModal = async () => {
     main.modalBackdrop.classList.add("open-modal");
     main.modalAuth.classList.add("open-modal");
   } else {
-    const url = "/api/v1/auth/logout";
-    try {
-      await fetch(url);
-      main.menuButtons.forEach((button) => button.classList.add("hide"));
-      main.inputContainer.classList.add("disable");
-      main.navNewContactBtn.classList.add("hide");
-      main.navAllContactsBtn.classList.add("hide");
-      main.menuAuthBtn.textContent = "Log in";
-      main.userAuth.isUserLoggedIn = false;
-      
-      setTimeout(() => {
-        showAllContacts()
-        hintIcon.classList.remove("hide");
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    }
+    logoutUser();
   }
 };

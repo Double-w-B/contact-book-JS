@@ -1,7 +1,7 @@
 import * as main from "../main.js";
 import * as utils from "../utils.js";
 import { validation } from "../validation.js";
-import { showAllContacts } from "../showAllContacts.js";
+import * as fetchData from "../fetch/index.js";
 import { createEditContactModalContent } from "./constructor.js";
 
 export const editContactModal = () => {
@@ -26,7 +26,12 @@ export const editContactModal = () => {
         utils.addImage(reader);
         imgSrc = reader.result;
         imgName = `../${inputImage.name}`;
+
+        const contactImage = new FormData();
+        contactImage.append("image", inputImage);
+        fetchData.uploadContactImage(contactImage)
       }
+
       const reader = new FileReader();
       reader.addEventListener("load", loadLogic);
       reader.readAsDataURL(imgInput.files[0]);
@@ -39,7 +44,7 @@ export const editContactModal = () => {
     }
 
     function saveChanges() {
-      const contactsNumbers = main.contactsData.map((person) => person.phone);
+      const contactsNumbers = main.data.contacts.map((person) => person._id);
 
       validation(inputName, inputSurname, inputPhone, inputEmail);
 
@@ -62,24 +67,25 @@ export const editContactModal = () => {
         );
         siblingElement.remove("invalid-input");
 
-        contact.name = inputName.value.toLowerCase();
-        contact.surname = inputSurname.value.toLowerCase();
-        contact.phone = inputPhone.value;
-        contact.email = inputEmail.value.toLowerCase();
-        contact.address = inputAddress.value;
-        contact.notes = inputNotes.value;
-        contact.img = { src: imgSrc, name: imgName };
+        const newContact = new utils.Person(
+          inputName.value.toLowerCase(),
+          inputSurname.value.toLowerCase(),
+          inputPhone.value,
+          inputEmail.value.toLowerCase(),
+          inputAddress.value,
+          inputNotes.value,
+          imgSrc,
+          imgName
+        );
+        fetchData.updateContact(newContact, contactId, closeModal);
       } else {
         return;
       }
-
-      closeModal();
-      showAllContacts();
     }
 
     const contactId = e.target.closest(".one-child").id;
-    const contact = main.contactsData.find(
-      (person) => contactId === person.phone
+    const contact = main.data.contacts.find(
+      (person) => person._id === contactId
     );
     const { name, surname, phone, email, address, notes, img } = contact;
 
