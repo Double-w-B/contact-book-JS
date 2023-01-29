@@ -1,18 +1,30 @@
 import * as main from "../main.js";
+import * as constructor from "../constructor.js";
+import { removeChildrenElements } from "../utils.js";
 import { showAllContacts } from "../showAllContacts.js";
-import { createNavigationLetters } from "../constructor.js";
 
 //! checkCurrentUser
 export async function checkCurrentUser() {
-  const url = "/api/v1/user/checkUser";
+  removeChildrenElements(main.listOfContacts);
+  const loadingSpinner = constructor.createLoadingSpinner();
+  loadingSpinner.classList.add("show");
+  main.listOfContacts.append(loadingSpinner);
+
   const hintIcon = document.querySelector(".hintIcon");
+  hintIcon.classList.add("hide");
 
   try {
+    const url = "/api/v1/user/checkUser";
     const response = await fetch(url);
 
     if (!response.ok) {
       main.userAuth.isUserLoggedIn = false;
-      showAllContacts();
+      setTimeout(() => {
+        loadingSpinner.classList.remove("show");
+        hintIcon.classList.remove("hide");
+
+        showAllContacts();
+      }, 1000);
       return;
     }
 
@@ -140,6 +152,7 @@ export async function logoutUser() {
     main.navNewContactBtn.classList.add("hide");
     main.navAllContactsBtn.classList.add("hide");
     main.menuAuthBtn.textContent = "Log in";
+    constructor.createNavigationLetters();
 
     setTimeout(() => {
       showAllContacts();
@@ -153,15 +166,30 @@ export async function logoutUser() {
 
 //! getAllContacts
 export async function getAllContacts() {
+  removeChildrenElements(main.listOfContacts);
+  const loadingSpinner = constructor.createLoadingSpinner();
+  loadingSpinner.classList.add("show");
+  main.listOfContacts.append(loadingSpinner);
+
   try {
     const url = "/api/v1/contacts";
     const response = await fetch(url);
     const data = await response.json();
 
-    main.data.contacts = data.contacts;
-    createNavigationLetters();
+    if (!response.ok) {
+      loadingSpinner.classList.remove("show");
+      const textInfo = "Oops! Something went wrong.";
+      const iconClassName = "fas fa-exclamation-triangle";
+      constructor.createInfoIcon(textInfo, iconClassName);
+      return;
+    }
 
-    showAllContacts();
+    setTimeout(() => {
+      main.data.contacts = data.contacts;
+      constructor.createNavigationLetters();
+      loadingSpinner.classList.remove("show");
+      showAllContacts();
+    }, 1000);
   } catch (error) {
     console.log(error);
   }
@@ -210,15 +238,13 @@ export async function uploadContactImage(contactImage) {
   const url = "/api/v1/contacts/uploadImage";
   const requestOptions = {
     method: "POST",
-    // headers: {
-    //   "Content-type": "multipart/form-data",
-    // },
     body: contactImage,
   };
+  
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
-    
+
     console.log(data);
   } catch (error) {
     console.log(error);

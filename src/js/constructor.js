@@ -118,7 +118,7 @@ export const createFooter = () => {
   link.setAttribute("href", "https://github.com/Double-w-B");
   link.setAttribute = ("target", "_blank");
   link.setAttribute = ("rel", "noopener noreferrer");
-  const linkText = document.createTextNode("");
+  const linkText = document.createTextNode("Wladyslaw Balandin");
   link.append(linkText);
   pElm.append(pElmText, link);
   footer.append(pElm);
