@@ -2,6 +2,7 @@ import * as main from "../main.js";
 import * as constructor from "../constructor.js";
 import { removeChildrenElements } from "../utils.js";
 import { showAllContacts } from "../showAllContacts.js";
+import { userImage } from "../modals/addContactModal.js";
 
 //! checkCurrentUser
 export async function checkCurrentUser() {
@@ -240,7 +241,38 @@ export async function uploadContactImage(contactImage) {
     method: "POST",
     body: contactImage,
   };
-  
+
+  try {
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+
+    userImage.cloudinaryImgId = data.msg;
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+//! uploadContactImage
+
+//! removeContactImage
+export async function removeContactImage(cloudinaryImgId, contactId) {
+  const url = "/api/v1/contacts/removeImage";
+
+  const data = { cloudinaryImgId };
+
+  if (contactId) {
+    data.contactId = contactId;
+  }
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
@@ -250,7 +282,22 @@ export async function uploadContactImage(contactImage) {
     console.log(error);
   }
 }
-//! uploadContactImage
+//! removeContactImage
+
+//! removeUnsavedImageFromDB
+export async function removeUnsavedImageFromDB() {
+  const url = "/api/v1/contacts/removeUnsavedImage";
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//! removeUnsavedImageFromDB
 
 //! deleteSingleContactFromDB
 export async function deleteSingleContactFromDB(contactId, closeModal) {

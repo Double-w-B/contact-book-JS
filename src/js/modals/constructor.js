@@ -125,6 +125,7 @@ export const createImgInput = (name, src) => {
   avatarContainer.className = "avatar-container";
 
   const label = document.createElement("label");
+  if (src) label.className = "disable";
   label.title = "Press camera to add an image";
   const imgEl = document.createElement("img");
   imgEl.className = src ? "" : "img-icon";
@@ -204,7 +205,7 @@ export const createAddContactModalContent = () => {
   const buttonsContainer = document.createElement("div");
   buttonsContainer.className = "new-con-btns";
   const addButton = createButton("accept", "Add");
-  const cancelButton = createButton("cancel", "Cancel");
+  const cancelButton = createButton("cancel", "Close");
   buttonsContainer.append(addButton, cancelButton);
 
   main.modalContactAddEdit.append(
@@ -227,7 +228,7 @@ export const createEditContactModalContent = (name, src) => {
   const buttonsContainer = document.createElement("div");
   buttonsContainer.className = "new-con-btns";
   const saveButton = createButton("save", "Save");
-  const cancelButton = createButton("cancel", "Cancel");
+  const cancelButton = createButton("cancel", "Close");
   buttonsContainer.append(saveButton, cancelButton);
 
   main.modalContactAddEdit.append(

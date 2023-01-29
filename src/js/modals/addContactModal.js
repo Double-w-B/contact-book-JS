@@ -4,10 +4,15 @@ import { validation } from "../validation.js";
 import * as fetchData from "../fetch/index.js";
 import { createAddContactModalContent } from "./constructor.js";
 
+export const userImage = {
+  cloudinaryImgId: "",
+};
+
 export const addContactModal = () => {
   function closeModal() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalContactAddEdit.classList.remove("open-modal");
+    fetchData.removeUnsavedImageFromDB();
   }
 
   function handleAddImage() {
@@ -19,16 +24,20 @@ export const addContactModal = () => {
 
       const contactImage = new FormData();
       contactImage.append("image", inputImage);
-      fetchData.uploadContactImage(contactImage)
+      fetchData.uploadContactImage(contactImage);
     }
 
+    imgInputLabel.classList.add("disable");
     const reader = new FileReader();
     reader.addEventListener("load", loadLogic);
     reader.readAsDataURL(imgInput.files[0]);
   }
 
   function handleRemoveImage() {
+    fetchData.removeContactImage(userImage.cloudinaryImgId);
     utils.removeImage();
+    imgInputLabel.classList.remove("disable");
+
     imgSrc = "";
     imgName = "";
   }
@@ -75,6 +84,7 @@ export const addContactModal = () => {
   const inputAddress = document.getElementById("address");
   const inputNotes = document.getElementById("notes");
   const imgInput = document.querySelector("input[type=file]");
+  const imgInputLabel = document.querySelector(".avatar-container label");
   const imgRemoveBtn = document.querySelector(".avatar-container .fa-times");
   const addButton = document.querySelector(".accept");
   const cancelButton = document.querySelector(".cancel");

@@ -2,6 +2,7 @@ import * as main from "../main.js";
 import * as utils from "../utils.js";
 import { validation } from "../validation.js";
 import * as fetchData from "../fetch/index.js";
+import { userImage } from "./addContactModal.js";
 import { createEditContactModalContent } from "./constructor.js";
 
 export const editContactModal = () => {
@@ -14,6 +15,8 @@ export const editContactModal = () => {
   function closeModal() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalContactAddEdit.classList.remove("open-modal");
+    fetchData.removeUnsavedImageFromDB();
+    fetchData.getAllContacts();
   }
 
   function handleListClick(e) {
@@ -29,15 +32,22 @@ export const editContactModal = () => {
 
         const contactImage = new FormData();
         contactImage.append("image", inputImage);
-        fetchData.uploadContactImage(contactImage)
+        fetchData.uploadContactImage(contactImage);
       }
 
+      imgInputLabel.classList.add("disable");
       const reader = new FileReader();
       reader.addEventListener("load", loadLogic);
       reader.readAsDataURL(imgInput.files[0]);
     }
 
     function handleRemoveImage() {
+      if (imgCloudinaryId.startsWith("undefined")) {
+        fetchData.removeContactImage(userImage.cloudinaryImgId);
+      } else {
+        fetchData.removeContactImage(imgCloudinaryId, contactId);
+      }
+      imgInputLabel.classList.remove("disable");
       utils.removeImage();
       imgSrc = "";
       imgName = "";
@@ -99,7 +109,12 @@ export const editContactModal = () => {
     const inputAddress = document.getElementById("address");
     const inputNotes = document.getElementById("notes");
     const imgInput = document.querySelector("input[type=file]");
+    const imgInputLabel = document.querySelector(".avatar-container label");
     const imgRemoveBtn = document.querySelector(".avatar-container .fa-times");
+
+    const imgIdFirstPart = img.src.split("/").at(-2);
+    const imgIdSecondPart = img.src.split("/").at(-1).split(".")[0];
+    const imgCloudinaryId = imgIdFirstPart + "/" + imgIdSecondPart;
 
     const saveButton = document.querySelector(".save");
     const cancelButton = document.querySelector(".cancel");
