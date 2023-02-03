@@ -18,6 +18,7 @@ const navMenuBtn = document.querySelector(".nav__btn--menu");
 const searchInput = document.getElementById("search");
 
 const modalBackdrop = document.querySelector(".modal__backdrop");
+const modalUpdateData = document.querySelector(".modal__contact-update");
 const modalAuth = document.querySelector(".modal__auth");
 const modalContactInfo = document.querySelector(".modal__contact-info");
 const modalContactAddEdit = document.querySelector(".modal__contact-add");
@@ -28,6 +29,7 @@ const menuSelectAllBtn = document.querySelector(".menu__btn--select");
 const menuUnselectAllBtn = document.querySelector(".menu__btn--unselect");
 const menuRemoveSelectedBtn = document.querySelector(".menu__btn--remove");
 const menuChangeModeBtn = document.querySelector(".menu__btn--mode");
+const menuUpdateDataBtn = document.querySelector(".menu__btn--update");
 const menuAuthBtn = document.querySelector(".menu__btn--auth");
 const menuButtons = document.querySelectorAll(
   ".menu button:not(.menu__btn--auth)"
@@ -71,6 +73,7 @@ menuUnselectAllBtn.addEventListener("click", () =>
   ui.handleSelection("unselectAll")
 );
 menuAuthBtn.addEventListener("click", ui.openAuthModal);
+menuUpdateDataBtn.addEventListener("click", ui.openUpdateDataModal)
 
 export {
   data,
@@ -80,6 +83,7 @@ export {
   modalContactAddEdit,
   modalContactInfo,
   modalContactRemove,
+  modalUpdateData,
   contactsAmount,
   searchInput,
   navMenuBtn,
@@ -91,6 +95,7 @@ export {
   menuUnselectAllBtn,
   menuChangeModeBtn,
   menuRemoveSelectedBtn,
+  menuUpdateDataBtn,
   menuAuthBtn,
   list,
   menu,

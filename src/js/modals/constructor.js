@@ -415,3 +415,53 @@ export const createAuthModal = () => {
 
   return main.modalAuth;
 };
+
+export const createUpdateDataModal = () => {
+  utils.removeChildrenElements(main.modalUpdateData);
+
+  const credentials = document.createElement("div");
+  credentials.className = "modal__update__credentials";
+  const nameInput = createInputContent("user-name", "userName-input");
+  const newNameInput = createInputContent(
+    "user-new-name",
+    "newUserName-input"
+  );
+
+  const pElm = document.createElement("p");
+  pElm.className = "infoMsg";
+  credentials.append(nameInput, newNameInput, pElm);
+
+  const changeButtonsContainer = document.createElement("div");
+  changeButtonsContainer.className = "modal__update__change";
+  const changeNameButton = createButton(
+    "modal__update__change__button-name",
+    "name"
+  );
+  changeNameButton.classList.add("active");
+  const changeEmailButton = createButton(
+    "modal__update__change__button-email",
+    "email"
+    );
+    const changePasswordButton = createButton(
+      "modal__update__change__button-password",
+      "password"
+    );
+
+  const loadingIcon = createLoadingSpinner();
+  changeButtonsContainer.append(
+    changeNameButton,
+    changePasswordButton,
+    changeEmailButton,
+    loadingIcon
+  );
+
+  const buttonsContainer = document.createElement("div");
+  buttonsContainer.className = "modal__update__buttons";
+  const loginButton = createButton("modal__update__buttons-update", "update");
+  const closeButton = createButton("modal__update__buttons-close", "close");
+  buttonsContainer.append(loginButton, closeButton);
+
+  main.modalUpdateData.append(credentials, changeButtonsContainer, buttonsContainer);
+
+  return main.modalUpdateData;
+};

@@ -2,10 +2,7 @@ import * as main from "./main.js";
 import * as utils from "./utils.js";
 import { selectIcons } from "./ui.js";
 import * as constructor from "./constructor.js";
-import { authModal } from "./modals/authModal.js";
-import { infoContactModal } from "./modals/infoContactModal.js";
-import { editContactModal } from "./modals/editContactModal.js";
-import { removeContactModal } from "./modals/removeContactModal.js";
+import * as modal from "./modals";
 
 export const showAllContacts = () => {
   const contactsLengthElm = document.querySelector(".list__contacts-amount p");
@@ -48,9 +45,10 @@ export const showAllContacts = () => {
   }
 
   selectIcons();
-  authModal();
-  infoContactModal();
-  editContactModal();
-  removeContactModal();
+  modal.updateContactModal();
+  modal.authModal();
+  modal.infoContactModal();
+  modal.editContactModal();
+  modal.removeContactModal();
   contactsLengthElm.textContent = `Contacts: ${main.data.contacts.length}`;
 };

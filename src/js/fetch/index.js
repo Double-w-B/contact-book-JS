@@ -40,6 +40,7 @@ export async function checkCurrentUser() {
     main.inputContainer.classList.remove("disable");
     main.navNewContactBtn.classList.remove("hide");
     main.navAllContactsBtn.classList.remove("hide");
+    main.menuUpdateDataBtn.classList.remove("hide");
     main.menuAuthBtn.textContent = "Log out";
   } catch (error) {
     console.log(error);

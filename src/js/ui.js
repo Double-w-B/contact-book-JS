@@ -157,7 +157,7 @@ export const handleRemoveSelected = () => {
 };
 
 /* Open Auth modal / Logout */
-export const openAuthModal = async () => {
+export const openAuthModal = () => {
   const authButton = document.querySelector(".menu__btn--auth");
   const hintIcon = document.querySelector(".hintIcon");
   hintIcon.classList.add("hide");
@@ -168,4 +168,11 @@ export const openAuthModal = async () => {
   } else {
     logoutUser();
   }
+};
+
+/* Open UpdateData Modal */
+
+export const openUpdateDataModal = () => {
+  main.modalBackdrop.classList.add("open-modal");
+  main.modalUpdateData.classList.add("open-modal");
 };
