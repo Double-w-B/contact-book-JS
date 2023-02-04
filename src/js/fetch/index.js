@@ -17,6 +17,7 @@ export async function checkCurrentUser() {
   try {
     const url = "/api/v1/user/checkUser";
     const response = await fetch(url);
+    const data = await response.json();
 
     if (!response.ok) {
       main.userAuth.isUserLoggedIn = false;
@@ -30,6 +31,8 @@ export async function checkCurrentUser() {
     }
 
     main.userAuth.isUserLoggedIn = true;
+    main.userAuth.userName = data.user.name;
+    main.userAuth.userEmail = data.user.email;
 
     getAllContacts();
 
@@ -50,9 +53,7 @@ export async function checkCurrentUser() {
 
 //! registerUser
 export async function registerUser(userData, methods) {
-  const errorMsg = document.querySelector(
-    ".modal__auth__change__credentials .infoMsg"
-  );
+  const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
   const url = "/api/v1/auth/register";
   const requestOptions = {
     method: "POST",
@@ -92,9 +93,7 @@ export async function registerUser(userData, methods) {
 
 //! loginUser
 export async function loginUser(userData, methods) {
-  const errorMsg = document.querySelector(
-    ".modal__auth__change__credentials .infoMsg"
-  );
+  const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
   const url = "/api/v1/auth/login";
   const requestOptions = {
     method: "POST",
@@ -112,12 +111,12 @@ export async function loginUser(userData, methods) {
 
     setTimeout(() => {
       if (!response.ok) {
-        errorMsg.textContent = data.msg;
-        errorMsg.classList.add("show error");
         methods.hideLoadingIcon();
+        errorMsg.textContent = data.msg;
+        errorMsg.classList.add("show", "error");
 
         setTimeout(() => {
-          errorMsg.classList.remove("show error");
+          errorMsg.classList.remove("show", "error");
         }, 1500);
         return;
       }
@@ -125,6 +124,8 @@ export async function loginUser(userData, methods) {
       methods.clearInputs();
       methods.hideLoadingIcon();
       main.userAuth.isUserLoggedIn = true;
+      main.userAuth.userName = data.user.name;
+      main.userAuth.userEmail = data.user.email;
       main.modalBackdrop.classList.remove("open-modal");
       main.modalAuth.classList.remove("open-modal");
       main.menuButtons.forEach((button) => button.classList.remove("hide"));
@@ -367,3 +368,159 @@ export async function updateContact(contact, contactId, closeModal) {
   }
 }
 //! updateContact
+
+/* UPDATE USER DATA */
+
+//! updateName
+export async function updateUserName(name, methods) {
+  const { showLoadingIcon, hideLoadingIcon } = methods;
+  const inputsContainer = document.querySelector(".modal__update__credentials");
+  const userNameInput = inputsContainer.querySelector(".userName-input input");
+  const newUserNameInput = inputsContainer.querySelector(
+    ".newUserName-input input"
+  );
+
+  const url = `/api/v1/user/updateName`;
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  };
+
+  try {
+    showLoadingIcon();
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+
+    setTimeout(() => {
+      hideLoadingIcon();
+      newUserNameInput.value = "";
+      userNameInput.value = data.user.name;
+      main.userAuth.userName = data.user.name;
+    }, 1000);
+  } catch (error) {
+    console.log(error);
+  }
+}
+//! updateName
+
+//! updateEmail
+export async function updateUserEmail(data, methods) {
+  const { newUserEmail, userPassword } = data;
+  const { showLoadingIcon, hideLoadingIcon } = methods;
+  const reqData = { email: newUserEmail, password: userPassword };
+
+  const inputsContainer = document.querySelector(".modal__update__credentials");
+  const errorMsg = inputsContainer.querySelector(".infoMsg");
+
+  const userEmailInput = inputsContainer.querySelector(
+    ".userEmail-input input"
+  );
+  const newUserEmailInput = inputsContainer.querySelector(
+    ".newUserEmail-input input"
+  );
+  const userPasswordInput = inputsContainer.querySelector(
+    ".password-input input"
+  );
+
+  const url = `/api/v1/user/updateEmail`;
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(reqData),
+  };
+
+  try {
+    showLoadingIcon();
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+
+    if (!response.ok) {
+      setTimeout(() => {
+        hideLoadingIcon();
+        errorMsg.textContent = "Invalid credentials";
+        errorMsg.classList.add("show", "error");
+      }, 1000);
+
+      setTimeout(() => {
+        errorMsg.classList.remove("show", "error");
+      }, 2500);
+
+      return;
+    }
+    setTimeout(() => {
+      hideLoadingIcon();
+      userEmailInput.value = data.user.email;
+      newUserEmailInput.value = "";
+      userPasswordInput.value = "";
+    }, 1000);
+  } catch (error) {
+    console.log(error);
+  }
+}
+//! updateEmail
+
+//! updatePassword
+export async function updateUserPassword(data, methods) {
+  const { oldPassword, newPassword } = data;
+  const { showLoadingIcon, hideLoadingIcon } = methods;
+
+  const inputsContainer = document.querySelector(".modal__update__credentials");
+  const errorMsg = inputsContainer.querySelector(".infoMsg");
+  const oldPasswordInput = inputsContainer.querySelector(
+    ".password-input input"
+  );
+  const newPasswordInput = inputsContainer.querySelector(
+    ".newPassword-input input"
+  );
+
+  const url = `/api/v1/user/updatePassword`;
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ oldPassword, newPassword }),
+  };
+
+  try {
+    showLoadingIcon();
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+    console.log(data);
+
+    if (!response.ok) {
+      setTimeout(() => {
+        hideLoadingIcon();
+        errorMsg.textContent = "Invalid credentials";
+        errorMsg.classList.add("show", "error");
+      }, 1000);
+
+      setTimeout(() => {
+        errorMsg.classList.remove("show", "error");
+      }, 2500);
+
+      return;
+    }
+
+    setTimeout(() => {
+      hideLoadingIcon();
+      errorMsg.textContent = "Password updated";
+      errorMsg.classList.add("show", "success");
+      oldPasswordInput.value = "";
+      newPasswordInput.value = "";
+    }, 1000);
+
+    setTimeout(() => {
+      errorMsg.classList.remove("show", "success");
+    }, 2500);
+  } catch (error) {
+    console.log(error);
+  }
+}
+//! updatePassword
+/* UPDATE USER DATA */

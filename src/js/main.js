@@ -35,7 +35,7 @@ const menuButtons = document.querySelectorAll(
   ".menu button:not(.menu__btn--auth)"
 );
 
-const userAuth = { isUserLoggedIn: false };
+const userAuth = { isUserLoggedIn: false, userName: "", userEmail: "" };
 const data = { contacts: [] };
 
 if (!localStorage.theme) localStorage.theme = "light-mode";
@@ -73,7 +73,7 @@ menuUnselectAllBtn.addEventListener("click", () =>
   ui.handleSelection("unselectAll")
 );
 menuAuthBtn.addEventListener("click", ui.openAuthModal);
-menuUpdateDataBtn.addEventListener("click", ui.openUpdateDataModal)
+menuUpdateDataBtn.addEventListener("click", ui.openUpdateDataModal);
 
 export {
   data,

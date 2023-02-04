@@ -11,10 +11,11 @@ export const authModal = () => {
   const closeButton = document.querySelector(".modal__auth__buttons-close");
   const authCredentials = document.querySelector(".modal__auth__credentials");
   const emailInputContainer = document.querySelector(".userEmail-input");
-  const nameInputContainer = constructor.createInputContent("user-name", "userName-input");
-  const errorMsg = document.querySelector(
-    ".modal__auth__change__credentials .infoMsg"
+  const nameInputContainer = constructor.createInputContent(
+    "user-name",
+    "userName-input"
   );
+  const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
 
   const allInputs = authCredentials.getElementsByTagName("input");
   const loadingIcon = document.querySelector(".loadingIcon");

@@ -23,12 +23,14 @@ export const createInputContent = (type, className) => {
 
   const input = document.createElement("input");
   input.id = type;
-  input.type = type === "password" ? "password" : "text";
+  // input.type = type === "password" ? "password" : "text";
+  input.type = type.includes("password") ? "password" : "text";
   input.name = type;
   input.title = setTitle();
   input.required = true;
 
-  if (type.startsWith("user")) type = type.split("-").join(" ");
+  // if (type.startsWith("user")) type = type.split("-").join(" ");
+  if (type.includes("-")) type = type.split("-").join(" ");
   if (type === "phone") input.maxLength = "9";
   if (type === "address" || type === "notes") input.maxLength = "40";
 
@@ -422,10 +424,7 @@ export const createUpdateDataModal = () => {
   const credentials = document.createElement("div");
   credentials.className = "modal__update__credentials";
   const nameInput = createInputContent("user-name", "userName-input");
-  const newNameInput = createInputContent(
-    "user-new-name",
-    "newUserName-input"
-  );
+  const newNameInput = createInputContent("new-name", "newUserName-input");
 
   const pElm = document.createElement("p");
   pElm.className = "infoMsg";
@@ -441,11 +440,11 @@ export const createUpdateDataModal = () => {
   const changeEmailButton = createButton(
     "modal__update__change__button-email",
     "email"
-    );
-    const changePasswordButton = createButton(
-      "modal__update__change__button-password",
-      "password"
-    );
+  );
+  const changePasswordButton = createButton(
+    "modal__update__change__button-password",
+    "password"
+  );
 
   const loadingIcon = createLoadingSpinner();
   changeButtonsContainer.append(
@@ -461,7 +460,14 @@ export const createUpdateDataModal = () => {
   const closeButton = createButton("modal__update__buttons-close", "close");
   buttonsContainer.append(loginButton, closeButton);
 
-  main.modalUpdateData.append(credentials, changeButtonsContainer, buttonsContainer);
+  main.modalUpdateData.append(
+    credentials,
+    changeButtonsContainer,
+    buttonsContainer
+  );
+
+  const userNameInput = credentials.querySelector(".userName-input input");
+  userNameInput.value = main.userAuth.userName;
 
   return main.modalUpdateData;
 };
