@@ -2,7 +2,6 @@ import * as main from "../main.js";
 import * as constructor from "../constructor.js";
 import { removeChildrenElements } from "../utils.js";
 import { showAllContacts } from "../showAllContacts.js";
-import { userImage } from "../modals/addContactModal.js";
 
 //! checkCurrentUser
 export async function checkCurrentUser() {
@@ -69,22 +68,28 @@ export async function registerUser(userData, methods) {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
+    if (!response.ok) {
+      errorMsg.textContent = data.msg;
+      errorMsg.classList.add("show", "error");
+      methods.hideLoadingIcon();
+
+      setTimeout(() => {
+        errorMsg.classList.remove("show", "error");
+      }, 1500);
+      return;
+    }
+
     setTimeout(() => {
-      if (!response.ok) {
-        errorMsg.textContent = data.msg;
-        errorMsg.classList.add("show", "error");
-        methods.hideLoadingIcon();
-        setTimeout(() => {
-          errorMsg.classList.remove("show", "error");
-        }, 1500);
-        return;
-      }
       errorMsg.textContent = "Account created! Log in!";
       errorMsg.classList.add("show", "success");
 
       methods.clearInputs();
       methods.hideLoadingIcon();
     }, 1000);
+
+    setTimeout(() => {
+      errorMsg.classList.remove("show", "success");
+    }, 2500);
   } catch (error) {
     console.log(error);
   }
@@ -226,7 +231,10 @@ export async function addContactToDB(contact, closeModal) {
       return;
     }
 
-    getAllContacts();
+    main.contactImage.cloudinaryImageId = "";
+    main.contactImage.contactImageName = "";
+    main.contactImage.contactImageUrl = "";
+
     closeModal();
 
     console.log(data);
@@ -248,7 +256,9 @@ export async function uploadContactImage(contactImage) {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
-    userImage.cloudinaryImgId = data.msg;
+    main.contactImage.cloudinaryImageId = data.contactImageId;
+    main.contactImage.contactImageUrl = data.contactImageUrl;
+    main.contactImage.contactImageName = data.contactImageName;
 
     console.log(data);
   } catch (error) {
@@ -258,10 +268,9 @@ export async function uploadContactImage(contactImage) {
 //! uploadContactImage
 
 //! removeContactImage
-export async function removeContactImage(cloudinaryImgId, contactId) {
+export async function removeContactImage(cloudinaryImageId, contactId) {
   const url = "/api/v1/contacts/removeImage";
-
-  const data = { cloudinaryImgId };
+  const data = { cloudinaryImageId };
 
   if (contactId) {
     data.contactId = contactId;
@@ -278,6 +287,10 @@ export async function removeContactImage(cloudinaryImgId, contactId) {
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
+
+    main.contactImage.cloudinaryImageId = "";
+    main.contactImage.contactImageUrl = "";
+    main.contactImage.contactImageName = "";
 
     console.log(data);
   } catch (error) {
@@ -298,7 +311,6 @@ export async function removeUnsavedImageFromDB() {
     console.log(error);
   }
 }
-
 //! removeUnsavedImageFromDB
 
 //! deleteSingleContactFromDB
@@ -359,7 +371,6 @@ export async function updateContact(contact, contactId, closeModal) {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
-    getAllContacts();
     closeModal();
 
     console.log(data);
@@ -370,7 +381,6 @@ export async function updateContact(contact, contactId, closeModal) {
 //! updateContact
 
 /* UPDATE USER DATA */
-
 //! updateName
 export async function updateUserName(name, methods) {
   const { showLoadingIcon, hideLoadingIcon } = methods;

@@ -4,42 +4,28 @@ import { validation } from "../validation.js";
 import * as fetchData from "../fetch/index.js";
 import { createAddContactModalContent } from "./constructor.js";
 
-export const userImage = {
-  cloudinaryImgId: "",
-};
-
 export const addContactModal = () => {
   function closeModal() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalContactAddEdit.classList.remove("open-modal");
-    fetchData.removeUnsavedImageFromDB();
+
+    if (main.contactImage.cloudinaryImageId) {
+      fetchData.removeUnsavedImageFromDB();
+    }
+    fetchData.getAllContacts();
   }
 
   function handleAddImage() {
-    function loadLogic() {
-      const inputImage = document.querySelector("input[type=file]").files[0];
-      utils.addImage(reader);
-      imgSrc = reader.result;
-      imgName = `../${inputImage.name}`;
-
-      const contactImage = new FormData();
-      contactImage.append("image", inputImage);
-      fetchData.uploadContactImage(contactImage);
-    }
-
     imgInputLabel.classList.add("disable");
     const reader = new FileReader();
-    reader.addEventListener("load", loadLogic);
+    reader.addEventListener("load", () => utils.addImage(reader));
     reader.readAsDataURL(imgInput.files[0]);
   }
 
   function handleRemoveImage() {
-    fetchData.removeContactImage(userImage.cloudinaryImgId);
+    fetchData.removeContactImage(main.contactImage.cloudinaryImageId);
     utils.removeImage();
     imgInputLabel.classList.remove("disable");
-
-    imgSrc = "";
-    imgName = "";
   }
 
   function addContact() {
@@ -65,7 +51,8 @@ export const addContactModal = () => {
         inputAddress.value,
         inputNotes.value,
         imgSrc,
-        imgName
+        imgName,
+        imgId
       );
 
       fetchData.addContactToDB(newContact, closeModal);
@@ -89,8 +76,9 @@ export const addContactModal = () => {
   const addButton = document.querySelector(".accept");
   const cancelButton = document.querySelector(".cancel");
 
-  let imgSrc = "";
-  let imgName = "";
+  let imgSrc = main.contactImage.contactImageUrl;
+  let imgName = `.../${main.contactImage.contactImageName}`;
+  let imgId = main.contactImage.cloudinaryImageId;
 
   imgInput.addEventListener("change", handleAddImage);
   imgRemoveBtn.addEventListener("click", handleRemoveImage);

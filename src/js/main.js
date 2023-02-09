@@ -37,6 +37,11 @@ const menuButtons = document.querySelectorAll(
 
 const userAuth = { isUserLoggedIn: false, userName: "", userEmail: "" };
 const data = { contacts: [] };
+const contactImage = {
+  cloudinaryImageId: "",
+  contactImageName: "",
+  contactImageUrl: "",
+};
 
 if (!localStorage.theme) localStorage.theme = "light-mode";
 document.body.className = localStorage.theme;
@@ -101,4 +106,5 @@ export {
   menu,
   modalAuth,
   userAuth,
+  contactImage
 };
