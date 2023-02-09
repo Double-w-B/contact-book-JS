@@ -1,8 +1,6 @@
 import * as main from "./main.js";
 import * as utils from "./utils.js";
-import * as constructor from "./constructor.js";
 import { logoutUser } from "./fetch/index.js";
-import { deleteManyContactsFromDB } from "./fetch/index.js";
 
 /* Dark/Light mode */
 export const themeMode = () => {
@@ -115,45 +113,6 @@ export const handleSelection = (type) => {
       img.firstElementChild.classList.remove("show-checked")
     );
   }
-};
-
-/* Remove selected button */
-export const handleRemoveSelected = () => {
-  const contactImg = document.querySelectorAll(".contact-img");
-  let contactsId = [];
-
-  contactImg.forEach((li) => {
-    const parentElId = li.parentElement.id;
-    li.firstElementChild.classList.contains("show-checked") &&
-      contactsId.push(parentElId);
-  });
-
-  if (contactsId.length === 0) return;
-
-  function openModal() {
-    main.menu.classList.remove("show-menu");
-    main.modalBackdrop.classList.add("open-modal");
-    main.modalContactRemove.classList.add("open-modal");
-  }
-  function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalContactRemove.classList.remove("open-modal");
-    contactsId = [];
-  }
-
-  function deleteContacts() {
-    deleteManyContactsFromDB(contactsId, closeModal);
-  }
-
-  utils.removeChildrenElements(main.modalContactRemove);
-  constructor.createRemoveModalContent(contactsId);
-  openModal();
-
-  const deleteButton = document.querySelector(".confirm-delete");
-  const cancelButton = document.querySelector(".confirm-cancel");
-
-  deleteButton.addEventListener("click", deleteContacts);
-  cancelButton.addEventListener("click", closeModal);
 };
 
 /* Open Auth modal / Logout */

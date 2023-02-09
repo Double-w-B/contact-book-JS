@@ -64,45 +64,6 @@ export const createButton = (className, text) => {
   return button;
 };
 
-/* RemoveSelected modal */
-export const createRemoveModalContent = (itemsToRemove) => {
-  const content = document.createElement("div");
-  content.className = "confirm-container";
-
-  const questionContainer = document.createElement("div");
-  questionContainer.className = "confirm-question";
-
-  const pElm = document.createElement("p");
-
-  const span = document.createElement("span");
-  span.className = "selected-contact";
-  const spanTextNode = document.createTextNode(`${itemsToRemove.length}`);
-  span.append(spanTextNode);
-
-  const firstTextNode = document.createTextNode(
-    "Are you sure you want to delete "
-  );
-  const secondTextNode = document.createTextNode(
-    `${itemsToRemove.length < 5 ? "" : "all the "}`
-  );
-  const lastTextNode = document.createTextNode(
-    `${itemsToRemove.length === 1 ? " contact" : " contacts"}?`
-  );
-  pElm.append(firstTextNode, secondTextNode, span, lastTextNode);
-  questionContainer.append(pElm);
-
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "confirm-btns";
-
-  const deleteBtn = createButton("confirm-delete", "Delete");
-  const cancelBtn = createButton("confirm-cancel", "Cancel");
-
-  buttonsContainer.append(deleteBtn, cancelBtn);
-  content.append(questionContainer, buttonsContainer);
-  main.modalContactRemove.append(content);
-  return main.modalContactRemove;
-};
-
 /* Footer */
 export const createFooter = () => {
   const footer = document.querySelector("footer");

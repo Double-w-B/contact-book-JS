@@ -2,7 +2,7 @@ import * as main from "../main.js";
 import { deleteSingleContactFromDB } from "../fetch/index.js";
 import { createRemoveSingleContactModal } from "./constructor.js";
 
-export const removeContactModal = () => {
+export const removeSingleContactModal = () => {
   main.listOfContacts.addEventListener("click", handleListClick);
 
   function openModal() {
@@ -25,7 +25,18 @@ export const removeContactModal = () => {
     const contactFullName = name + " " + surname;
 
     function deleteContact() {
-      deleteSingleContactFromDB(contactId, closeModal);
+      const methods = { handleIsLoading, closeModal };
+      deleteSingleContactFromDB(contactId, methods);
+    }
+
+    function handleIsLoading(boolean) {
+      if (boolean) {
+        loadingIcon.classList.add("show");
+        deleteButton.classList.add("disable");
+      } else {
+        loadingIcon.classList.remove("show");
+        deleteButton.classList.remove("disable");
+      }
     }
 
     openModal();
@@ -33,6 +44,7 @@ export const removeContactModal = () => {
 
     const deleteButton = document.querySelector(".confirm-delete");
     const cancelButton = document.querySelector(".confirm-cancel");
+    const loadingIcon = document.querySelector(".confirm-btns .loadingIcon");
 
     deleteButton.addEventListener("click", deleteContact);
     cancelButton.addEventListener("click", closeModal);

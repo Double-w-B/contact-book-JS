@@ -23,13 +23,11 @@ export const createInputContent = (type, className) => {
 
   const input = document.createElement("input");
   input.id = type;
-  // input.type = type === "password" ? "password" : "text";
   input.type = type.includes("password") ? "password" : "text";
   input.name = type;
   input.title = setTitle();
   input.required = true;
 
-  // if (type.startsWith("user")) type = type.split("-").join(" ");
   if (type.includes("-")) type = type.split("-").join(" ");
   if (type === "phone") input.maxLength = "9";
   if (type === "address" || type === "notes") input.maxLength = "40";
@@ -117,7 +115,7 @@ export const createImgInput = (name, src) => {
   function setTextNode() {
     if (!name) return "add an image";
     if (name.length > 15) return `...${name.slice(-15)}`;
-    return name;
+    return `.../${name}`;
   }
 
   const imgContainer = document.createElement("div");
@@ -208,7 +206,8 @@ export const createAddContactModalContent = () => {
   buttonsContainer.className = "new-con-btns";
   const addButton = createButton("accept", "Add");
   const cancelButton = createButton("cancel", "Close");
-  buttonsContainer.append(addButton, cancelButton);
+  const loadingSpinner = createLoadingSpinner();
+  buttonsContainer.append(addButton, cancelButton, loadingSpinner);
 
   main.modalContactAddEdit.append(
     imgSection,
@@ -231,7 +230,8 @@ export const createEditContactModalContent = (name, src) => {
   buttonsContainer.className = "new-con-btns";
   const saveButton = createButton("save", "Save");
   const cancelButton = createButton("cancel", "Close");
-  buttonsContainer.append(saveButton, cancelButton);
+  const loadingSpinner = createLoadingSpinner();
+  buttonsContainer.append(saveButton, cancelButton, loadingSpinner);
 
   main.modalContactAddEdit.append(
     imgSection,
@@ -267,9 +267,53 @@ export const createRemoveSingleContactModal = (selectedContact) => {
   buttonsContainer.className = "confirm-btns";
   const deleteButton = createButton("confirm-delete", "Delete");
   const cancelButton = createButton("confirm-cancel", "Cancel");
-  buttonsContainer.append(deleteButton, cancelButton);
+  const loadingSpinner = createLoadingSpinner();
+  buttonsContainer.append(deleteButton, cancelButton, loadingSpinner);
+
   container.append(questionContainer, buttonsContainer);
   main.modalContactRemove.append(container);
+  return main.modalContactRemove;
+};
+
+/* Remove many contacts modal */
+export const createRemoveManyContactsModal = (itemsToRemove) => {
+  utils.removeChildrenElements(main.modalContactRemove);
+
+  const content = document.createElement("div");
+  content.className = "confirm-container";
+
+  const questionContainer = document.createElement("div");
+  questionContainer.className = "confirm-question";
+
+  const pElm = document.createElement("p");
+
+  const span = document.createElement("span");
+  span.className = "selected-contact";
+  const spanTextNode = document.createTextNode(`${itemsToRemove.length}`);
+  span.append(spanTextNode);
+
+  const firstTextNode = document.createTextNode(
+    "Are you sure you want to delete "
+  );
+  const secondTextNode = document.createTextNode(
+    `${itemsToRemove.length < 5 ? "" : "all the "}`
+  );
+  const lastTextNode = document.createTextNode(
+    `${itemsToRemove.length === 1 ? " contact" : " contacts"}?`
+  );
+  pElm.append(firstTextNode, secondTextNode, span, lastTextNode);
+  questionContainer.append(pElm);
+
+  const buttonsContainer = document.createElement("div");
+  buttonsContainer.className = "confirm-btns";
+  const loadingSpinner = createLoadingSpinner();
+
+  const deleteBtn = createButton("confirm-delete", "Delete");
+  const cancelBtn = createButton("confirm-cancel", "Cancel");
+  buttonsContainer.append(deleteBtn, cancelBtn, loadingSpinner);
+
+  content.append(questionContainer, buttonsContainer);
+  main.modalContactRemove.append(content);
   return main.modalContactRemove;
 };
 

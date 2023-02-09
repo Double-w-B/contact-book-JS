@@ -3,7 +3,7 @@ import * as utils from "../utils";
 import * as fetch from "../fetch";
 import { createUpdateDataModal, createInputContent } from "./constructor";
 
-export const updateContactModal = () => {
+export const updateUserDataModal = () => {
   function closeModal() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalUpdateData.classList.remove("open-modal");
