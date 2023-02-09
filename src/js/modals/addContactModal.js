@@ -16,21 +16,40 @@ export const addContactModal = () => {
   }
 
   function handleAddImage() {
+    function loadLogic() {
+      const inputImage = document.querySelector("input[type=file]").files[0];
+
+      utils.addImage(reader);
+      const contactImage = new FormData();
+      contactImage.append("image", inputImage);
+      fetchData.uploadContactImage(contactImage, handleIsLoading);
+    }
     imgInputLabel.classList.add("disable");
     const reader = new FileReader();
-    reader.addEventListener("load", () => utils.addImage(reader));
+    reader.addEventListener("load", loadLogic);
     reader.readAsDataURL(imgInput.files[0]);
   }
 
   function handleRemoveImage() {
-    fetchData.removeContactImage(main.contactImage.cloudinaryImageId);
+    const data = { cloudinaryImageId: main.contactImage.cloudinaryImageId };
+    fetchData.removeContactImage(data, handleIsLoading);
     utils.removeImage();
     imgInputLabel.classList.remove("disable");
   }
 
+  function handleIsLoading(boolean) {
+    if (boolean) {
+      loadingIcon.classList.add("show");
+      addButton.classList.add("disable");
+    } else {
+      loadingIcon.classList.remove("show");
+      addButton.classList.remove("disable");
+    }
+  }
+
   function addContact() {
     const contactsNumbers = main.data.contacts.map((person) => person.phone);
-
+    const methods = { handleIsLoading, closeModal };
     validation(inputName, inputSurname, inputPhone, inputEmail);
 
     if (
@@ -55,7 +74,7 @@ export const addContactModal = () => {
         imgId
       );
 
-      fetchData.addContactToDB(newContact, closeModal);
+      fetchData.addContactToDB(newContact, methods);
     }
   }
 
@@ -73,6 +92,7 @@ export const addContactModal = () => {
   const imgInput = document.querySelector("input[type=file]");
   const imgInputLabel = document.querySelector(".avatar-container label");
   const imgRemoveBtn = document.querySelector(".avatar-container .fa-times");
+  const loadingIcon = document.querySelector(".new-con-btns .loadingIcon");
   const addButton = document.querySelector(".accept");
   const cancelButton = document.querySelector(".cancel");
 

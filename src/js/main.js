@@ -1,9 +1,9 @@
 import * as ui from "./ui.js";
+import * as modal from "./modals";
 import * as constructor from "./constructor.js";
-import { displayMatches } from "./searchInput.js";
+import { searchDebounce } from "./searchInput.js";
 import { contactsSubmenu } from "./contactsSubmenu.js";
 import { showAllContacts } from "./showAllContacts.js";
-import { addContactModal } from "./modals/addContactModal.js";
 import { checkCurrentUser } from "./fetch/index.js";
 import "../../src/scss/style.scss";
 
@@ -54,8 +54,8 @@ showAllContacts();
 contactsSubmenu();
 checkCurrentUser();
 
-searchInput.addEventListener("change", displayMatches);
-searchInput.addEventListener("keyup", displayMatches);
+searchInput.addEventListener("change", searchDebounce());
+searchInput.addEventListener("keyup", searchDebounce());
 
 list.addEventListener("scroll", ui.hideScrollbarThumb);
 navMenuBtn.addEventListener("click", () => {
@@ -65,12 +65,12 @@ navMenuBtn.addEventListener("click", () => {
 });
 document.addEventListener("click", ui.hideMenu);
 
-navNewContactBtn.addEventListener("click", addContactModal);
+navNewContactBtn.addEventListener("click", modal.addContactModal);
 navAllContactsBtn.addEventListener("click", showAllContacts);
 
 navigationLetters.addEventListener("click", ui.scrollTo);
 menuChangeModeBtn.addEventListener("click", ui.themeMode);
-menuRemoveSelectedBtn.addEventListener("click", ui.handleRemoveSelected);
+menuRemoveSelectedBtn.addEventListener("click", modal.removeManyContactsModal);
 menuSelectAllBtn.addEventListener("click", () =>
   ui.handleSelection("selectAll")
 );
@@ -106,5 +106,5 @@ export {
   menu,
   modalAuth,
   userAuth,
-  contactImage
+  contactImage,
 };

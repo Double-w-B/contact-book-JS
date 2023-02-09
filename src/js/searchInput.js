@@ -1,11 +1,10 @@
 import * as main from "./main.js";
 import { selectIcons } from "./ui.js";
+import * as modal from "./modals/index.js";
 import * as constructor from "./constructor.js";
 import { removeChildrenElements } from "./utils.js";
 import { showAllContacts } from "./showAllContacts.js";
-import { infoContactModal } from "./modals/infoContactModal.js";
-import { removeContactModal } from "./modals/removeContactModal.js";
-import { editContactModal } from "./modals/editContactModal.js";
+
 
 const findMatches = (wordToMatch, contactsData) => {
   return contactsData.filter((person) => {
@@ -16,6 +15,16 @@ const findMatches = (wordToMatch, contactsData) => {
       person.phone.match(regex)
     );
   });
+};
+
+export const searchDebounce = () => {
+  let timer;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      displayMatches();
+    }, 250);
+  };
 };
 
 export const displayMatches = () => {
@@ -50,7 +59,7 @@ export const displayMatches = () => {
   }
 
   selectIcons();
-  editContactModal();
-  infoContactModal();
-  removeContactModal();
+  modal.editContactModal();
+  modal.infoContactModal();
+  modal.removeSingleContactModal();
 };

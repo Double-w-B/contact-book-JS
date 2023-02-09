@@ -43,12 +43,16 @@ export const showAllContacts = () => {
     iconClassName = "fas fa-sign-in-alt";
     constructor.createInfoIcon(textInfo, iconClassName);
   }
+  if (main.userAuth.isUserLoggedIn) {
+    contactsLengthElm.textContent = `Contacts: ${main.data.contacts.length}`;
+  } else {
+    contactsLengthElm.textContent = "";
+  }
 
   selectIcons();
-  modal.updateContactModal();
   modal.authModal();
   modal.infoContactModal();
   modal.editContactModal();
-  modal.removeContactModal();
-  contactsLengthElm.textContent = `Contacts: ${main.data.contacts.length}`;
+  modal.removeSingleContactModal();
+  modal.updateUserDataModal();
 };

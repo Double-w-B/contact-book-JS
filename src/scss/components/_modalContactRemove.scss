@@ -41,11 +41,24 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      position: relative;
+
+      .loadingIcon {
+        left: 1.5rem;
+        top: -0.5rem;
+        transform: none;
+      }
 
       button {
         @include shared.modalButton;
         margin: 0 1rem 0 0.5rem;
         width: 80px;
+
+        &.confirm-delete {
+          &.disable {
+            pointer-events: none;
+          }
+        }
       }
     }
   }

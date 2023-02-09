@@ -25,21 +25,39 @@ export const editContactModal = () => {
     if (!e.target.className || e.target.className !== "editCon") return;
 
     function handleAddImage() {
+      function loadLogic() {
+        const inputImage = document.querySelector("input[type=file]").files[0];
+
+        utils.addImage(reader);
+        const contactImage = new FormData();
+        contactImage.append("image", inputImage);
+        fetchData.uploadContactImage(contactImage, handleIsLoading);
+      }
       imgInputLabel.classList.add("disable");
       const reader = new FileReader();
-      reader.addEventListener("load", () => utils.addImage(reader));
+      reader.addEventListener("load", loadLogic);
       reader.readAsDataURL(imgInput.files[0]);
     }
 
     function handleRemoveImage() {
-      fetchData.removeContactImage(imgCloudinaryId, contactId);
+      const data = { cloudinaryImageId: imgCloudinaryId, contactId };
+      fetchData.removeContactImage(data, handleIsLoading);
       imgInputLabel.classList.remove("disable");
       utils.removeImage();
     }
 
+    function handleIsLoading(boolean) {
+      if (boolean) {
+        loadingIcon.classList.add("show");
+        saveButton.classList.add("disable");
+      } else {
+        loadingIcon.classList.remove("show");
+        saveButton.classList.remove("disable");
+      }
+    }
+
     function saveChanges() {
       const contactsNumbers = main.data.contacts.map((person) => person._id);
-
       validation(inputName, inputSurname, inputPhone, inputEmail);
 
       if (
@@ -73,7 +91,10 @@ export const editContactModal = () => {
           main.contactImage.cloudinaryImageId
         );
 
-        fetchData.updateContact(newContact, contactId, closeModal);
+        const data = { newContact, contactId };
+        const methods = { handleIsLoading, closeModal };
+
+        fetchData.updateContact(data, methods);
       } else {
         return;
       }
@@ -97,6 +118,7 @@ export const editContactModal = () => {
     const imgInput = document.querySelector("input[type=file]");
     const imgInputLabel = document.querySelector(".avatar-container label");
     const imgRemoveBtn = document.querySelector(".avatar-container .fa-times");
+    const loadingIcon = document.querySelector(".new-con-btns .loadingIcon");
     const imgCloudinaryId = img.id;
 
     const saveButton = document.querySelector(".save");

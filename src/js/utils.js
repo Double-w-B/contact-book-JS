@@ -1,6 +1,6 @@
 import * as main from "./main.js";
 import { showAllContacts } from "./showAllContacts.js";
-import * as fetchData from "./fetch/index.js";
+
 /* Remove children elements */
 export const removeChildrenElements = (parentElm) => {
   while (parentElm.firstChild) {
@@ -49,7 +49,6 @@ export const addImage = (reader) => {
     ".avatar-container .fa-times"
   );
 
-
   inputImgName.innerText =
     inputImage.name.length > 15
       ? `...${inputImage.name.slice(-15)}`
@@ -61,10 +60,6 @@ export const addImage = (reader) => {
   inputImgContainer.children[0].draggable = false;
   inputImgContainer.children[0].className = "no-select";
   inputImgRemoveBtn.classList.remove("hide");
-
-  const contactImage = new FormData();
-  contactImage.append("image", inputImage);
-  fetchData.uploadContactImage(contactImage);
 };
 
 /* Remove avatar image*/

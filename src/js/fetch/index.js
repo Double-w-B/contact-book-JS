@@ -205,19 +205,22 @@ export async function getAllContacts() {
 //! getAllContacts
 
 //! addContactToDB
-export async function addContactToDB(contact, closeModal) {
+export async function addContactToDB(contact, methods) {
   const errorMsg = document.querySelector(".new-con-secondary-info .infoMsg");
+  const { handleIsLoading, closeModal } = methods;
+  handleIsLoading(true);
+
+  const url = "/api/v1/contacts";
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(contact),
+  };
+
   try {
-    const url = "/api/v1/contacts";
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(contact),
-    };
-
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
@@ -227,6 +230,7 @@ export async function addContactToDB(contact, closeModal) {
 
       setTimeout(() => {
         errorMsg.classList.remove("show");
+        handleIsLoading(false);
       }, 1500);
       return;
     }
@@ -234,6 +238,7 @@ export async function addContactToDB(contact, closeModal) {
     main.contactImage.cloudinaryImageId = "";
     main.contactImage.contactImageName = "";
     main.contactImage.contactImageUrl = "";
+    handleIsLoading(false);
 
     closeModal();
 
@@ -245,12 +250,14 @@ export async function addContactToDB(contact, closeModal) {
 //! addContactToDB
 
 //! uploadContactImage
-export async function uploadContactImage(contactImage) {
+export async function uploadContactImage(contactImage, handleIsLoading) {
   const url = "/api/v1/contacts/uploadImage";
   const requestOptions = {
     method: "POST",
     body: contactImage,
   };
+
+  handleIsLoading(true);
 
   try {
     const response = await fetch(url, requestOptions);
@@ -259,6 +266,7 @@ export async function uploadContactImage(contactImage) {
     main.contactImage.cloudinaryImageId = data.contactImageId;
     main.contactImage.contactImageUrl = data.contactImageUrl;
     main.contactImage.contactImageName = data.contactImageName;
+    handleIsLoading(false);
 
     console.log(data);
   } catch (error) {
@@ -268,7 +276,9 @@ export async function uploadContactImage(contactImage) {
 //! uploadContactImage
 
 //! removeContactImage
-export async function removeContactImage(cloudinaryImageId, contactId) {
+export async function removeContactImage(contactData, handleIsLoading) {
+  const { cloudinaryImageId, contactId } = contactData;
+
   const url = "/api/v1/contacts/removeImage";
   const data = { cloudinaryImageId };
 
@@ -283,7 +293,7 @@ export async function removeContactImage(cloudinaryImageId, contactId) {
     },
     body: JSON.stringify(data),
   };
-
+  handleIsLoading(true);
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
@@ -291,6 +301,7 @@ export async function removeContactImage(cloudinaryImageId, contactId) {
     main.contactImage.cloudinaryImageId = "";
     main.contactImage.contactImageUrl = "";
     main.contactImage.contactImageName = "";
+    handleIsLoading(false);
 
     console.log(data);
   } catch (error) {
@@ -314,16 +325,22 @@ export async function removeUnsavedImageFromDB() {
 //! removeUnsavedImageFromDB
 
 //! deleteSingleContactFromDB
-export async function deleteSingleContactFromDB(contactId, closeModal) {
+export async function deleteSingleContactFromDB(contactId, methods) {
+  const { handleIsLoading, closeModal } = methods;
+
   const url = `/api/v1/contacts/${contactId}`;
   const requestOptions = {
     method: "DELETE",
   };
 
+  handleIsLoading(true);
+
   try {
     await fetch(url, requestOptions);
 
     getAllContacts();
+    handleIsLoading(false);
+
     closeModal();
   } catch (error) {
     console.log(error);
@@ -332,21 +349,25 @@ export async function deleteSingleContactFromDB(contactId, closeModal) {
 //! deleteSingleContactFromDB
 
 //! deleteManyContactsFromDB
-export async function deleteManyContactsFromDB(contactsId, closeModal) {
-  try {
-    const url = "/api/v1/contacts";
-    const requestOptions = {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ contactsId }),
-    };
+export async function deleteManyContactsFromDB(contactsId, methods) {
+  const { handleIsLoading, closeModal } = methods;
+  const url = "/api/v1/contacts";
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ contactsId }),
+  };
 
+  try {
+    handleIsLoading(true);
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
     getAllContacts();
+    handleIsLoading(false);
+
     closeModal();
 
     console.log(data);
@@ -357,19 +378,24 @@ export async function deleteManyContactsFromDB(contactsId, closeModal) {
 //! deleteManyContactsFromDB
 
 //! updateContact
-export async function updateContact(contact, contactId, closeModal) {
-  try {
-    const url = `/api/v1/contacts/${contactId}`;
-    const requestOptions = {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(contact),
-    };
+export async function updateContact(contactData, methods) {
+  const { newContact: contact, contactId } = contactData;
+  const { handleIsLoading, closeModal } = methods;
 
+  const url = `/api/v1/contacts/${contactId}`;
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(contact),
+  };
+  try {
+    handleIsLoading(true);
     const response = await fetch(url, requestOptions);
     const data = await response.json();
+
+    handleIsLoading(false);
 
     closeModal();
 
