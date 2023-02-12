@@ -9,9 +9,9 @@
   opacity: 0;
   transition: all 0.35s linear;
   z-index: 1;
-  background-color: $grey-semi-light;
+  background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px,
-    inset 0 7px 9px -7px rgba(0, 0, 0, 0.4),
+    inset 0 7px 9px -7px rgba(0, 0, 0, 0.1),
     inset 7px 0 1px -7px rgba(0, 0, 0, 0.4),
     inset -7px 0 1px -7px rgba(0, 0, 0, 0.4),
     inset 0 -7px 1px -7px rgba(0, 0, 0, 0.4);
@@ -36,6 +36,7 @@
     border: none;
     font-size: 1rem;
     color: $almost-black;
+    color: #555555;
 
     &:not(.menu__btn--login).hide {
       display: none;
@@ -48,6 +49,4 @@
       transform: scale(0.98);
     }
   }
-
- 
 }

@@ -17,8 +17,8 @@
   visibility: hidden;
   z-index: -10;
   position: absolute;
-  border-radius: 0.3rem;
-  background-color: $white-dark;
+  border-radius: 0.5rem;
+  background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -26,25 +26,27 @@
 @mixin modalAddEditInput {
   outline: none;
   border: none;
-  border-bottom: 0.15rem solid $grey-semi-light;
-  border-bottom-left-radius: 0.1rem;
-  border-bottom-right-radius: 0.1rem;
+  height: 30px;
+  box-shadow: rgba(225, 225, 225, 1) 0px 0px 0px 1px;
+  padding: 0.1rem 0;
+  border-radius: 1.5rem;
   font-size: 1.2rem;
   font-family: inherit;
   text-transform: capitalize;
-  background-color: transparent;
+  background-color: rgba(225, 225, 225, 0.2);
   color: $blue-primary;
 
   &:focus,
   &:valid {
-    border-bottom: 0.15rem solid $grey-semi-light-2;
+    background-color: transparent;
 
     & + label {
-      transform: translateY(-30px);
+      transform: translateY(-33px);
       font-size: 0.8rem;
       font-weight: bold;
       letter-spacing: 0.5px;
       color: $grey-semi-dark;
+      color: #555555;
 
       span {
         color: $red-secondary;
@@ -62,8 +64,8 @@
   border: none;
   border-radius: 1.5rem;
   transition: all 0.2s linear;
-  background-color: $white-secondary;
-  color: $grey-dark-secondary;
+  background-color: $blue-primary;
+  color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 3px, inset 0px 0px 2px;
 
   &:active {
@@ -73,8 +75,7 @@
   }
 
   &:hover {
-    background-color: $blue-primary;
-    color: $white-secondary;
+    opacity: 0.9;
   }
 }
 

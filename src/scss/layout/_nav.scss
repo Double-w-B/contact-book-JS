@@ -1,14 +1,14 @@
 nav {
   width: 100%;
   height: 9%;
-  background-color: $grey-semi-light;
+  background-color: #fff;
   display: flex;
   flex-wrap: no-wrap;
   align-items: center;
   justify-content: space-around;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
-  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+
   position: relative;
 
   .hintIcon {
@@ -33,8 +33,8 @@ nav {
 
       width: 16px;
       height: 16px;
-      border-bottom: 4px solid #fafafa;
-      border-right: 4px solid #fafafa;
+      border-bottom: 4px solid rgba(225, 225, 225, 0.9);
+      border-right: 4px solid rgba(225, 225, 225, 0.9);
       transform: rotate(45deg);
       margin: -10px;
       animation: animate 2s infinite;
@@ -62,40 +62,45 @@ nav {
 
     input {
       width: 100%;
-      height: 58.5%;
+      height: 38px;
       font-family: inherit;
       font-size: 1.2rem;
-      background-color: $white-secondary;
-      color: $blue-primary;
-      padding: 0 2rem 0 1rem;
+
+      color: #878788;
+      padding: 0 2.2rem 0 1rem;
       border-radius: 1.5rem;
       border: none;
       outline: none;
       transition: all 0.3s linear;
-      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+      box-shadow: rgba(225, 225, 225, 1) 0px 0px 0px 1px;
+      background-color: rgba(225, 225, 225, 0.2);
+      z-index: 1;
 
       &:hover {
         &::placeholder {
-          opacity: 0.25;
+          opacity: 0.85;
         }
         & + .input__search-icon .fa-search {
-          opacity: 0.15;
+          opacity: 0.75;
         }
       }
 
-      &:focus {
+      &:focus,
+      &:valid {
+        background-color: transparent;
+
         & + .input__search-icon .fa-search {
           opacity: 0;
         }
       }
 
       &::placeholder {
-        color: $grey-dark-secondary;
-        opacity: 0.2;
+        color: #878788;
+        opacity: 1;
         letter-spacing: 0.5px;
         font-size: 1rem;
         font-style: italic;
+        transition: 0.25s ease-in-out;
       }
     }
 
@@ -104,15 +109,14 @@ nav {
       right: 0;
       top: 0;
       height: 100%;
-      width: 10%;
+      width: 11%;
       display: flex;
       align-items: center;
+      justify-content: flex-start;
 
       .fa-search {
-        right: 1rem;
-        top: 1.15rem;
-        color: $grey-dark-secondary;
-        opacity: 0.1;
+        color: #878788;
+        transition: 0.1s ease-in-out;
       }
     }
   }
@@ -129,10 +133,9 @@ nav {
     align-items: center;
     justify-content: space-around;
     transition: all 0.3s linear;
-    background-color: $white-secondary;
-    color: $blue-primary;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px,
-      inset 0px 0px 3px rgba(0, 0, 0, 0.23);
+    background-color: #6683b7;
+    color: $white-secondary;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
     &:active {
       -webkit-box-shadow: inset 1px 2px 2px #535557;
@@ -163,8 +166,8 @@ nav {
     &.nav__btn--add {
       width: 19%;
       padding: 0 0.4rem 0 0.4rem;
-      background-color: $blue-primary;
-      color: $white-secondary;
+      background-color: #6683b7;
+      color: $white-primary;
 
       &.hide {
         visibility: hidden;
@@ -172,8 +175,8 @@ nav {
     }
 
     &.nav__btn--menu {
-      width: 32px;
-      height: 32px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
 
       .fa-bars {

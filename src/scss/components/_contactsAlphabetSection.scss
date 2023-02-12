@@ -16,9 +16,13 @@
     display: flex;
     align-items: center;
     position: relative;
-    background-color: #dbe4ee3d;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    // background-color: #dbe4ee3d;
+    // background-color: #f5f5f5;
+    // background-color: rgba(220, 220, 220, 0.2);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px 0px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px 0px;
+    // box-shadow: rgba(225, 225, 225, 1) 0px 0px 0px 1px,
+    //   rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
     &:first-child {
       border-radius: 0.5rem 0.5rem 0 0;
@@ -160,7 +164,6 @@
       font-size: 1rem;
       border-radius: 0 0 0.5rem 0.5rem;
       transform: translateX(-50%);
-      background-color: #dbe4ee3d;
       box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
       opacity: 0;
@@ -169,7 +172,8 @@
         font-family: inherit;
         font-weight: bold;
         border: none;
-        color: $grey-dark-secondary;
+        color: #555555;
+        letter-spacing: 0.2px;
         background-color: transparent;
         pointer-events: none;
 
@@ -231,8 +235,8 @@
 
         &.active {
           transform: rotate(90deg);
-          filter: invert(55%) sepia(100%) saturate(7471%) hue-rotate(190deg)
-            brightness(84%) contrast(90%);
+          filter: invert(53%) sepia(13%) saturate(1461%) hue-rotate(180deg)
+            brightness(93%) contrast(84%);
         }
       }
     }

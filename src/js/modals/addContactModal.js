@@ -91,8 +91,9 @@ export const addContactModal = () => {
   const addButton = document.querySelector(".accept");
   const cancelButton = document.querySelector(".cancel");
 
+  const { contactImageName } = main.contactImage;
   let imgSrc = main.contactImage.contactImageUrl;
-  let imgName = `.../${main.contactImage.contactImageName}`;
+  let imgName = `${contactImageName ? ".../" + contactImageName : ""}`;
   let imgId = main.contactImage.cloudinaryImageId;
 
   imgInput.addEventListener("change", handleAddImage);

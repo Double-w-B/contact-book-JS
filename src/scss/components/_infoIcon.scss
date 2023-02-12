@@ -6,17 +6,17 @@
   height: 25rem;
   color: $white-primary;
   flex-direction: column;
-  opacity: 0.2;
+  opacity: 1;
 
   &__icon {
     font-size: 5rem;
     padding-left: 0.8rem;
-    color: $grey-dark;
+    color: rgba(200, 200, 200, 1);
   }
   &__text {
     text-align: center;
     margin-top: 2rem;
     font-size: 1.5rem;
-    color: $grey-dark;
+    color: rgba(200, 200, 200, 1);
   }
 }

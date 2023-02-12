@@ -15,7 +15,7 @@
   .modal__update__credentials {
     width: 100%;
     height: 65%;
-    padding-top: 1.3rem;
+    padding: 1.3rem 1rem 0 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -68,9 +68,9 @@
 
       input {
         @include shared.modalAddEditInput;
-        width: 90%;
-        margin: 0 0.5rem;
-        padding-left: 0.2rem;
+        width: 100%;
+        padding: 0 0.8rem;
+
 
         &#user-name,
         &#user-email {
@@ -82,8 +82,9 @@
         font-size: 1.1rem;
         color: $grey-semi-light;
         position: absolute;
-        left: 1.6rem;
-        bottom: 0.2rem;
+        left: 0.8rem;
+        top: 50%;
+        transform: translateY(-50%);
         transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         pointer-events: none;
       }
@@ -106,6 +107,7 @@
 
     button {
       @include shared.modalButton;
+      width: 40%;
       text-transform: capitalize;
     }
 

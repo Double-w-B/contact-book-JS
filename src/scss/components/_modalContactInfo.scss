@@ -31,10 +31,10 @@
       display: flex;
       align-items: center;
       transform: translateX(-50%);
-      border: 5px solid $white-dark;
-      background-color: $white-secondary;
+      border: 5px solid $white-primary;
+      background-color: $white-primary;
       position: absolute;
-      box-shadow: rgba(0, 0, 0, 0.5) inset 0px 0px 6px;
+      box-shadow: rgba(0, 0, 0, 0.2) inset 0px 0px 6px;
 
       img {
         width: 100%;
@@ -74,7 +74,7 @@
         margin-left: 0.5rem;
         border-bottom-left-radius: 0.1rem;
         border-bottom-right-radius: 0.1rem;
-        background-color: $grey-semi-light;
+        background-color: rgba(200, 200, 200, 1);
         box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 2px;
       }
     }
@@ -167,6 +167,7 @@
 
       .bottom_info-close-btn {
         @include shared.modalButton;
+        width: 60%;
         margin: 0 auto;
       }
     }

@@ -15,7 +15,7 @@
   .contact-img-upload {
     width: 100%;
     height: 15%;
-    margin-top: 0.5rem;
+    margin-top: 0.4rem;
     padding-right: 0.5rem;
     display: flex;
     align-items: center;
@@ -26,10 +26,10 @@
       height: 65px;
       border-radius: 50%;
       margin: 0 0.5rem 0 8.5rem;
-      border: 0.15rem solid $grey-semi-light;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 4px;
       position: relative;
       transition: 0.3s linear;
+      box-shadow: rgba(120, 120, 120, 1) 0px 0px 3px;
 
       &:hover *:not(i) {
         opacity: 0.8;
@@ -49,6 +49,7 @@
         display: flex;
         transition: 0.2s linear;
         overflow: hidden;
+        box-shadow: rgba(120, 120, 120, 1) 0px 0px 3px;
 
         &.disable {
           pointer-events: none;
@@ -103,6 +104,8 @@
   .error-hint-length,
   .error-hint-number,
   .error-hint-required {
+    width: 100%;
+    text-align: center;
     position: absolute;
     bottom: -1rem;
     font-size: 0.8rem;
@@ -129,6 +132,11 @@
         height: 50%;
         display: flex;
         align-items: center;
+        padding: 0 1rem;
+      }
+
+      .info-two {
+        justify-content: space-between;
       }
 
       div {
@@ -145,19 +153,28 @@
 
         input {
           @include shared.modalAddEditInput;
-          width: 80%;
-          margin: 0 0.5rem;
-          padding-left: 0.2rem;
+          width: 95%;
+          padding: 0 0.8rem;
         }
 
         label {
           font-size: 1.1rem;
           color: $grey-semi-light;
           position: absolute;
-          left: 1.6rem;
-          bottom: 0.2rem;
+          left: 0.8rem;
+          top: 50%;
+          transform: translateY(-50%);
           transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
           pointer-events: none;
+        }
+      }
+      .name-input {
+        justify-content: flex-start;
+      }
+      .surname-input {
+        justify-content: flex-end;
+        label {
+          left: 1.4rem;
         }
       }
 
@@ -172,14 +189,12 @@
         }
       }
       .phone-input {
-        width: 35%;
-        margin: 0 0 0 0.7rem;
+        width: 33%;
         text-align: center;
       }
 
       .email-input {
-        width: 65%;
-        margin: 0 0.6rem;
+        width: 63%;
       }
     }
   }
@@ -187,6 +202,7 @@
   .new-con-secondary-info {
     width: 100%;
     height: 35%;
+    padding: 0 1rem;
 
     form {
       width: 100%;
@@ -204,17 +220,18 @@
 
         input {
           @include shared.modalAddEditInput;
-          margin: 0 1.2rem;
-          width: 90%;
+          width: 100%;
           text-transform: none;
+          padding: 0 0.8rem;
         }
 
         label {
           font-size: 1.1rem;
           color: $grey-semi-light;
           position: absolute;
-          left: 1.6rem;
-          bottom: 0.2rem;
+          left: 0.8rem;
+          top: 50%;
+          transform: translateY(-50%);
           transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
           pointer-events: none;
         }
@@ -241,6 +258,8 @@
     height: 15%;
     display: flex;
     justify-content: space-around;
+    justify-content: space-between;
+    padding: 0 1rem;
     align-items: center;
     position: relative;
 
@@ -250,10 +269,11 @@
 
     button {
       @include shared.modalButton;
+      width: 40%;
 
       &.accept,
-      &.save{
-        &.disable{
+      &.save {
+        &.disable {
           pointer-events: none;
         }
       }
