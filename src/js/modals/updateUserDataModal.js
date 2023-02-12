@@ -90,16 +90,10 @@ export const updateUserDataModal = () => {
     }, 1500);
   }
 
-  function showLoadingIcon() {
-    changeButtons.forEach((btn) => btn.classList.add("hide"));
-    loadingIcon.classList.add("show");
-    updateButton.classList.add("disable");
-  }
-
-  function hideLoadingIcon() {
-    changeButtons.forEach((btn) => btn.classList.remove("hide"));
-    loadingIcon.classList.remove("show");
-    updateButton.classList.remove("disable");
+  function handleIsLoading(boolean) {
+    changeButtons.forEach((btn) => btn.classList.toggle("hide", boolean));
+    loadingIcon.classList.toggle("show", boolean);
+    updateButton.classList.toggle("disable", boolean);
   }
 
   function updateUserData() {
@@ -108,7 +102,7 @@ export const updateUserDataModal = () => {
     const activeSection = Array.from(changeButtons).find((btn) =>
       btn.classList.contains("active")
     ).innerText;
-    const methods = { showLoadingIcon, hideLoadingIcon };
+    const methods = { handleIsLoading };
 
     if (activeSection === "Name") {
       const newUserName = Array.from(allInputs)[1].value;

@@ -3,6 +3,8 @@ import * as constructor from "../constructor.js";
 import { removeChildrenElements } from "../utils.js";
 import { showAllContacts } from "../showAllContacts.js";
 
+const requestOptions = {};
+
 //! checkCurrentUser
 export async function checkCurrentUser() {
   removeChildrenElements(main.listOfContacts);
@@ -13,8 +15,9 @@ export async function checkCurrentUser() {
   const hintIcon = document.querySelector(".hintIcon");
   hintIcon.classList.add("hide");
 
+  const url = "/api/v1/user/checkUser";
+
   try {
-    const url = "/api/v1/user/checkUser";
     const response = await fetch(url);
     const data = await response.json();
 
@@ -52,26 +55,23 @@ export async function checkCurrentUser() {
 
 //! registerUser
 export async function registerUser(userData, methods) {
+  const { handleIsLoading, clearInputs } = methods;
   const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
+
   const url = "/api/v1/auth/register";
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  };
+  requestOptions.method = "POST";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify(userData);
 
+  handleIsLoading(true);
   try {
-    methods.showLoadingIcon();
-
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
     if (!response.ok) {
       errorMsg.textContent = data.msg;
       errorMsg.classList.add("show", "error");
-      methods.hideLoadingIcon();
+      handleIsLoading(false);
 
       setTimeout(() => {
         errorMsg.classList.remove("show", "error");
@@ -83,8 +83,8 @@ export async function registerUser(userData, methods) {
       errorMsg.textContent = "Account created! Log in!";
       errorMsg.classList.add("show", "success");
 
-      methods.clearInputs();
-      methods.hideLoadingIcon();
+      clearInputs();
+      handleIsLoading(false);
     }, 1000);
 
     setTimeout(() => {
@@ -98,36 +98,35 @@ export async function registerUser(userData, methods) {
 
 //! loginUser
 export async function loginUser(userData, methods) {
+  const { handleIsLoading, clearInputs } = methods;
+
   const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
+
   const url = "/api/v1/auth/login";
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  };
+  requestOptions.method = "POST";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify(userData);
 
+  handleIsLoading(true);
   try {
-    methods.showLoadingIcon();
-
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
     setTimeout(() => {
       if (!response.ok) {
-        methods.hideLoadingIcon();
+        handleIsLoading(false);
         errorMsg.textContent = data.msg;
         errorMsg.classList.add("show", "error");
 
         setTimeout(() => {
           errorMsg.classList.remove("show", "error");
         }, 1500);
+
         return;
       }
 
-      methods.clearInputs();
-      methods.hideLoadingIcon();
+      clearInputs();
+      handleIsLoading(false);
       main.userAuth.isUserLoggedIn = true;
       main.userAuth.userName = data.user.name;
       main.userAuth.userEmail = data.user.email;
@@ -149,6 +148,7 @@ export async function loginUser(userData, methods) {
 //! logoutUser
 export async function logoutUser() {
   const hintIcon = document.querySelector(".hintIcon");
+
   const url = "/api/v1/auth/logout";
 
   try {
@@ -179,8 +179,8 @@ export async function getAllContacts() {
   loadingSpinner.classList.add("show");
   main.listOfContacts.append(loadingSpinner);
 
+  const url = "/api/v1/contacts";
   try {
-    const url = "/api/v1/contacts";
     const response = await fetch(url);
     const data = await response.json();
 
@@ -211,14 +211,9 @@ export async function addContactToDB(contact, methods) {
   handleIsLoading(true);
 
   const url = "/api/v1/contacts";
-
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(contact),
-  };
+  requestOptions.method = "POST";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify(contact);
 
   try {
     const response = await fetch(url, requestOptions);
@@ -252,10 +247,9 @@ export async function addContactToDB(contact, methods) {
 //! uploadContactImage
 export async function uploadContactImage(contactImage, handleIsLoading) {
   const url = "/api/v1/contacts/uploadImage";
-  const requestOptions = {
-    method: "POST",
-    body: contactImage,
-  };
+  requestOptions.method = "POST";
+  requestOptions.body = contactImage;
+  if ("headers" in requestOptions) delete requestOptions["headers"];
 
   handleIsLoading(true);
 
@@ -279,20 +273,17 @@ export async function uploadContactImage(contactImage, handleIsLoading) {
 export async function removeContactImage(contactData, handleIsLoading) {
   const { cloudinaryImageId, contactId } = contactData;
 
-  const url = "/api/v1/contacts/removeImage";
   const data = { cloudinaryImageId };
 
   if (contactId) {
     data.contactId = contactId;
   }
 
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(data),
-  };
+  const url = "/api/v1/contacts/removeImage";
+  requestOptions.method = "POST";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify(data);
+
   handleIsLoading(true);
   try {
     const response = await fetch(url, requestOptions);
@@ -329,9 +320,9 @@ export async function deleteSingleContactFromDB(contactId, methods) {
   const { handleIsLoading, closeModal } = methods;
 
   const url = `/api/v1/contacts/${contactId}`;
-  const requestOptions = {
-    method: "DELETE",
-  };
+  requestOptions.method = "DELETE";
+  if ("body" in requestOptions) delete requestOptions["body"];
+  if ("headers" in requestOptions) delete requestOptions["headers"];
 
   handleIsLoading(true);
 
@@ -351,14 +342,11 @@ export async function deleteSingleContactFromDB(contactId, methods) {
 //! deleteManyContactsFromDB
 export async function deleteManyContactsFromDB(contactsId, methods) {
   const { handleIsLoading, closeModal } = methods;
+
   const url = "/api/v1/contacts";
-  const requestOptions = {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ contactsId }),
-  };
+  requestOptions.method = "DELETE";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify({ contactsId });
 
   try {
     handleIsLoading(true);
@@ -383,15 +371,12 @@ export async function updateContact(contactData, methods) {
   const { handleIsLoading, closeModal } = methods;
 
   const url = `/api/v1/contacts/${contactId}`;
-  const requestOptions = {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(contact),
-  };
+  requestOptions.method = "PATCH";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify(contact);
+
+  handleIsLoading(true);
   try {
-    handleIsLoading(true);
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
@@ -409,7 +394,7 @@ export async function updateContact(contactData, methods) {
 /* UPDATE USER DATA */
 //! updateName
 export async function updateUserName(name, methods) {
-  const { showLoadingIcon, hideLoadingIcon } = methods;
+  const { handleIsLoading } = methods;
   const inputsContainer = document.querySelector(".modal__update__credentials");
   const userNameInput = inputsContainer.querySelector(".userName-input input");
   const newUserNameInput = inputsContainer.querySelector(
@@ -417,21 +402,17 @@ export async function updateUserName(name, methods) {
   );
 
   const url = `/api/v1/user/updateName`;
-  const requestOptions = {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ name }),
-  };
+  requestOptions.method = "PATCH";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify({ name });
 
+  handleIsLoading(true);
   try {
-    showLoadingIcon();
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
     setTimeout(() => {
-      hideLoadingIcon();
+      handleIsLoading(false);
       newUserNameInput.value = "";
       userNameInput.value = data.user.name;
       main.userAuth.userName = data.user.name;
@@ -445,7 +426,7 @@ export async function updateUserName(name, methods) {
 //! updateEmail
 export async function updateUserEmail(data, methods) {
   const { newUserEmail, userPassword } = data;
-  const { showLoadingIcon, hideLoadingIcon } = methods;
+  const { handleIsLoading } = methods;
   const reqData = { email: newUserEmail, password: userPassword };
 
   const inputsContainer = document.querySelector(".modal__update__credentials");
@@ -462,22 +443,18 @@ export async function updateUserEmail(data, methods) {
   );
 
   const url = `/api/v1/user/updateEmail`;
-  const requestOptions = {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(reqData),
-  };
+  requestOptions.method = "PATCH";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify(reqData);
 
+  handleIsLoading(true);
   try {
-    showLoadingIcon();
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
     if (!response.ok) {
       setTimeout(() => {
-        hideLoadingIcon();
+        handleIsLoading(false);
         errorMsg.textContent = "Invalid credentials";
         errorMsg.classList.add("show", "error");
       }, 1000);
@@ -489,7 +466,7 @@ export async function updateUserEmail(data, methods) {
       return;
     }
     setTimeout(() => {
-      hideLoadingIcon();
+      handleIsLoading(false);
       userEmailInput.value = data.user.email;
       newUserEmailInput.value = "";
       userPasswordInput.value = "";
@@ -503,7 +480,7 @@ export async function updateUserEmail(data, methods) {
 //! updatePassword
 export async function updateUserPassword(data, methods) {
   const { oldPassword, newPassword } = data;
-  const { showLoadingIcon, hideLoadingIcon } = methods;
+  const { handleIsLoading } = methods;
 
   const inputsContainer = document.querySelector(".modal__update__credentials");
   const errorMsg = inputsContainer.querySelector(".infoMsg");
@@ -515,23 +492,19 @@ export async function updateUserPassword(data, methods) {
   );
 
   const url = `/api/v1/user/updatePassword`;
-  const requestOptions = {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ oldPassword, newPassword }),
-  };
+  requestOptions.method = "PATCH";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify({ oldPassword, newPassword });
 
+  handleIsLoading(true);
   try {
-    showLoadingIcon();
     const response = await fetch(url, requestOptions);
     const data = await response.json();
     console.log(data);
 
     if (!response.ok) {
       setTimeout(() => {
-        hideLoadingIcon();
+        handleIsLoading(false);
         errorMsg.textContent = "Invalid credentials";
         errorMsg.classList.add("show", "error");
       }, 1000);
@@ -544,7 +517,7 @@ export async function updateUserPassword(data, methods) {
     }
 
     setTimeout(() => {
-      hideLoadingIcon();
+      handleIsLoading(false);
       errorMsg.textContent = "Password updated";
       errorMsg.classList.add("show", "success");
       oldPasswordInput.value = "";

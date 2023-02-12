@@ -54,16 +54,10 @@ export const authModal = () => {
     Array.from(allInputs).forEach((input) => (input.value = ""));
   }
 
-  function showLoadingIcon() {
-    changeButton.classList.add("hide");
-    loadingIcon.classList.add("show");
-    authButton.classList.add("disable");
-  }
-
-  function hideLoadingIcon() {
-    loadingIcon.classList.remove("show");
-    changeButton.classList.remove("hide");
-    authButton.classList.remove("disable");
+  function handleIsLoading(boolean) {
+    changeButton.classList.toggle("hide", boolean);
+    loadingIcon.classList.toggle("show", boolean);
+    authButton.classList.toggle("disable", boolean);
   }
 
   function handleAuthButton() {
@@ -78,7 +72,7 @@ export const authModal = () => {
       }
     });
 
-    const methods = { showLoadingIcon, hideLoadingIcon, clearInputs };
+    const methods = { handleIsLoading, clearInputs };
 
     if (authButton.textContent === "register" && !isInputError) {
       const userData = {

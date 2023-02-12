@@ -47,13 +47,8 @@ export const editContactModal = () => {
     }
 
     function handleIsLoading(boolean) {
-      if (boolean) {
-        loadingIcon.classList.add("show");
-        saveButton.classList.add("disable");
-      } else {
-        loadingIcon.classList.remove("show");
-        saveButton.classList.remove("disable");
-      }
+      loadingIcon.classList.toggle("show", boolean);
+      saveButton.classList.toggle("disable", boolean);
     }
 
     function saveChanges() {

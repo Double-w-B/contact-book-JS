@@ -38,13 +38,8 @@ export const addContactModal = () => {
   }
 
   function handleIsLoading(boolean) {
-    if (boolean) {
-      loadingIcon.classList.add("show");
-      addButton.classList.add("disable");
-    } else {
-      loadingIcon.classList.remove("show");
-      addButton.classList.remove("disable");
-    }
+    loadingIcon.classList.toggle("show", boolean);
+    addButton.classList.toggle("disable", boolean);
   }
 
   function addContact() {

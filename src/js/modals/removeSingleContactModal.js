@@ -30,13 +30,8 @@ export const removeSingleContactModal = () => {
     }
 
     function handleIsLoading(boolean) {
-      if (boolean) {
-        loadingIcon.classList.add("show");
-        deleteButton.classList.add("disable");
-      } else {
-        loadingIcon.classList.remove("show");
-        deleteButton.classList.remove("disable");
-      }
+      loadingIcon.classList.toggle("show", boolean);
+      deleteButton.classList.toggle("disable", boolean);
     }
 
     openModal();
