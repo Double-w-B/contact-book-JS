@@ -18,6 +18,9 @@ export const editContactModal = () => {
     if (main.contactImage.cloudinaryImageId) {
       fetchData.removeUnsavedImageFromDB();
     }
+    main.contactImage.cloudinaryImageId = "";
+    main.contactImage.contactImageName = "";
+    main.contactImage.contactImageUrl = "";
     fetchData.getAllContacts();
   }
 

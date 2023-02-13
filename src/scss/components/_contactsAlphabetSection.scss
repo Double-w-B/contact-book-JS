@@ -127,11 +127,14 @@
         &:first-child {
           letter-spacing: 0.2px;
           margin: 0;
+          color: $dark-mode-1;
           cursor: pointer;
+
           &:hover {
             color: $blue-primary;
           }
         }
+        
         &:nth-child(2) {
           margin: 0.1rem 0 0 0;
           font-size: 1.05rem;

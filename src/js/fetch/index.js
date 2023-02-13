@@ -384,9 +384,6 @@ export async function updateContact(contactData, methods) {
     handleIsLoading(false);
 
     closeModal();
-    main.contactImage.cloudinaryImageId = "";
-    main.contactImage.contactImageUrl = "";
-    main.contactImage.contactImageName = "";
 
     console.log(data);
   } catch (error) {

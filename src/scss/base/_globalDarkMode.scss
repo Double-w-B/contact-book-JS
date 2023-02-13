@@ -114,6 +114,8 @@ body {
                 .contact {
                   color: $white-secondary;
                   p {
+                    color: $grey-light;
+
                     &:first-child:hover {
                       color: $dark-mode-clr;
                     }
@@ -174,10 +176,10 @@ body {
         .menu {
           background-color: $dark-mode-secondary;
           box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px,
-          inset 0 7px 9px -7px rgba(0, 0, 0, 0.3),
-          inset 7px 0 1px -7px rgba(0, 0, 0, 0.4),
-          inset -7px 0 1px -7px rgba(0, 0, 0, 0.4),
-          inset 0 -7px 1px -7px rgba(0, 0, 0, 0.4);
+            inset 0 7px 9px -7px rgba(0, 0, 0, 0.3),
+            inset 7px 0 1px -7px rgba(0, 0, 0, 0.4),
+            inset -7px 0 1px -7px rgba(0, 0, 0, 0.4),
+            inset 0 -7px 1px -7px rgba(0, 0, 0, 0.4);
 
           button {
             color: $grey-semi-light-2;

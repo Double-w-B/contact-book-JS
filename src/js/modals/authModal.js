@@ -27,7 +27,7 @@ export const authModal = () => {
     main.modalAuth.classList.remove("open-modal");
     hintIcon.classList.remove("hide");
 
-    if (authCredentials.children.length === 3) {
+    if (authCredentials.children.length === 4) {
       authCredentials.removeChild(nameInputContainer);
     }
     changeButton.textContent = "register";
@@ -77,7 +77,7 @@ export const authModal = () => {
     if (authButton.textContent === "register" && !isInputError) {
       const userData = {
         name: Array.from(allInputs)[0].value,
-        email: Array.from(allInputs)[1].value,
+        email: Array.from(allInputs)[1].value.toLowerCase(),
         password: Array.from(allInputs)[2].value,
       };
       fetchData.registerUser(userData, methods);
@@ -85,7 +85,7 @@ export const authModal = () => {
 
     if (authButton.textContent === "login" && !isInputError) {
       const userData = {
-        email: Array.from(allInputs)[0].value,
+        email: Array.from(allInputs)[0].value.toLowerCase(),
         password: Array.from(allInputs)[1].value,
       };
       fetchData.loginUser(userData, methods);
