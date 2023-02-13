@@ -60,40 +60,45 @@ const unavailableNumber = (elm) => {
   }, 1500);
 };
 
-function validation(inputName, inputSurname, inputPhone, inputEmail) {
+function validation(inputs, contactPhone) {
+  const { inputName, inputSurname, inputPhone, inputEmail } = inputs;
   const contactsNumbers = main.data.contacts.map((person) => person.phone);
 
-  /* Required data validation */
-  !inputName.value && requiredInput(inputName);
-  !inputSurname.value && requiredInput(inputSurname);
-  !inputPhone.value && requiredInput(inputPhone);
-
-  /* Short length of number validation */
-  inputPhone.value &&
-    inputPhone.value.match(/^[0-9]+$/) &&
-    inputPhone.value.length < 6 &&
-    shortLength(inputPhone);
+  /* Required data */
+  if (!inputName.value) requiredInput(inputName);
+  if (!inputSurname.value) requiredInput(inputSurname);
+  if (!inputPhone.value) requiredInput(inputPhone);
 
   /* Invalid data validation */
-  inputName.value.match(utils.textRegExp) && invalidItem(inputName);
-  inputSurname.value.match(utils.textRegExp) && invalidItem(inputSurname);
-
-  inputPhone.value &&
-    !inputPhone.value.match(/^[0-9]+$/) &&
+  if (inputName.value.match(utils.textRegExp)) invalidItem(inputName);
+  if (inputSurname.value.match(utils.textRegExp)) invalidItem(inputSurname);
+  if (inputPhone.value && !inputPhone.value.match(utils.onlyNumbersRegExp))
     invalidItem(inputPhone);
-
-  inputEmail.value &&
-    !inputEmail.value.match(utils.emailRegExp) &&
+  if (inputEmail.value && !inputEmail.value.match(utils.emailRegExp)) {
     invalidItem(inputEmail);
+  }
 
-  /* Same number validation */
-  inputName.value &&
-    inputSurname.value &&
-    !inputName.value.match(utils.textRegExp) &&
-    !inputSurname.value.match(utils.textRegExp) &&
-    (!inputEmail.value || inputEmail.value.match(utils.emailRegExp)) &&
-    contactsNumbers.includes(inputPhone.value) &&
+  /* Short length of number */
+  if (
+    inputPhone.value &&
+    inputPhone.value.match(utils.onlyNumbersRegExp) &&
+    inputPhone.value.length < 6
+  ) {
+    shortLength(inputPhone);
+  }
+
+  /* Number already exists validation */
+  if (!contactPhone && contactsNumbers.includes(inputPhone.value)) {
     unavailableNumber(inputPhone);
+  }
+
+  if (
+    contactPhone &&
+    contactsNumbers.includes(inputPhone.value) &&
+    inputPhone.value !== contactPhone
+  ) {
+    unavailableNumber(inputPhone);
+  }
 }
 
 export { validation };

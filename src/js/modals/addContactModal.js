@@ -31,7 +31,8 @@ export const addContactModal = () => {
   }
 
   function handleRemoveImage() {
-    const data = { cloudinaryImageId: main.contactImage.cloudinaryImageId };
+    const { cloudinaryImageId } = main.contactImage;
+    const data = { cloudinaryImageId };
     fetchData.removeContactImage(data, handleIsLoading);
     utils.removeImage();
     imgInputLabel.classList.remove("disable");
@@ -45,32 +46,31 @@ export const addContactModal = () => {
   function addContact() {
     const contactsNumbers = main.data.contacts.map((person) => person.phone);
     const methods = { handleIsLoading, closeModal };
-    validation(inputName, inputSurname, inputPhone, inputEmail);
+    const inputs = { inputName, inputSurname, inputPhone, inputEmail };
 
-    if (
-      inputName.value &&
-      inputSurname.value &&
-      !inputName.value.match(utils.textRegExp) &&
-      !inputSurname.value.match(utils.textRegExp) &&
-      inputPhone.value.match(utils.onlyNumbersRegExp) &&
-      !contactsNumbers.includes(inputPhone.value) &&
-      inputPhone.value.length >= 6 &&
-      (!inputEmail.value || inputEmail.value.match(utils.emailRegExp))
-    ) {
-      const newContact = new utils.Person(
-        inputName.value.toLowerCase(),
-        inputSurname.value.toLowerCase(),
-        inputPhone.value,
-        inputEmail.value.toLowerCase(),
-        inputAddress.value,
-        inputNotes.value,
-        imgSrc,
-        imgName,
-        imgId
-      );
+    validation(inputs);
 
-      fetchData.addContactToDB(newContact, methods);
-    }
+    if (!inputName.value || !inputSurname.value) return;
+    if (inputName.value.match(utils.textRegExp)) return;
+    if (inputSurname.value.match(utils.textRegExp)) return;
+    if (!inputPhone.value.match(utils.onlyNumbersRegExp)) return;
+    if (contactsNumbers.includes(inputPhone.value)) return;
+    if (inputPhone.value.length < 6) return;
+    if (inputEmail.value && !inputEmail.value.match(utils.emailRegExp)) return;
+
+    const newContact = new utils.Person(
+      inputName.value.toLowerCase(),
+      inputSurname.value.toLowerCase(),
+      inputPhone.value,
+      inputEmail.value.toLowerCase(),
+      inputAddress.value,
+      inputNotes.value,
+      imgSrc,
+      imgName,
+      imgId
+    );
+
+    fetchData.addContactToDB(newContact, methods);
   }
 
   main.modalBackdrop.classList.add("open-modal");

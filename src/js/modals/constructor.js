@@ -296,7 +296,7 @@ export const createRemoveManyContactsModal = (itemsToRemove) => {
     "Are you sure you want to delete "
   );
   const secondTextNode = document.createTextNode(
-    `${itemsToRemove.length < 5 ? "" : "all the "}`
+    `${itemsToRemove.length < 3 ? "" : "all the "}`
   );
   const lastTextNode = document.createTextNode(
     `${itemsToRemove.length === 1 ? " contact" : " contacts"}?`

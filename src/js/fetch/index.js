@@ -69,9 +69,9 @@ export async function registerUser(userData, methods) {
     const data = await response.json();
 
     if (!response.ok) {
+      handleIsLoading(false);
       errorMsg.textContent = data.msg;
       errorMsg.classList.add("show", "error");
-      handleIsLoading(false);
 
       setTimeout(() => {
         errorMsg.classList.remove("show", "error");
@@ -220,12 +220,12 @@ export async function addContactToDB(contact, methods) {
     const data = await response.json();
 
     if (!response.ok) {
+      handleIsLoading(false);
       errorMsg.classList.add("show");
       errorMsg.textContent = data.msg;
 
       setTimeout(() => {
         errorMsg.classList.remove("show");
-        handleIsLoading(false);
       }, 1500);
       return;
     }
@@ -260,6 +260,7 @@ export async function uploadContactImage(contactImage, handleIsLoading) {
     main.contactImage.cloudinaryImageId = data.contactImageId;
     main.contactImage.contactImageUrl = data.contactImageUrl;
     main.contactImage.contactImageName = data.contactImageName;
+    console.log(main.contactImage.cloudinaryImageId);
     handleIsLoading(false);
 
     console.log(data);
@@ -383,6 +384,9 @@ export async function updateContact(contactData, methods) {
     handleIsLoading(false);
 
     closeModal();
+    main.contactImage.cloudinaryImageId = "";
+    main.contactImage.contactImageUrl = "";
+    main.contactImage.contactImageName = "";
 
     console.log(data);
   } catch (error) {

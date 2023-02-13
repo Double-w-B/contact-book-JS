@@ -40,7 +40,8 @@ export const editContactModal = () => {
     }
 
     function handleRemoveImage() {
-      const data = { cloudinaryImageId: imgCloudinaryId, contactId };
+      const imageId = img.id || main.contactImage.cloudinaryImageId;
+      const data = { cloudinaryImageId: imageId, contactId };
       fetchData.removeContactImage(data, handleIsLoading);
       imgInputLabel.classList.remove("disable");
       utils.removeImage();
@@ -52,47 +53,40 @@ export const editContactModal = () => {
     }
 
     function saveChanges() {
-      const contactsNumbers = main.data.contacts.map((person) => person._id);
-      validation(inputName, inputSurname, inputPhone, inputEmail);
+      const contactsNumbers = main.data.contacts.map((person) => person.phone);
+      const inputs = { inputName, inputSurname, inputPhone, inputEmail };
 
+      validation(inputs, contact.phone);
+
+      if (!inputName.value || !inputSurname.value) return;
+      if (inputName.value.match(utils.textRegExp)) return;
+      if (inputSurname.value.match(utils.textRegExp)) return;
+      if (!inputPhone.value.match(utils.onlyNumbersRegExp)) return;
+      if (inputPhone.value.length < 6) return;
       if (
-        inputName.value &&
-        inputSurname.value &&
-        !inputName.value.match(utils.textRegExp) &&
-        !inputSurname.value.match(utils.textRegExp) &&
-        inputPhone.value.match(/^[0-9]+$/) &&
-        inputPhone.value.length >= 6 &&
-        (!inputEmail.value || inputEmail.value.match(utils.emailRegExp)) &&
-        ((contactsNumbers.includes(inputPhone.value) &&
-          inputPhone.value === contactId) ||
-          (!contactsNumbers.includes(inputPhone.value) &&
-            inputPhone.value !== contactId))
-      ) {
-        inputPhone.classList.remove("invalid-input");
-        const siblingElement = [...inputPhone.parentElement.children].find(
-          (el) => el.className === "error-hint"
-        );
-        siblingElement.remove("invalid-input");
-
-        const newContact = new utils.Person(
-          inputName.value.toLowerCase(),
-          inputSurname.value.toLowerCase(),
-          inputPhone.value,
-          inputEmail.value.toLowerCase(),
-          inputAddress.value,
-          inputNotes.value,
-          main.contactImage.contactImageUrl,
-          main.contactImage.contactImageName,
-          main.contactImage.cloudinaryImageId
-        );
-
-        const data = { newContact, contactId };
-        const methods = { handleIsLoading, closeModal };
-
-        fetchData.updateContact(data, methods);
-      } else {
+        contactsNumbers.includes(inputPhone.value) &&
+        inputPhone.value !== contact.phone
+      )
         return;
-      }
+      if (inputEmail.value && !inputEmail.value.match(utils.emailRegExp))
+        return;
+
+      const newContact = new utils.Person(
+        inputName.value.toLowerCase(),
+        inputSurname.value.toLowerCase(),
+        inputPhone.value,
+        inputEmail.value.toLowerCase(),
+        inputAddress.value,
+        inputNotes.value,
+        main.contactImage.contactImageUrl,
+        main.contactImage.contactImageName,
+        main.contactImage.cloudinaryImageId
+      );
+
+      const data = { newContact, contactId };
+      const methods = { handleIsLoading, closeModal };
+
+      fetchData.updateContact(data, methods);
     }
 
     const contactId = e.target.closest(".one-child").id;
@@ -114,7 +108,6 @@ export const editContactModal = () => {
     const imgInputLabel = document.querySelector(".avatar-container label");
     const imgRemoveBtn = document.querySelector(".avatar-container .fa-times");
     const loadingIcon = document.querySelector(".new-con-btns .loadingIcon");
-    const imgCloudinaryId = img.id;
 
     const saveButton = document.querySelector(".save");
     const cancelButton = document.querySelector(".cancel");
