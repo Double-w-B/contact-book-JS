@@ -124,6 +124,15 @@
       }
     }
 
+    .list__content .list__contacts .message {
+      &__icon {
+        font-size: 4rem;
+      }
+      p {
+        font-size: 1.3rem;
+      }
+    }
+
     .list__container .list__content .list__contacts .contact-list li {
       .contact {
         font-size: 1.15rem;
@@ -159,7 +168,6 @@
 
         .input__search-icon {
           width: 15%;
-          opacity: 1;
         }
 
         input {
@@ -168,7 +176,6 @@
 
           &::placeholder {
             font-size: 0.8rem;
-            opacity: 0.25;
           }
         }
       }

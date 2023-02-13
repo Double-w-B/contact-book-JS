@@ -71,7 +71,6 @@
         width: 100%;
         padding: 0 0.8rem;
 
-
         &#user-name,
         &#user-email {
           pointer-events: none;
@@ -137,7 +136,7 @@
       background-color: transparent;
       transition: $transition;
       cursor: pointer;
-      color: #aaaeb3;
+      color: $grey-semi-light;
 
       &.hide {
         visibility: hidden;
@@ -147,6 +146,9 @@
       &:hover,
       &.active {
         color: $blue-primary;
+      }
+
+      &.active {
         transform: scale(1.15);
       }
 

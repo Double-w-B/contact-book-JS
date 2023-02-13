@@ -3,7 +3,7 @@
 .letters__container {
   width: 3%;
   height: 100%;
-  background-color: #fff;
+  background-color: $white-primary;
 
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
     @include shared.centerElements;
     width: 100%;
     height: 25px;
-    background-color: #fff;
+    background-color: $white-primary;
 
     cursor: pointer;
     a {

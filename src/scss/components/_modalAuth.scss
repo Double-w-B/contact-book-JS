@@ -27,7 +27,7 @@
       background-color: transparent;
       transition: $transition;
       cursor: pointer;
-      color: #aaaeb3;
+      color: $grey-semi-light;
 
       &.hide {
         visibility: hidden;

@@ -64,26 +64,32 @@
 
           input {
             width: 100%;
-            margin: 0 1.2rem;
-
-            &:focus + label,
-            &:valid + label {
-              transform: translateY(-25px);
+          }
+          .surname-input {
+            label {
+              left: 0.8rem;
             }
           }
         }
+      }
 
-        .phone-input,
-        .email-input {
+      form {
+        .info-two {
+          justify-content: space-around;
+        }
+        .surname-input {
           label {
-            left: 1.6rem;
+            left: 0.8rem;
           }
         }
       }
     }
 
     .new-con-secondary-info {
-      height: 20%;
+      height: 22%;
+      form {
+        justify-content: space-around;
+      }
     }
   }
 }

@@ -20,7 +20,7 @@
     justify-content: space-between;
     border-bottom-left-radius: 0.5rem;
     border-top: 1px solid #ededed;
-    background-color: #fff;
+    background-color: $white-primary;
 
     &::-webkit-scrollbar {
       width: 4px;
@@ -47,7 +47,7 @@
     &__top-opacity,
     &__bottom-opacity {
       padding: 0.5rem;
-      background: linear-gradient(#fafafa 25%, transparent);
+      background: linear-gradient($white-secondary 25%, transparent);
       position: sticky;
       top: 0;
       z-index: 1;
@@ -61,7 +61,7 @@
       justify-content: space-between;
 
       .list__bottom-opacity {
-        background: linear-gradient(transparent, #fff 75%);
+        background: linear-gradient(transparent, $white-primary 75%);
         bottom: -0.05rem;
       }
 
