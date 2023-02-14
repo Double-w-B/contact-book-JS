@@ -414,6 +414,7 @@ export async function updateUserName(name, methods) {
 
     setTimeout(() => {
       handleIsLoading(false);
+      main.userAuth.userName = data.user.name;
       newUserNameInput.value = "";
       userNameInput.value = data.user.name;
       main.userAuth.userName = data.user.name;
@@ -456,7 +457,14 @@ export async function updateUserEmail(data, methods) {
     if (!response.ok) {
       setTimeout(() => {
         handleIsLoading(false);
-        errorMsg.textContent = "Invalid credentials";
+
+        if (data.msg.startsWith("Duplicate")) {
+          errorMsg.textContent = "This email already exists";
+          newUserEmailInput.value = "";
+          userPasswordInput.value = "";
+        } else {
+          errorMsg.textContent = "Invalid credentials";
+        }
         errorMsg.classList.add("show", "error");
       }, 1000);
 
@@ -466,8 +474,10 @@ export async function updateUserEmail(data, methods) {
 
       return;
     }
+
     setTimeout(() => {
       handleIsLoading(false);
+      main.userAuth.userEmail = data.user.email;
       userEmailInput.value = data.user.email;
       newUserEmailInput.value = "";
       userPasswordInput.value = "";
