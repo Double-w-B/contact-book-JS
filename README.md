@@ -2,22 +2,25 @@
 
 ## Table of contents
 
+- [Authentication](#authentication)
 - [Add new contact](#add-a-new-contact)
-- [Contact details](#contact-details)
-- [Manage the contact](#manage-the-contact)
+- [Contact's data](#contacts-data)
+- [Manage the data](#manage-your-private-and-the-contacts-data)
 - [Remove contacts](#remove-contacts)
 - [Search for a contact](#search-for-a-contact)
 - [Dark mode](#dark-mode)
 
 ## General info
 
-A web application where the user stores entries called contacts. Each contact entry consists of a few standard fields (first name, last name, phone number, e-mail address, address and notes). A list of contacts is stored in alphabetical order of contact's names. Functionality of the app enables user to find a contact via a search of their name or phone number. Furthermore, enables to modify the data or to remove the contacts. As an extra feature, on purpose to reduce the luminance emitted by device screens, there is an option of a dark mode.
+Full-stack web application with an authentication logic where users store entries called contacts located in the database. Each contact entry consists of a few standard fields (first name, last name, phone number, e-mail address, address and notes). A list of contacts displayed in alphabetical order of contact's names. Functionality of the app enables user to find a contact via a search of their name or phone number. Furthermore, there is a logic to modify its own or the contact's data. As an extra feature, on purpose to reduce the luminance emitted by device screens, there is an option of a dark mode.
 
-#### Technology: <JavaScript + SCSS + RWD + Webpack>
+Back-end part of a project: https://github.com/Double-w-B/contactBook-API-NODE
+
+#### Technology: <JavaScript + SCSS + RWD + Webpack + Node.js>
 
 ##
 
-In the project directory, you can run:
+#### In the project directory, you can run:
 
 ### `npm start`
 
@@ -30,45 +33,61 @@ The page will reload if you make edits.
 Builds the app for production to the `build` folder.
 It correctly bundles app in production mode and optimizes the build for the best performance.
 
+##
+
+## Authentication
+
+To access private contacts stored in the database, it's required to pass the authentication first.
+
+![img_1](https://user-images.githubusercontent.com/75247773/218709658-a1963ebf-a22f-4b5a-ae32-d5671022be78.jpg)
+
+![img_2](https://user-images.githubusercontent.com/75247773/218705923-ad09898e-deff-40bc-961c-58e06111e6b7.jpg)
+
 ## Add a new contact
 
-To add a new contact, click a button "Add New" and fulfill required form fields marked with an asterisk. A new contact will be added to the list of contacts after passing the form validation.
+To add a new contact, click "Add New" button and fulfill required form fields marked with an asterisk. A new contact will be added to the list of contacts after passing the form validation.
 
-![img-1](https://user-images.githubusercontent.com/75247773/213426111-eebeddd9-43cf-459c-a749-68b71cef68e8.jpg)
+![img_3](https://user-images.githubusercontent.com/75247773/218706103-170357fe-7757-4a6a-9992-0ed2059d70d5.jpg)
 
-## Contact details
+## Contact's data
 
-To check the specific contact details click on the name of that contact.
+To check the specific contact data click on contact's name in the contact list.
 
-![img-2](https://user-images.githubusercontent.com/75247773/213426114-89a42f91-9162-4ad2-a265-9fbf1a282ddd.jpg)
-![img-3](https://user-images.githubusercontent.com/75247773/213426120-1dcb2e74-2443-4705-85bb-34fe743421a5.jpg)
+![img_4](https://user-images.githubusercontent.com/75247773/218706188-a8ee0144-dc7d-4c5d-bef3-5b24b5bdccaa.jpg)
+![img_5](https://user-images.githubusercontent.com/75247773/218706195-85c95870-601f-4a13-85fb-0f89983696df.jpg)
 
-## Manage the contact
+## Manage your private and the contact's data
 
 By clicking on a side arrow in a field of specific contact will be shown the submenu to manage the contact. There are 3 options: "Edit" - enables to edit contact details, "Send email" - launches Email Client installed on the user's device and adds a predefined email address (if it was defined), "Delete" - removes the contact from a contact list.
 
-![img-4](https://user-images.githubusercontent.com/75247773/213426121-d56acd0d-9f2e-49e8-8a36-cc468c2b814b.jpg)
+![img_6](https://user-images.githubusercontent.com/75247773/218706367-cbe30410-ba6d-40dd-921f-9ba81c3ade17.jpg)
 
-![img-5](https://user-images.githubusercontent.com/75247773/213426126-a14293e2-4931-4ca7-adf6-f4b0db935741.jpg)
+![img_7](https://user-images.githubusercontent.com/75247773/218706370-aa09dca9-860e-4b3d-a9a7-9712d872d65f.jpg)
 
-![img-6](https://user-images.githubusercontent.com/75247773/213426128-99811686-ff88-446d-9c28-ce71f53fffa8.jpg)
+![img_8](https://user-images.githubusercontent.com/75247773/218706373-7159921e-779b-4be3-803e-80ee6a70d1bc.jpg)
+
+To update personal data click the button "Update data" in the menu.
+
+![img_9](https://user-images.githubusercontent.com/75247773/218706377-3478f250-c3fe-4a39-a5b6-e4415d8d2a1c.jpg)
+
+![img_10](https://user-images.githubusercontent.com/75247773/218706379-8bb7e0f8-6ea9-4352-a91f-5c395f7c8614.jpg)
 
 ## Remove contacts
 
 There is a possibility to remove selected contacts or all the contacts. By clicking on a menu button in a top right corner of the app and choosing among options "Select all" and "Remove selected".
 
-![img-7](https://user-images.githubusercontent.com/75247773/213426129-291d9972-b149-4cba-8d9c-618231a72ae3.jpg)
+![img_11](https://user-images.githubusercontent.com/75247773/218706526-311e832f-9f8f-4a86-be35-87027b0fc55f.jpg)
 
-![img-8](https://user-images.githubusercontent.com/75247773/213426133-6a3d451b-6488-4db0-94bd-3592f34c5503.jpg)
+![img_12](https://user-images.githubusercontent.com/75247773/218706529-b0250bce-dc44-4575-90de-99f7ed886912.jpg)
 
 ## Search for a contact
 
 To find a specific contact from a contact list, simply type the name or phone number into a search field.
 
-![img-9](https://user-images.githubusercontent.com/75247773/213426136-362646e2-97ee-4810-86b6-4a0416d5223f.jpg)
+![img_13](https://user-images.githubusercontent.com/75247773/218706601-6af6dc17-b71a-48f1-bd66-efda32d13fe4.jpg)
 
 ## Dark mode
 
 To switch to the dark click on a menu button in a top right corner and choose "Change theme".
 
-![img-10](https://user-images.githubusercontent.com/75247773/213426140-90536885-1692-4850-9977-6028c6ca3e3a.jpg)
+![img_14](https://user-images.githubusercontent.com/75247773/218706634-e42fe180-52b0-458e-ba8f-43ca8933e74b.jpg)
