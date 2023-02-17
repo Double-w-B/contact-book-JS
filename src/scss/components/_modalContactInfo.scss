@@ -135,12 +135,12 @@
           filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.15));
         }
 
-        .fa-phone-alt {
+        .fa-phone {
           font-size: 1.2rem;
           margin-right: 0.5rem;
           color: $green-primary;
           align-self: center;
-          transform: rotate(20deg) translateY(-0.1rem);
+          transform: rotate(20deg) translateY(0.1rem);
         }
 
         .fa-map-marker-alt {

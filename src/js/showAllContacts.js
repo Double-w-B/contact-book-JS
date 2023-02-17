@@ -40,7 +40,7 @@ export const showAllContacts = () => {
   }
   if (!main.userAuth.isUserLoggedIn) {
     textInfo = "Log in or Register to manage your contacts";
-    iconClassName = "fas fa-sign-in-alt";
+    iconClassName = "fas fa-arrow-right-to-bracket";
     constructor.createInfoIcon(textInfo, iconClassName);
   }
   if (main.userAuth.isUserLoggedIn) {

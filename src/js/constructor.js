@@ -77,8 +77,8 @@ export const createFooter = () => {
 
   const link = document.createElement("a");
   link.setAttribute("href", "https://github.com/Double-w-B");
-  link.setAttribute = ("target", "_blank");
-  link.setAttribute = ("rel", "noopener noreferrer");
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noopener noreferrer");
   const linkText = document.createTextNode("Wladyslaw Balandin");
   link.append(linkText);
   pElm.append(pElmText, link);
@@ -122,7 +122,7 @@ export const createContact = (contact, goal) => {
   fullNameElm.append(fullNameNode);
   const phoneElm = document.createElement("p");
   const phoneIcon = document.createElement("i");
-  phoneIcon.className = "fas fa-phone-alt";
+  phoneIcon.className = "fas fa-phone";
   const phoneElNode = document.createTextNode(
     `${phone.replace(utils.everyThirdRegExp, " ")}`
   );

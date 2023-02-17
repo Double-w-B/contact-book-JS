@@ -366,7 +366,7 @@ export const createContactInfoModal = (contact) => {
   const bottomInfoDetails = document.createElement("div");
   bottomInfoDetails.className = "bottom_info-details";
   const pElmPhone = document.createElement("p");
-  const phoneIcon = creteIcon("fas fa-phone-alt no-select");
+  const phoneIcon = creteIcon("fas fa-phone no-select");
   const pElmPhoneNode = document.createTextNode(
     `${phone.replace(utils.everyThirdRegExp, " ")}`
   );

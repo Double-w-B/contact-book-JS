@@ -70,7 +70,7 @@
         position: absolute;
         background-color: $blue-primary;
         color: $white-secondary;
-        font-size: 1.3rem;
+        font-size: 1.45rem;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -134,7 +134,7 @@
             color: $blue-primary;
           }
         }
-        
+
         &:nth-child(2) {
           margin: 0.1rem 0 0 0;
           font-size: 1.05rem;
@@ -142,8 +142,8 @@
           cursor: default;
         }
 
-        .fa-phone-alt {
-          margin-right: 0.1rem;
+        .fa-phone {
+          margin-right: 0.25rem;
           font-size: 0.8rem;
           filter: drop-shadow(0px 0px 0.5px rgba(0, 0, 0, 0.05));
           color: $green-primary;
