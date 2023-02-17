@@ -12,6 +12,7 @@ export async function checkCurrentUser() {
   loadingSpinner.classList.add("show");
   main.listOfContacts.append(loadingSpinner);
 
+  const authButtonIcon = main.menuAuthBtn.querySelector("i");
   const hintIcon = document.querySelector(".hintIcon");
   hintIcon.classList.add("hide");
 
@@ -46,7 +47,8 @@ export async function checkCurrentUser() {
     main.navNewContactBtn.classList.remove("hide");
     main.navAllContactsBtn.classList.remove("hide");
     main.menuUpdateDataBtn.classList.remove("hide");
-    main.menuAuthBtn.textContent = "Log out";
+    authButtonIcon.className = "fa-solid fa-arrow-right-from-bracket flip";
+    main.menuAuthBtn.childNodes[1].textContent = "Log out";
   } catch (error) {
     console.log(error);
   }
@@ -100,6 +102,7 @@ export async function registerUser(userData, methods) {
 export async function loginUser(userData, methods) {
   const { handleIsLoading, clearInputs } = methods;
 
+  const authButtonIcon = main.menuAuthBtn.querySelector("i");
   const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
 
   const url = "/api/v1/auth/login";
@@ -136,7 +139,8 @@ export async function loginUser(userData, methods) {
       main.inputContainer.classList.remove("disable");
       main.navNewContactBtn.classList.remove("hide");
       main.navAllContactsBtn.classList.remove("hide");
-      main.menuAuthBtn.textContent = "Log out";
+      authButtonIcon.className = "fa-solid fa-arrow-right-from-bracket flip";
+      main.menuAuthBtn.childNodes[1].textContent = "Log out";
       getAllContacts();
     }, 1000);
   } catch (error) {
@@ -148,6 +152,7 @@ export async function loginUser(userData, methods) {
 //! logoutUser
 export async function logoutUser() {
   const hintIcon = document.querySelector(".hintIcon");
+  const authButtonIcon = main.menuAuthBtn.querySelector("i");
 
   const url = "/api/v1/auth/logout";
 
@@ -159,7 +164,8 @@ export async function logoutUser() {
     main.inputContainer.classList.add("disable");
     main.navNewContactBtn.classList.add("hide");
     main.navAllContactsBtn.classList.add("hide");
-    main.menuAuthBtn.textContent = "Log in";
+    authButtonIcon.className = "fa-solid fa-arrow-right-to-bracket";
+    main.menuAuthBtn.childNodes[1].textContent = "Log in";
     constructor.createNavigationLetters();
 
     setTimeout(() => {

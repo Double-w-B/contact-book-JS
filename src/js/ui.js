@@ -4,24 +4,29 @@ import { logoutUser } from "./fetch/index.js";
 
 /* Dark/Light mode */
 export const themeMode = () => {
-  if (document.body.classList.contains("dark-mode")) {
-    document.body.classList.remove("dark-mode");
-    document.body.classList.add("light-mode");
-    localStorage.theme = document.body.className;
+  const icon = main.menuChangeModeBtn.querySelector("i");
 
+  function changeContent(iClass, txt) {
     setTimeout(() => {
-      main.menuChangeModeBtn.textContent = "Dark mode";
-    }, 300);
+      icon.className = `fa-solid ${iClass}`;
+      main.menuChangeModeBtn.childNodes[1].textContent = txt;
+    }, 250);
+  }
+
+  if (localStorage.theme === "dark-mode") {
+    document.body.className = "light-mode";
+    localStorage.theme = document.body.className;
+    changeContent("fa-moon", "Dark mode");
   } else {
-    document.body.classList.remove("light-mode");
-    document.body.classList.add("dark-mode");
+    document.body.className = "dark-mode";
     localStorage.theme = document.body.className;
-
-    setTimeout(() => {
-      main.menuChangeModeBtn.textContent = "Light mode";
-    }, 300);
+    changeContent("fa-sun", "Light mode");
   }
 };
+
+export function showOptions(e) {
+  e.target.parentElement.classList.toggle("active");
+}
 
 /* Scroll To */
 export const scrollTo = (e) => {
@@ -53,12 +58,15 @@ export const hideScrollbarThumb = () => {
 /* Hide menu */
 export const hideMenu = (e) => {
   const hintIcon = document.querySelector(".hintIcon");
+  console.log(e.target);
   if (
     main.menu.classList.contains("show-menu") &&
     e.target !== main.menuSelectAllBtn &&
     e.target !== main.menuUnselectAllBtn &&
     e.target !== main.menuRemoveSelectedBtn &&
-    e.target !== main.navMenuBtn
+    e.target !== main.navMenuBtn &&
+    e.target !== main.menuAccountBtn &&
+    e.target !== main.menuContactsBtn
   ) {
     main.menu.classList.remove("show-menu");
     hintIcon.classList.remove("opacity");

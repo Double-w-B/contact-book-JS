@@ -49,12 +49,39 @@
       </section>
 
       <section class="menu no-select">
-        <button class="menu__btn--select hide">Select all</button>
+        <ul>
+          <li>
+            <button class="menu__btn--account hide"><span><i class="fa-solid fa-circle-user"></i></span>Account</button>
+            <ul>
+              <li><button class="menu__btn--update hide">Update data</button></li>
+              <li><button class="menu__btn--remove-user hide">Remove Account</button></li>
+            </ul>
+          </li>
+
+          <li>
+            <button class="menu__btn--contacts hide"><span><i class="fa-solid fa-users"></i></span>Contacts</button>
+            <ul>
+              <li><button class="menu__btn--select hide">Select all</button></li>
+              <li><button class="menu__btn--unselect hide">Unselect all</button></li>
+              <li><button class="menu__btn--remove hide">Remove Selected</button></li>
+            </ul>
+          </li>
+
+          <li>
+            <button class="menu__btn--mode hide"><span><i class="fa-solid fa-moon"></i></span>Dark Theme</button>
+          </li>
+          
+          <li>
+            <button class="menu__btn--auth"><span><i class="fa-solid fa-arrow-right-to-bracket"></i></span>Log
+              in</button>
+          </li>
+        </ul>
+        <!-- <button class="menu__btn--select hide">Select all</button>
         <button class="menu__btn--unselect hide">Unselect all</button>
         <button class="menu__btn--remove hide">Remove Selected</button>
         <button class="menu__btn--mode hide">Change theme</button>
         <button class="menu__btn--update hide">Update data</button>
-        <button class="menu__btn--auth">Log in</button>
+        <button class="menu__btn--auth">Log in</button> -->
       </section>
     </section>
 

@@ -31,6 +31,8 @@ const menuRemoveSelectedBtn = document.querySelector(".menu__btn--remove");
 const menuChangeModeBtn = document.querySelector(".menu__btn--mode");
 const menuUpdateDataBtn = document.querySelector(".menu__btn--update");
 const menuAuthBtn = document.querySelector(".menu__btn--auth");
+const menuAccountBtn = document.querySelector(".menu__btn--account");
+const menuContactsBtn = document.querySelector(".menu__btn--contacts");
 const menuButtons = document.querySelectorAll(
   ".menu button:not(.menu__btn--auth)"
 );
@@ -45,6 +47,12 @@ const contactImage = {
 
 if (!localStorage.theme) localStorage.theme = "light-mode";
 document.body.className = localStorage.theme;
+
+if (localStorage.theme === "dark-mode") {
+  const icon = menuChangeModeBtn.querySelector("i");
+  icon.className = "fa-solid fa-sun";
+  menuChangeModeBtn.childNodes[1].textContent = "Light Theme";
+}
 
 constructor.createHintIcon();
 constructor.createContactsLength(data.contacts);
@@ -79,6 +87,8 @@ menuUnselectAllBtn.addEventListener("click", () =>
 );
 menuAuthBtn.addEventListener("click", ui.openAuthModal);
 menuUpdateDataBtn.addEventListener("click", ui.openUpdateDataModal);
+menuAccountBtn.addEventListener("click", ui.showOptions);
+menuContactsBtn.addEventListener("click", ui.showOptions);
 
 export {
   data,
@@ -102,6 +112,8 @@ export {
   menuRemoveSelectedBtn,
   menuUpdateDataBtn,
   menuAuthBtn,
+  menuAccountBtn,
+  menuContactsBtn,
   list,
   menu,
   modalAuth,

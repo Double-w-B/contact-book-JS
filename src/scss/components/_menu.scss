@@ -1,5 +1,5 @@
 .menu {
-  width: 9rem;
+  min-width: 9rem;
   border-radius: 0 0 0.5rem 0.5rem;
   top: -7.5rem;
   right: 0.05rem;
@@ -25,27 +25,85 @@
     pointer-events: all;
   }
 
-  button {
-    height: 2rem;
-    cursor: pointer;
-    transition: all 0.1s linear;
-    display: flex;
-    align-items: center;
-    padding-left: 0.8rem;
-    background-color: transparent;
-    border: none;
-    font-size: 1rem;
-    color: #555555;
+  ul {
+    list-style: none;
 
-    &:not(.menu__btn--login).hide {
-      display: none;
+    li {
+      &:nth-child(2) i {
+        font-size: 1rem;
+      }
+
+      & > button {
+        padding: 0 0.5rem;
+
+        &:active {
+          transform: none;
+        }
+      }
+
+      &.active {
+        & > button {
+          color: $blue-primary;
+        }
+
+        ul li {
+          height: 2rem;
+          opacity: 1;
+          padding: 0 0.4rem;
+
+          visibility: visible;
+        }
+      }
+
+      ul {
+        li {
+          height: 0;
+          opacity: 0;
+          visibility: hidden;
+          padding: 0 0.4rem;
+          transition: 0.3s linear;
+        }
+      }
     }
 
-    &:hover {
-      color: $blue-primary;
-    }
-    &:active {
-      transform: scale(0.98);
+    button {
+      height: 2rem;
+      cursor: pointer;
+      transition: all 0.1s linear;
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      font-size: 1rem;
+      color: #555555;
+
+      span {
+        width: 25px;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        margin-right: 0.5rem;
+
+        i {
+          font-size: 1.2rem;
+          transform: translateY(1px);
+
+          &.flip {
+            transform: scaleX(-1);
+          }
+        }
+      }
+
+      &:not(.menu__btn--login).hide {
+        display: none;
+      }
+
+      &:hover {
+        color: $blue-primary;
+      }
+      &:active {
+        transform: scale(0.98);
+      }
     }
   }
 }
