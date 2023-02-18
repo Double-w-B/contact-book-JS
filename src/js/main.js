@@ -70,8 +70,10 @@ if (localStorage.theme === "dark-mode") {
 showAllContacts();
 contactsSubmenu();
 checkCurrentUser();
+ui.checkWindowResize();
 
 document.addEventListener("click", ui.hideMenu);
+window.addEventListener("resize", ui.checkWindowResize);
 
 navSearchInput.addEventListener("change", searchDebounce());
 navSearchInput.addEventListener("keyup", searchDebounce());

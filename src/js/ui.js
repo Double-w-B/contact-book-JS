@@ -149,3 +149,19 @@ export const openUpdateDataModal = () => {
   main.modalBackdrop.classList.add("open-modal");
   main.modalUpdateData.classList.add("open-modal");
 };
+
+/* Window resize */
+export const checkWindowResize = () => {
+  if (window.innerWidth <= 768 && window.innerWidth > 480) {
+    main.navNewContactBtn.lastChild.textContent = "Add";
+    main.navAllContactsBtn.lastChild.textContent = "List";
+    return;
+  }
+  if (window.innerWidth <= 480) {
+    main.navNewContactBtn.lastChild.textContent = "";
+    main.navAllContactsBtn.lastChild.textContent = "";
+    return;
+  }
+  main.navNewContactBtn.lastChild.textContent = "Add New";
+  main.navAllContactsBtn.lastChild.textContent = "List";
+};
