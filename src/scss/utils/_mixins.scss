@@ -63,10 +63,9 @@
   font-size: 1rem;
   border: none;
   border-radius: 1.5rem;
-  transition: all 0.2s linear;
+  transition: 0.1s linear;
   background-color: $blue-primary;
   color: $white-primary;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 3px, inset 0px 0px 2px;
 
   &:active {
     -webkit-box-shadow: inset 1px 2px 2px #535557;

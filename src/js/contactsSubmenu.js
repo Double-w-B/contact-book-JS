@@ -21,7 +21,7 @@ export const contactsSubmenu = () => {
   function handleSubmenuIcons(e) {
     const submenuButtons = document.querySelectorAll(".submenu-icon");
 
-    main.searchInput.blur();
+    main.navSearchInput.blur();
     const element = e.target.lastElementChild;
 
     if (element?.classList?.contains("submenu")) {

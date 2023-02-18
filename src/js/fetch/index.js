@@ -43,7 +43,7 @@ export async function checkCurrentUser() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalAuth.classList.remove("open-modal");
     main.menuButtons.forEach((button) => button.classList.remove("hide"));
-    main.inputContainer.classList.remove("disable");
+    main.navInputContainer.classList.remove("disable");
     main.navNewContactBtn.classList.remove("hide");
     main.navAllContactsBtn.classList.remove("hide");
     main.menuUpdateDataBtn.classList.remove("hide");
@@ -136,7 +136,7 @@ export async function loginUser(userData, methods) {
       main.modalBackdrop.classList.remove("open-modal");
       main.modalAuth.classList.remove("open-modal");
       main.menuButtons.forEach((button) => button.classList.remove("hide"));
-      main.inputContainer.classList.remove("disable");
+      main.navInputContainer.classList.remove("disable");
       main.navNewContactBtn.classList.remove("hide");
       main.navAllContactsBtn.classList.remove("hide");
       authButtonIcon.className = "fa-solid fa-arrow-right-from-bracket flip";
@@ -161,7 +161,7 @@ export async function logoutUser() {
     main.userAuth.isUserLoggedIn = false;
     main.data.contacts = [];
     main.menuButtons.forEach((button) => button.classList.add("hide"));
-    main.inputContainer.classList.add("disable");
+    main.navInputContainer.classList.add("disable");
     main.navNewContactBtn.classList.add("hide");
     main.navAllContactsBtn.classList.add("hide");
     authButtonIcon.className = "fa-solid fa-arrow-right-to-bracket";
@@ -266,7 +266,6 @@ export async function uploadContactImage(contactImage, handleIsLoading) {
     main.contactImage.cloudinaryImageId = data.contactImageId;
     main.contactImage.contactImageUrl = data.contactImageUrl;
     main.contactImage.contactImageName = data.contactImageName;
-    console.log(main.contactImage.cloudinaryImageId);
     handleIsLoading(false);
 
     console.log(data);

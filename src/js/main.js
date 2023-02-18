@@ -7,24 +7,43 @@ import { showAllContacts } from "./showAllContacts.js";
 import { checkCurrentUser } from "./fetch/index.js";
 import "../../src/scss/style.scss";
 
-const navigationLetters = document.querySelector(".letters__container");
+const userAuth = { isUserLoggedIn: false, userName: "", userEmail: "" };
+const data = { contacts: [] };
+const contactImage = {
+  cloudinaryImageId: "",
+  contactImageName: "",
+  contactImageUrl: "",
+};
+
+const nav = document.querySelector("nav");
+const menu = document.querySelector(".menu");
 const list = document.querySelector(".list");
 const listOfContacts = document.querySelector(".list__contacts");
+const navigationLetters = document.querySelector(".letters__container");
 const contactsAmount = document.querySelector(".list__contacts-amount");
-const inputContainer = document.querySelector(".input__container");
-const navNewContactBtn = document.querySelector(".nav__btn--add");
-const navAllContactsBtn = document.querySelector(".nav__btn--show");
-const navMenuBtn = document.querySelector(".nav__btn--menu");
-const searchInput = document.getElementById("search");
-
 const modalBackdrop = document.querySelector(".modal__backdrop");
+
+constructor.createNav();
+constructor.createMenu();
+constructor.createHintIcon();
+constructor.createNavigationLetters();
+constructor.createContactsLength(data.contacts);
+constructor.createFooter();
+constructor.createModals();
+
+const navInputContainer = document.querySelector(".input__container");
+const navSearchInput = document.getElementById("search");
+const navAllContactsBtn = document.querySelector(".nav__btn--show");
+const navNewContactBtn = document.querySelector(".nav__btn--add");
+const navMenuBtn = document.querySelector(".nav__btn--menu");
+const navHintIcon = document.querySelector(".hintIcon");
+
 const modalUpdateData = document.querySelector(".modal__contact-update");
 const modalAuth = document.querySelector(".modal__auth");
 const modalContactInfo = document.querySelector(".modal__contact-info");
 const modalContactAddEdit = document.querySelector(".modal__contact-add");
 const modalContactRemove = document.querySelector(".modal__contact-delete");
 
-const menu = document.querySelector(".menu");
 const menuSelectAllBtn = document.querySelector(".menu__btn--select");
 const menuUnselectAllBtn = document.querySelector(".menu__btn--unselect");
 const menuRemoveSelectedBtn = document.querySelector(".menu__btn--remove");
@@ -33,17 +52,11 @@ const menuUpdateDataBtn = document.querySelector(".menu__btn--update");
 const menuAuthBtn = document.querySelector(".menu__btn--auth");
 const menuAccountBtn = document.querySelector(".menu__btn--account");
 const menuContactsBtn = document.querySelector(".menu__btn--contacts");
+const menuAllOptions = document.querySelectorAll(".menu > ul > li");
+
 const menuButtons = document.querySelectorAll(
   ".menu button:not(.menu__btn--auth)"
 );
-
-const userAuth = { isUserLoggedIn: false, userName: "", userEmail: "" };
-const data = { contacts: [] };
-const contactImage = {
-  cloudinaryImageId: "",
-  contactImageName: "",
-  contactImageUrl: "",
-};
 
 if (!localStorage.theme) localStorage.theme = "light-mode";
 document.body.className = localStorage.theme;
@@ -54,25 +67,15 @@ if (localStorage.theme === "dark-mode") {
   menuChangeModeBtn.childNodes[1].textContent = "Light Theme";
 }
 
-constructor.createHintIcon();
-constructor.createContactsLength(data.contacts);
-constructor.createNavigationLetters();
-constructor.createFooter();
 showAllContacts();
 contactsSubmenu();
 checkCurrentUser();
 
-searchInput.addEventListener("change", searchDebounce());
-searchInput.addEventListener("keyup", searchDebounce());
-
-list.addEventListener("scroll", ui.hideScrollbarThumb);
-navMenuBtn.addEventListener("click", () => {
-  const hintIcon = document.querySelector(".hintIcon");
-  menu.classList.toggle("show-menu");
-  hintIcon.classList.toggle("opacity");
-});
 document.addEventListener("click", ui.hideMenu);
 
+navSearchInput.addEventListener("change", searchDebounce());
+navSearchInput.addEventListener("keyup", searchDebounce());
+navMenuBtn.addEventListener("click", ui.handleMenuButton);
 navNewContactBtn.addEventListener("click", modal.addContactModal);
 navAllContactsBtn.addEventListener("click", showAllContacts);
 
@@ -87,24 +90,27 @@ menuUnselectAllBtn.addEventListener("click", () =>
 );
 menuAuthBtn.addEventListener("click", ui.openAuthModal);
 menuUpdateDataBtn.addEventListener("click", ui.openUpdateDataModal);
-menuAccountBtn.addEventListener("click", ui.showOptions);
-menuContactsBtn.addEventListener("click", ui.showOptions);
+menuAccountBtn.addEventListener("click", ui.showMenuOptions);
+menuContactsBtn.addEventListener("click", ui.showMenuOptions);
+
+list.addEventListener("scroll", ui.hideScrollbarThumb);
 
 export {
   data,
-  navigationLetters,
+  nav,
+  list,
+  menu,
+  userAuth,
+  contactImage,
   listOfContacts,
-  modalBackdrop,
-  modalContactAddEdit,
-  modalContactInfo,
-  modalContactRemove,
-  modalUpdateData,
+  navigationLetters,
   contactsAmount,
-  searchInput,
+  navSearchInput,
   navMenuBtn,
+  navHintIcon,
   navNewContactBtn,
   navAllContactsBtn,
-  inputContainer,
+  navInputContainer,
   menuButtons,
   menuSelectAllBtn,
   menuUnselectAllBtn,
@@ -114,9 +120,11 @@ export {
   menuAuthBtn,
   menuAccountBtn,
   menuContactsBtn,
-  list,
-  menu,
+  menuAllOptions,
+  modalBackdrop,
   modalAuth,
-  userAuth,
-  contactImage,
+  modalContactAddEdit,
+  modalContactInfo,
+  modalContactRemove,
+  modalUpdateData,
 };

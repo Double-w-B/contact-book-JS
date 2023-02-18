@@ -15,10 +15,10 @@ export const removeManyContactsModal = () => {
   if (contactsId.length === 0) return;
 
   function openModal() {
-    main.menu.classList.remove("show-menu");
     main.modalBackdrop.classList.add("open-modal");
     main.modalContactRemove.classList.add("open-modal");
   }
+
   function closeModal() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalContactRemove.classList.remove("open-modal");

@@ -85,8 +85,9 @@
         margin-right: 0.5rem;
 
         i {
-          font-size: 1.2rem;
+          font-size: 1.1rem;
           transform: translateY(1px);
+          color: $blue-primary;
 
           &.flip {
             transform: scaleX(-1);

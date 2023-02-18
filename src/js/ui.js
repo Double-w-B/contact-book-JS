@@ -24,7 +24,12 @@ export const themeMode = () => {
   }
 };
 
-export function showOptions(e) {
+export function showMenuOptions(e) {
+  if (e.target.parentElement.classList.contains("active")) {
+    return e.target.parentElement.classList.remove("active");
+  }
+
+  main.menuAllOptions.forEach((option) => option.classList.remove("active"));
   e.target.parentElement.classList.toggle("active");
 }
 
@@ -57,20 +62,24 @@ export const hideScrollbarThumb = () => {
 
 /* Hide menu */
 export const hideMenu = (e) => {
-  const hintIcon = document.querySelector(".hintIcon");
-  console.log(e.target);
   if (
     main.menu.classList.contains("show-menu") &&
-    e.target !== main.menuSelectAllBtn &&
-    e.target !== main.menuUnselectAllBtn &&
-    e.target !== main.menuRemoveSelectedBtn &&
-    e.target !== main.navMenuBtn &&
-    e.target !== main.menuAccountBtn &&
-    e.target !== main.menuContactsBtn
+    !e.target.closest(".menu__btn--select") &&
+    !e.target.closest(".menu__btn--unselect") &&
+    !e.target.closest(".nav__btn--menu") &&
+    !e.target.closest(".menu__btn--account") &&
+    !e.target.closest(".menu__btn--contacts")
   ) {
     main.menu.classList.remove("show-menu");
-    hintIcon.classList.remove("opacity");
+    main.navHintIcon.classList.remove("opacity");
+    main.menuAllOptions.forEach((option) => option.classList.remove("active"));
   }
+};
+
+/* Show/Hide menu */
+export const handleMenuButton = () => {
+  main.menu.classList.toggle("show-menu");
+  main.navHintIcon.classList.toggle("opacity");
 };
 
 /* Select icons */
@@ -125,11 +134,9 @@ export const handleSelection = (type) => {
 
 /* Open Auth modal / Logout */
 export const openAuthModal = () => {
-  const authButton = document.querySelector(".menu__btn--auth");
-  const hintIcon = document.querySelector(".hintIcon");
-  hintIcon.classList.add("hide");
+  main.navHintIcon.classList.add("hide");
 
-  if (authButton.textContent === "Log in") {
+  if (main.menuAuthBtn.textContent === "Log in") {
     main.modalBackdrop.classList.add("open-modal");
     main.modalAuth.classList.add("open-modal");
   } else {
@@ -138,7 +145,6 @@ export const openAuthModal = () => {
 };
 
 /* Open UpdateData Modal */
-
 export const openUpdateDataModal = () => {
   main.modalBackdrop.classList.add("open-modal");
   main.modalUpdateData.classList.add("open-modal");

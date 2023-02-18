@@ -28,7 +28,7 @@ export const searchDebounce = () => {
 };
 
 export const displayMatches = () => {
-  const matchArray = findMatches(main.searchInput.value, main.data.contacts);
+  const matchArray = findMatches(main.navSearchInput.value, main.data.contacts);
 
   const contactsLengthElm = main.contactsAmount.children[0];
 
@@ -36,7 +36,7 @@ export const displayMatches = () => {
     a.name > b.name ? 1 : -1
   );
 
-  if (!main.searchInput.value) {
+  if (!main.navSearchInput.value) {
     showAllContacts();
     selectIcons();
   } else {

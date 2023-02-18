@@ -12,7 +12,7 @@ export const showAllContacts = () => {
 
   list.scrollTo(0, 0);
 
-  main.searchInput.value = "";
+  main.navSearchInput.value = "";
   main.data.contacts.sort((a, b) => {
     return a.name > b.name ? 1 : -1;
   });

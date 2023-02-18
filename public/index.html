@@ -14,26 +14,7 @@
 
 <body class="light-mode">
   <main>
-    <nav>
-      <div class="input__container disable">
-        <input type="text" id="search" placeholder="Name, number ..." onfocus="this.placeholder=''"
-          onblur="this.placeholder='Name, number ...'" autocomplete="off" required />
-        <div class="input__search-icon"><i class="fas fa-search"></i></div>
-      </div>
-      <button class="nav__btn--add hide no-select">
-        <i class="fas fa-user-plus"></i>
-        <p>Add</p>
-        <p>New</p>
-      </button>
-      <button class="nav__btn--show hide no-select">
-        <i class="fas fa-address-book"></i>
-        <p>List</p>
-      </button>
-
-      <button class="nav__btn--menu no-select">
-        <i class="fas fa-bars"></i>
-      </button>
-    </nav>
+    <nav></nav>
 
     <section class="list__container">
       <section class="list">
@@ -45,57 +26,14 @@
         </div>
       </section>
 
-      <section class="letters__container">
-      </section>
-
-      <section class="menu no-select">
-        <ul>
-          <li>
-            <button class="menu__btn--account hide"><span><i class="fa-solid fa-circle-user"></i></span>Account</button>
-            <ul>
-              <li><button class="menu__btn--update hide">Update data</button></li>
-              <li><button class="menu__btn--remove-user hide">Remove Account</button></li>
-            </ul>
-          </li>
-
-          <li>
-            <button class="menu__btn--contacts hide"><span><i class="fa-solid fa-users"></i></span>Contacts</button>
-            <ul>
-              <li><button class="menu__btn--select hide">Select all</button></li>
-              <li><button class="menu__btn--unselect hide">Unselect all</button></li>
-              <li><button class="menu__btn--remove hide">Remove Selected</button></li>
-            </ul>
-          </li>
-
-          <li>
-            <button class="menu__btn--mode hide"><span><i class="fa-solid fa-moon"></i></span>Dark Theme</button>
-          </li>
-          
-          <li>
-            <button class="menu__btn--auth"><span><i class="fa-solid fa-arrow-right-to-bracket"></i></span>Log
-              in</button>
-          </li>
-        </ul>
-        <!-- <button class="menu__btn--select hide">Select all</button>
-        <button class="menu__btn--unselect hide">Unselect all</button>
-        <button class="menu__btn--remove hide">Remove Selected</button>
-        <button class="menu__btn--mode hide">Change theme</button>
-        <button class="menu__btn--update hide">Update data</button>
-        <button class="menu__btn--auth">Log in</button> -->
-      </section>
+      <section class="letters__container"></section>
+      <section class="menu no-select"></section>
     </section>
-
   </main>
+
   <footer class="no-select"></footer>
 
-  <div class="modal__backdrop">
-    <div class="modal__auth"></div>
-    <div class="modal__contact-update"></div>
-    <div class="modal__contact-info"></div>
-    <div class="modal__contact-add"></div>
-    <div class="modal__contact-delete"></div>
-  </div>
-
+  <div class="modal__backdrop"></div>
 </body>
 
 </html>

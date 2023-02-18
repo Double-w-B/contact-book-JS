@@ -183,200 +183,14 @@ body {
 
           button {
             color: $grey-semi-light-2;
+
+            i{
+              color: $dark-mode-clr;
+
+            }
             &:hover {
               color: $dark-mode-clr;
             }
-          }
-        }
-      }
-
-      /* modals */
-      .modal__backdrop {
-        .modal__contact-info {
-          background-color: $dark-mode-2;
-          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
-
-          .top_info {
-            background-color: $dark-mode-clr;
-
-            &-avatar {
-              border: 5px solid $dark-mode-2;
-              background-color: $white-secondary;
-              background-color: $grey-light;
-
-              box-shadow: none;
-
-              p {
-                color: $dark-mode-clr;
-              }
-            }
-          }
-
-          .bottom_info {
-            &-name {
-              color: $dark-mode-clr;
-            }
-            &-details p {
-              color: $grey-light-2;
-
-              &:first-child {
-                color: $white-secondary;
-              }
-              &:nth-child(2) .copied {
-                color: $dark-mode-clr;
-              }
-
-              .fas,
-              .far {
-                color: $dark-mode-clr;
-              }
-
-              .fas.fa-copy,
-              .fas.fa-location-arrow {
-                color: $grey-semi-light-2;
-
-                &:hover {
-                  color: $grey-light-2;
-                }
-              }
-
-              .fa-phone-alt {
-                color: $green-primary;
-              }
-            }
-
-            .bottom_info-close-btn {
-              background-color: $dark-mode-clr;
-              color: $grey-light;
-            }
-          }
-        }
-
-        .modal__contact-add {
-          background-color: $dark-mode-2;
-          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
-
-          .avatar-container {
-            box-shadow: rgba(120, 120, 120, 1) 0px 0px 2px;
-
-            label {
-              box-shadow: rgba(120, 120, 120, 1) 0px 0px 3px;
-            }
-          }
-
-          form input {
-            color: $dark-mode-clr;
-            background-color: rgba(225, 225, 225, 0.1);
-            box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
-
-            &:focus,
-            &:valid {
-              background-color: transparent;
-              & + label,
-              & + label {
-                color: $grey-semi-light-2;
-              }
-            }
-          }
-
-          .new-con-btns button {
-            background-color: $dark-mode-clr;
-            color: $grey-light;
-          }
-        }
-
-        .modal__contact-delete {
-          background-color: $dark-mode-2;
-          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
-
-          .confirm-question p {
-            color: $grey-semi-light-2;
-            color: $grey-light-2;
-
-            .selected-contact {
-              color: $dark-mode-clr;
-              text-shadow: none;
-            }
-          }
-
-          .confirm-btns button {
-            background-color: $dark-mode-clr;
-            color: $grey-light;
-          }
-        }
-
-        .modal__contact-update {
-          background-color: $dark-mode-2;
-          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
-
-          .modal__update__change button {
-            &:hover,
-            &.active {
-              color: $dark-mode-clr;
-            }
-          }
-          .modal__update__credentials {
-            div {
-              input {
-                color: $dark-mode-clr;
-                background-color: rgba(225, 225, 225, 0.1);
-                box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
-
-                &:focus,
-                &:valid {
-                  background-color: transparent;
-                  & + label,
-                  & + label {
-                    color: $grey-semi-light-2;
-                  }
-                }
-              }
-            }
-          }
-
-          .modal__update__buttons button {
-            background-color: $dark-mode-clr;
-            color: $grey-light;
-          }
-        }
-
-        .modal__auth {
-          background-color: $dark-mode-2;
-          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-            rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
-          &__change {
-            &__button {
-              &:hover {
-                color: $dark-mode-clr;
-              }
-            }
-          }
-          &__credentials {
-            div {
-              input {
-                color: $dark-mode-clr;
-                background-color: rgba(225, 225, 225, 0.1);
-                box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
-
-                &:focus,
-                &:valid {
-                  background-color: transparent;
-                  & + label,
-                  & + label {
-                    color: $grey-semi-light-2;
-                  }
-                }
-              }
-            }
-          }
-
-          &__buttons button {
-            background-color: $dark-mode-clr;
-            color: $grey-light;
           }
         }
       }
@@ -387,6 +201,197 @@ body {
 
       a {
         color: $dark-mode-clr;
+      }
+    }
+
+    /* modals */
+    .modal__backdrop {
+      .modal__contact-info {
+        background-color: $dark-mode-2;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+
+        .top_info {
+          background-color: $dark-mode-clr;
+
+          &-avatar {
+            border: 5px solid $dark-mode-2;
+            background-color: $white-secondary;
+            background-color: $grey-light;
+
+            box-shadow: none;
+
+            p {
+              color: $dark-mode-clr;
+            }
+          }
+        }
+
+        .bottom_info {
+          &-name {
+            color: $dark-mode-clr;
+          }
+          &-details p {
+            color: $grey-light-2;
+
+            &:first-child {
+              color: $white-secondary;
+            }
+            &:nth-child(2) .copied {
+              color: $dark-mode-clr;
+            }
+
+            .fas,
+            .far {
+              color: $dark-mode-clr;
+            }
+
+            .fas.fa-copy,
+            .fas.fa-location-arrow {
+              color: $grey-semi-light-2;
+
+              &:hover {
+                color: $grey-light-2;
+              }
+            }
+
+            .fa-phone-alt {
+              color: $green-primary;
+            }
+          }
+
+          .bottom_info-close-btn {
+            background-color: $dark-mode-clr;
+            color: $grey-light;
+          }
+        }
+      }
+
+      .modal__contact-add {
+        background-color: $dark-mode-2;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+
+        .avatar-container {
+          box-shadow: rgba(120, 120, 120, 1) 0px 0px 2px;
+
+          label {
+            box-shadow: rgba(120, 120, 120, 1) 0px 0px 3px;
+          }
+        }
+
+        form input {
+          color: $dark-mode-clr;
+          background-color: rgba(225, 225, 225, 0.1);
+          box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
+
+          &:focus,
+          &:valid {
+            background-color: transparent;
+            & + label,
+            & + label {
+              color: $grey-semi-light-2;
+            }
+          }
+        }
+
+        .new-con-btns button {
+          background-color: $dark-mode-clr;
+          color: $grey-light;
+        }
+      }
+
+      .modal__contact-delete {
+        background-color: $dark-mode-2;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+
+        .confirm-question p {
+          color: $grey-semi-light-2;
+          color: $grey-light-2;
+
+          .selected-contact {
+            color: $dark-mode-clr;
+            text-shadow: none;
+          }
+        }
+
+        .confirm-btns button {
+          background-color: $dark-mode-clr;
+          color: $grey-light;
+        }
+      }
+
+      .modal__contact-update {
+        background-color: $dark-mode-2;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+
+        .modal__update__change button {
+          &:hover,
+          &.active {
+            color: $dark-mode-clr;
+          }
+        }
+        .modal__update__credentials {
+          div {
+            input {
+              color: $dark-mode-clr;
+              background-color: rgba(225, 225, 225, 0.1);
+              box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
+
+              &:focus,
+              &:valid {
+                background-color: transparent;
+                & + label,
+                & + label {
+                  color: $grey-semi-light-2;
+                }
+              }
+            }
+          }
+        }
+
+        .modal__update__buttons button {
+          background-color: $dark-mode-clr;
+          color: $grey-light;
+        }
+      }
+
+      .modal__auth {
+        background-color: $dark-mode-2;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+        &__change {
+          &__button {
+            &:hover {
+              color: $dark-mode-clr;
+            }
+          }
+        }
+        &__credentials {
+          div {
+            input {
+              color: $dark-mode-clr;
+              background-color: rgba(225, 225, 225, 0.1);
+              box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
+
+              &:focus,
+              &:valid {
+                background-color: transparent;
+                & + label,
+                & + label {
+                  color: $grey-semi-light-2;
+                }
+              }
+            }
+          }
+        }
+
+        &__buttons button {
+          background-color: $dark-mode-clr;
+          color: $grey-light;
+        }
       }
     }
   }

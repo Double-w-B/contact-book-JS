@@ -1,6 +1,6 @@
 import * as main from "../main.js";
 import * as utils from "../utils.js";
-import { createButton } from "../constructor.js";
+import { createButton, createNewElement } from "../constructor.js";
 import { createLoadingSpinner } from "../constructor.js";
 
 /* Single input */
@@ -18,10 +18,9 @@ export const createInputContent = (type, className) => {
     return "- only Latin characters";
   }
 
-  const inputContainer = document.createElement("div");
-  inputContainer.className = className;
+  const inputContainer = createNewElement("div", className);
 
-  const input = document.createElement("input");
+  const input = createNewElement("input");
   input.id = type;
   input.type = type.includes("password") ? "password" : "text";
   input.name = type;
@@ -32,8 +31,8 @@ export const createInputContent = (type, className) => {
   if (type === "phone") input.maxLength = "9";
   if (type === "address" || type === "notes") input.maxLength = "40";
 
-  const label = document.createElement("label");
-  const labelSpan = document.createElement("span");
+  const label = createNewElement("label");
+  const labelSpan = createNewElement("span");
   const labelSpanNode = document.createTextNode("*");
   labelSpan.append(labelSpanNode);
   const labelNode = document.createTextNode(
@@ -51,8 +50,7 @@ export const createInputContent = (type, className) => {
   }
 
   if (type === "user name" || type === "user email" || type === "password") {
-    const pElmErrorRequired = document.createElement("p");
-    pElmErrorRequired.className = "error-hint-required";
+    const pElmErrorRequired = createNewElement("p", "error-hint-required");
     const pElmErrorNameReqNode = document.createTextNode(`${type} is required`);
     pElmErrorRequired.append(pElmErrorNameReqNode);
 
@@ -60,28 +58,24 @@ export const createInputContent = (type, className) => {
     return inputContainer;
   }
 
-  const pElmErrorName = document.createElement("p");
-  pElmErrorName.className = "error-hint";
+  const pElmErrorName = createNewElement("p", "error-hint");
   const pElmErrorNameNode = document.createTextNode(
     `invalid ${type === "phone" ? "number" : type}`
   );
   pElmErrorName.append(pElmErrorNameNode);
 
-  const pElmErrorNameReq = document.createElement("p");
-  pElmErrorNameReq.className = "error-hint-required";
+  const pElmErrorNameReq = createNewElement("p", "error-hint-required");
   const pElmErrorNameReqNode = document.createTextNode(
     `${type === "phone" ? "number" : type} is required`
   );
   pElmErrorNameReq.append(pElmErrorNameReqNode);
 
   if (type === "phone") {
-    const pElmErrorLength = document.createElement("p");
-    pElmErrorLength.className = "error-hint-length";
+    const pElmErrorLength = createNewElement("p", "error-hint-length");
     const pElmErrorLengthNode = document.createTextNode("min. 6 characters");
     pElmErrorLength.append(pElmErrorLengthNode);
 
-    const pElmErrorNumber = document.createElement("p");
-    pElmErrorNumber.className = "error-hint-number";
+    const pElmErrorNumber = createNewElement("p", "error-hint-number");
     const pElmErrorNumberNode = document.createTextNode(
       "number already exists"
     );
@@ -118,29 +112,25 @@ export const createImgInput = (name, src) => {
     return `.../${name}`;
   }
 
-  const imgContainer = document.createElement("div");
-  imgContainer.className = "contact-img-upload";
+  const imgContainer = createNewElement("div", "contact-img-upload");
+  const avatarContainer = createNewElement("div", "avatar-container");
 
-  const avatarContainer = document.createElement("div");
-  avatarContainer.className = "avatar-container";
-
-  const label = document.createElement("label");
+  const label = createNewElement("label");
   if (src) label.className = "disable";
   label.title = "Press camera to add an image";
-  const imgEl = document.createElement("img");
+  const imgEl = createNewElement("img");
   imgEl.className = src ? "" : "img-icon";
   imgEl.src = setImgSrc();
   imgEl.alt = "";
 
-  const input = document.createElement("input");
+  const input = createNewElement("input");
   input.type = "file";
   input.setAttribute("accept", "image/png, image/gif, image/jpeg, image/webp");
   label.append(imgEl, input);
-  const icon = document.createElement("i");
-  icon.className = `fas fa-times ${!src && "hide"}`;
+  const icon = createNewElement("i", `fas fa-times ${!src && "hide"}`);
   avatarContainer.append(label, icon);
 
-  const pEl = document.createElement("p");
+  const pEl = createNewElement("p");
   const pElNode = document.createTextNode(`${setTextNode()}`);
   pEl.append(pElNode);
 
@@ -151,19 +141,16 @@ export const createImgInput = (name, src) => {
 
 /* Main info AddContactModal */
 export const createMainInfoStructure = () => {
-  const mainInfoContainer = document.createElement("div");
-  mainInfoContainer.className = "new-con-main-info";
+  const mainInfoContainer = createNewElement("div", "new-con-main-info");
 
-  const mainInfoForm = document.createElement("form");
-  const formInfoOne = document.createElement("div");
-  formInfoOne.className = "info-one";
+  const mainInfoForm = createNewElement("form");
+  const formInfoOne = createNewElement("div", "info-one");
 
   const nameInput = createInputContent("name", "name-input");
   const surnameInput = createInputContent("surname", "surname-input");
   formInfoOne.append(nameInput, surnameInput);
 
-  const formInfoTwo = document.createElement("div");
-  formInfoTwo.className = "info-two";
+  const formInfoTwo = createNewElement("div", "info-two");
 
   const phoneInput = createInputContent("phone", "phone-input");
   const emailInput = createInputContent("email", "email-input");
@@ -177,16 +164,15 @@ export const createMainInfoStructure = () => {
 
 /* Secondary info AddContactModal*/
 export const createSecondaryInfoStructure = () => {
-  const secondaryInfoContainer = document.createElement("div");
-  secondaryInfoContainer.className = "new-con-secondary-info";
+  const secondaryInfoContainer = createNewElement(
+    "div",
+    "new-con-secondary-info"
+  );
 
-  const secondaryInfoForm = document.createElement("form");
-
+  const secondaryInfoForm = createNewElement("form");
   const addressInput = createInputContent("address", "address-input");
   const notesInput = createInputContent("notes", "notes-input");
-
-  const pElm = document.createElement("p");
-  pElm.className = "infoMsg";
+  const pElm = createNewElement("p", "infoMsg");
 
   secondaryInfoForm.append(addressInput, notesInput, pElm);
   secondaryInfoContainer.append(secondaryInfoForm);
@@ -202,8 +188,7 @@ export const createAddContactModalContent = () => {
   const mainInfo = createMainInfoStructure();
   const secondaryInfo = createSecondaryInfoStructure();
 
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "new-con-btns";
+  const buttonsContainer = createNewElement("div", "new-con-btns");
   const addButton = createButton("accept", "Add");
   const cancelButton = createButton("cancel", "Close");
   const loadingSpinner = createLoadingSpinner();
@@ -226,8 +211,7 @@ export const createEditContactModalContent = (name, src) => {
   const mainInfo = createMainInfoStructure();
   const secondaryInfo = createSecondaryInfoStructure();
 
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "new-con-btns";
+  const buttonsContainer = createNewElement("div", "new-con-btns");
   const saveButton = createButton("save", "Save");
   const cancelButton = createButton("cancel", "Close");
   const loadingSpinner = createLoadingSpinner();
@@ -247,24 +231,19 @@ export const createEditContactModalContent = (name, src) => {
 export const createRemoveSingleContactModal = (selectedContact) => {
   utils.removeChildrenElements(main.modalContactRemove);
 
-  const container = document.createElement("div");
-  container.className = "confirm-container  no-select";
+  const container = createNewElement("div", "confirm-container no-select");
+  const questionContainer = createNewElement("div", "confirm-question");
 
-  const questionContainer = document.createElement("div");
-  questionContainer.className = "confirm-question";
-
-  const span = document.createElement("span");
-  span.className = "selected-contact";
+  const span = createNewElement("span", "selected-contact");
   const spanNode = document.createTextNode(`${selectedContact}`);
   span.append(spanNode);
 
-  const pElm = document.createElement("p");
+  const pElm = createNewElement("p");
 
   pElm.append("Are you sure you want to delete the ", span, " contact?");
   questionContainer.append(pElm);
 
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "confirm-btns";
+  const buttonsContainer = createNewElement("div", "confirm-btns");
   const deleteButton = createButton("confirm-delete", "Delete");
   const cancelButton = createButton("confirm-cancel", "Cancel");
   const loadingSpinner = createLoadingSpinner();
@@ -279,16 +258,12 @@ export const createRemoveSingleContactModal = (selectedContact) => {
 export const createRemoveManyContactsModal = (itemsToRemove) => {
   utils.removeChildrenElements(main.modalContactRemove);
 
-  const content = document.createElement("div");
-  content.className = "confirm-container";
+  const content = createNewElement("div", "confirm-container");
+  const questionContainer = createNewElement("div", "confirm-question");
 
-  const questionContainer = document.createElement("div");
-  questionContainer.className = "confirm-question";
+  const pElm = createNewElement("p");
 
-  const pElm = document.createElement("p");
-
-  const span = document.createElement("span");
-  span.className = "selected-contact";
+  const span = createNewElement("span", "selected-contact");
   const spanTextNode = document.createTextNode(`${itemsToRemove.length}`);
   span.append(spanTextNode);
 
@@ -304,8 +279,7 @@ export const createRemoveManyContactsModal = (itemsToRemove) => {
   pElm.append(firstTextNode, secondTextNode, span, lastTextNode);
   questionContainer.append(pElm);
 
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "confirm-btns";
+  const buttonsContainer = createNewElement("div", "confirm-btns");
   const loadingSpinner = createLoadingSpinner();
 
   const deleteBtn = createButton("confirm-delete", "Delete");
@@ -322,27 +296,18 @@ export const createContactInfoModal = (contact) => {
   const { name, surname, phone, email, address, notes, img } = contact;
   utils.removeChildrenElements(main.modalContactInfo);
 
-  function creteIcon(className) {
-    const icon = document.createElement("i");
-    icon.className = className;
-    return icon;
-  }
+  const topInfo = createNewElement("div", "top_info");
+  const topInfoImg = createNewElement("div", "top_info-avatar");
 
-  const topInfo = document.createElement("div");
-  topInfo.className = "top_info";
-  const topInfoImg = document.createElement("div");
-  topInfoImg.className = "top_info-avatar";
   if (img.src) {
-    const contactImg = document.createElement("img");
-    contactImg.className = "no-select";
+    const contactImg = createNewElement("img", "no-select");
     contactImg.draggable = false;
     contactImg.src = img.src;
     contactImg.alt = "contact img";
     topInfoImg.append(contactImg);
   }
   if (!img.src) {
-    const pElm = document.createElement("p");
-    pElm.className = "no-select";
+    const pElm = createNewElement("p", "no-select");
     const pElmNode = document.createTextNode(
       `${name.substring(0, 1)}${surname.substring(0, 1)}`
     );
@@ -351,36 +316,31 @@ export const createContactInfoModal = (contact) => {
   }
   topInfo.append(topInfoImg);
 
-  const bottomInfo = document.createElement("div");
-  bottomInfo.className = "bottom_info";
+  const bottomInfo = createNewElement("div", "bottom_info");
 
-  const bottomInfoName = document.createElement("div");
-  bottomInfoName.className = "bottom_info-name";
-  const fullName = document.createElement("p");
+  const bottomInfoName = createNewElement("div", "bottom_info-name");
+  const fullName = createNewElement("p");
   const fullNameNode = document.createTextNode(`${name} ${surname}`);
   fullName.append(fullNameNode);
-  const underline = document.createElement("div");
-  underline.className = "bottom_info-name-underline";
+  const underline = createNewElement("div", "bottom_info-name-underline");
   bottomInfoName.append(fullName, underline);
 
-  const bottomInfoDetails = document.createElement("div");
-  bottomInfoDetails.className = "bottom_info-details";
-  const pElmPhone = document.createElement("p");
-  const phoneIcon = creteIcon("fas fa-phone no-select");
+  const bottomInfoDetails = createNewElement("div", "bottom_info-details");
+  const pElmPhone = createNewElement("p");
+  const phoneIcon = createNewElement("i", "fas fa-phone no-select");
   const pElmPhoneNode = document.createTextNode(
     `${phone.replace(utils.everyThirdRegExp, " ")}`
   );
   pElmPhone.append(phoneIcon, pElmPhoneNode);
 
-  const pElmEmail = document.createElement("p");
-  const emailIcon = creteIcon("fas fa-at no-select");
-  const emailCopyIcon = creteIcon("fas fa-copy no-select");
+  const pElmEmail = createNewElement("p");
+  const emailIcon = createNewElement("i", "fas fa-at no-select");
+  const emailCopyIcon = createNewElement("i", "fas fa-copy no-select");
   emailCopyIcon.title = "copy";
-  const emailCopySpan = document.createElement("span");
-  emailCopySpan.className = "copied";
+  const emailCopySpan = createNewElement("span", "copied");
   const emailCopySpanNode = document.createTextNode("Copied!");
   emailCopySpan.append(emailCopySpanNode);
-  const noEmailSpan = document.createElement("span");
+  const noEmailSpan = createNewElement("span");
   const noEmailSpanNode = document.createTextNode("no email passed");
   noEmailSpan.append(noEmailSpanNode);
   if (email) {
@@ -389,17 +349,17 @@ export const createContactInfoModal = (contact) => {
     pElmEmail.append(emailIcon, noEmailSpan);
   }
 
-  const pElmAddress = document.createElement("p");
-  const addressIcon = creteIcon("fas fa-map-marker-alt no-select");
+  const pElmAddress = createNewElement("p");
+  const addressIcon = createNewElement("i", "fas fa-map-marker-alt no-select");
   const addressIconNode = document.createTextNode(`\u00A0`);
   addressIcon.append(addressIconNode);
-  const addressLink = document.createElement("a");
+  const addressLink = createNewElement("a");
   addressLink.setAttribute("href", `http://maps.google.com/?q=${address}`);
   addressLink.setAttribute("target", "_blank");
   addressLink.draggable = false;
-  const locationIcon = creteIcon("fas fa-location-arrow");
+  const locationIcon = createNewElement("i", "fas fa-location-arrow");
   addressLink.append(locationIcon);
-  const addressSpan = document.createElement("span");
+  const addressSpan = createNewElement("span");
   const addressSpanNode = document.createTextNode("no address passed");
   addressSpan.append(addressSpanNode);
   if (address) {
@@ -408,9 +368,9 @@ export const createContactInfoModal = (contact) => {
     pElmAddress.append(addressIcon, addressSpan);
   }
 
-  const pElmNotes = document.createElement("p");
-  const notesIcon = creteIcon("far fa-edit no-select");
-  const notesSpan = document.createElement("span");
+  const pElmNotes = createNewElement("p");
+  const notesIcon = createNewElement("i", "far fa-edit no-select");
+  const notesSpan = createNewElement("span");
   const notesSpanNode = document.createTextNode("no notes passed");
   notesSpan.append(notesSpanNode);
   if (notes) {
@@ -437,22 +397,18 @@ export const createContactInfoModal = (contact) => {
 export const createAuthModal = () => {
   utils.removeChildrenElements(main.modalAuth);
 
-  const credentials = document.createElement("div");
-  credentials.className = "modal__auth__credentials";
+  const credentials = createNewElement("div", "modal__auth__credentials");
   const emailInput = createInputContent("user-email", "userEmail-input");
   const passwordInput = createInputContent("password", "password-input");
-  const pElm = document.createElement("p");
-  pElm.className = "infoMsg";
+  const pElm = createNewElement("p", "infoMsg");
   credentials.append(emailInput, passwordInput, pElm);
 
-  const changeButtonContainer = document.createElement("div");
-  changeButtonContainer.className = "modal__auth__change";
+  const changeButtonContainer = createNewElement("div", "modal__auth__change");
   const changeButton = createButton("modal__auth__change__button", "register");
   const loadingIcon = createLoadingSpinner();
   changeButtonContainer.append(changeButton, loadingIcon);
 
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "modal__auth__buttons";
+  const buttonsContainer = createNewElement("div", "modal__auth__buttons");
   const loginButton = createButton("modal__auth__buttons-auth", "login");
   const closeButton = createButton("modal__auth__buttons-close", "close");
   buttonsContainer.append(loginButton, closeButton);
@@ -465,17 +421,17 @@ export const createAuthModal = () => {
 export const createUpdateDataModal = () => {
   utils.removeChildrenElements(main.modalUpdateData);
 
-  const credentials = document.createElement("div");
-  credentials.className = "modal__update__credentials";
+  const credentials = createNewElement("div", "modal__update__credentials");
   const nameInput = createInputContent("user-name", "userName-input");
   const newNameInput = createInputContent("new-name", "newUserName-input");
 
-  const pElm = document.createElement("p");
-  pElm.className = "infoMsg";
+  const pElm = createNewElement("p", "infoMsg");
   credentials.append(nameInput, newNameInput, pElm);
 
-  const changeButtonsContainer = document.createElement("div");
-  changeButtonsContainer.className = "modal__update__change";
+  const changeButtonsContainer = createNewElement(
+    "div",
+    "modal__update__change"
+  );
   const changeNameButton = createButton(
     "modal__update__change__button-name",
     "name"
@@ -498,8 +454,7 @@ export const createUpdateDataModal = () => {
     loadingIcon
   );
 
-  const buttonsContainer = document.createElement("div");
-  buttonsContainer.className = "modal__update__buttons";
+  const buttonsContainer = createNewElement("div", "modal__update__buttons");
   const loginButton = createButton("modal__update__buttons-update", "update");
   const closeButton = createButton("modal__update__buttons-close", "close");
   buttonsContainer.append(loginButton, closeButton);
