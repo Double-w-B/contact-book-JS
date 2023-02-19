@@ -29,6 +29,10 @@
     list-style: none;
 
     li {
+      &.hide {
+        display: none;
+      }
+
       &:nth-child(2) i {
         font-size: 1rem;
       }
@@ -50,7 +54,6 @@
           height: 2rem;
           opacity: 1;
           padding: 0 0.4rem;
-
           visibility: visible;
         }
       }
@@ -77,6 +80,12 @@
       font-size: 1rem;
       color: #555555;
 
+      &:active {
+        i {
+          transform: scale(0.8);
+        }
+      }
+
       span {
         width: 25px;
         height: 100%;
@@ -88,15 +97,16 @@
           font-size: 1.1rem;
           transform: translateY(1px);
           color: $blue-primary;
+          transition: 0.3s linear;
+
+          &:active {
+            transform: scale(0.8);
+          }
 
           &.flip {
             transform: scaleX(-1);
           }
         }
-      }
-
-      &:not(.menu__btn--login).hide {
-        display: none;
       }
 
       &:hover {

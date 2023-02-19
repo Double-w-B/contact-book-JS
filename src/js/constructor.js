@@ -204,7 +204,7 @@ export const createHintIcon = () => {
 export function createMenu() {
   const ulContainer = createNewElement("ul");
 
-  const accountLi = createNewElement("li");
+  const accountLi = createNewElement("li", "hide");
   const accountButton = createIconButton(
     "fa-solid fa-circle-user",
     "menu__btn--account",
@@ -223,7 +223,7 @@ export function createMenu() {
   ulAccount.append(updateDataLi, removeAccountLi);
   accountLi.append(accountButton, ulAccount);
 
-  const contactsLi = createNewElement("li");
+  const contactsLi = createNewElement("li", "hide");
   const contactsButton = createIconButton(
     "fa-solid fa-users",
     "menu__btn--contacts",

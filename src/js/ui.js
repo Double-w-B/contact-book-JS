@@ -25,12 +25,12 @@ export const themeMode = () => {
 };
 
 export function showMenuOptions(e) {
-  if (e.target.parentElement.classList.contains("active")) {
-    return e.target.parentElement.classList.remove("active");
+  if (e.target.closest("li").classList.contains("active")) {
+    return e.target.closest("li").classList.remove("active");
   }
 
   main.menuAllOptions.forEach((option) => option.classList.remove("active"));
-  e.target.parentElement.classList.toggle("active");
+  e.target.closest("li").classList.toggle("active");
 }
 
 /* Scroll To */
@@ -62,13 +62,15 @@ export const hideScrollbarThumb = () => {
 
 /* Hide menu */
 export const hideMenu = (e) => {
+  console.log(e.target);
   if (
     main.menu.classList.contains("show-menu") &&
+    !e.target.closest(".nav__btn--menu") &&
     !e.target.closest(".menu__btn--select") &&
     !e.target.closest(".menu__btn--unselect") &&
-    !e.target.closest(".nav__btn--menu") &&
     !e.target.closest(".menu__btn--account") &&
-    !e.target.closest(".menu__btn--contacts")
+    !e.target.closest(".menu__btn--contacts") &&
+    !e.target.closest(".menu__btn--remove")
   ) {
     main.menu.classList.remove("show-menu");
     main.navHintIcon.classList.remove("opacity");
@@ -78,6 +80,7 @@ export const hideMenu = (e) => {
 
 /* Show/Hide menu */
 export const handleMenuButton = () => {
+  main.menuAllOptions.forEach((option) => option.classList.remove("active"));
   main.menu.classList.toggle("show-menu");
   main.navHintIcon.classList.toggle("opacity");
 };

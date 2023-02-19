@@ -19,13 +19,12 @@ export const authModal = () => {
 
   const allInputs = authCredentials.getElementsByTagName("input");
   const loadingIcon = document.querySelector(".loadingIcon");
-  const hintIcon = document.querySelector(".hintIcon");
   let isInputError = false;
 
   function closeModal() {
     main.modalBackdrop.classList.remove("open-modal");
     main.modalAuth.classList.remove("open-modal");
-    hintIcon.classList.remove("hide");
+    main.navHintIcon.classList.remove("hide");
 
     if (authCredentials.children.length === 4) {
       authCredentials.removeChild(nameInputContainer);

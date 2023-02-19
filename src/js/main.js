@@ -80,8 +80,8 @@ navSearchInput.addEventListener("keyup", searchDebounce());
 navMenuBtn.addEventListener("click", ui.handleMenuButton);
 navNewContactBtn.addEventListener("click", modal.addContactModal);
 navAllContactsBtn.addEventListener("click", showAllContacts);
-
 navigationLetters.addEventListener("click", ui.scrollTo);
+
 menuChangeModeBtn.addEventListener("click", ui.themeMode);
 menuRemoveSelectedBtn.addEventListener("click", modal.removeManyContactsModal);
 menuSelectAllBtn.addEventListener("click", () =>

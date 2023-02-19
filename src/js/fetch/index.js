@@ -12,9 +12,8 @@ export async function checkCurrentUser() {
   loadingSpinner.classList.add("show");
   main.listOfContacts.append(loadingSpinner);
 
-  const authButtonIcon = main.menuAuthBtn.querySelector("i");
-  const hintIcon = document.querySelector(".hintIcon");
-  hintIcon.classList.add("hide");
+  const menuAuthBtnIcon = main.menuAuthBtn.querySelector("i");
+  main.navHintIcon.classList.add("hide");
 
   const url = "/api/v1/user/checkUser";
 
@@ -26,7 +25,7 @@ export async function checkCurrentUser() {
       main.userAuth.isUserLoggedIn = false;
       setTimeout(() => {
         loadingSpinner.classList.remove("show");
-        hintIcon.classList.remove("hide");
+        main.navHintIcon.classList.remove("hide");
 
         showAllContacts();
       }, 1000);
@@ -39,16 +38,16 @@ export async function checkCurrentUser() {
 
     getAllContacts();
 
-    hintIcon.classList.add("hide");
     main.modalBackdrop.classList.remove("open-modal");
     main.modalAuth.classList.remove("open-modal");
-    main.menuButtons.forEach((button) => button.classList.remove("hide"));
+    main.navHintIcon.classList.add("hide");
     main.navInputContainer.classList.remove("disable");
     main.navNewContactBtn.classList.remove("hide");
     main.navAllContactsBtn.classList.remove("hide");
-    main.menuUpdateDataBtn.classList.remove("hide");
-    authButtonIcon.className = "fa-solid fa-arrow-right-from-bracket flip";
+    main.menuAllOptions[0].classList.remove("hide");
+    main.menuAllOptions[1].classList.remove("hide");
     main.menuAuthBtn.childNodes[1].textContent = "Log out";
+    menuAuthBtnIcon.className = "fa-solid fa-arrow-right-from-bracket flip";
   } catch (error) {
     console.log(error);
   }
@@ -102,7 +101,7 @@ export async function registerUser(userData, methods) {
 export async function loginUser(userData, methods) {
   const { handleIsLoading, clearInputs } = methods;
 
-  const authButtonIcon = main.menuAuthBtn.querySelector("i");
+  const menuAuthBtnIcon = main.menuAuthBtn.querySelector("i");
   const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
 
   const url = "/api/v1/auth/login";
@@ -135,12 +134,13 @@ export async function loginUser(userData, methods) {
       main.userAuth.userEmail = data.user.email;
       main.modalBackdrop.classList.remove("open-modal");
       main.modalAuth.classList.remove("open-modal");
-      main.menuButtons.forEach((button) => button.classList.remove("hide"));
       main.navInputContainer.classList.remove("disable");
       main.navNewContactBtn.classList.remove("hide");
       main.navAllContactsBtn.classList.remove("hide");
-      authButtonIcon.className = "fa-solid fa-arrow-right-from-bracket flip";
+      main.menuAllOptions[0].classList.remove("hide");
+      main.menuAllOptions[1].classList.remove("hide");
       main.menuAuthBtn.childNodes[1].textContent = "Log out";
+      menuAuthBtnIcon.className = "fa-solid fa-arrow-right-from-bracket flip";
       getAllContacts();
     }, 1000);
   } catch (error) {
@@ -151,8 +151,7 @@ export async function loginUser(userData, methods) {
 
 //! logoutUser
 export async function logoutUser() {
-  const hintIcon = document.querySelector(".hintIcon");
-  const authButtonIcon = main.menuAuthBtn.querySelector("i");
+  const menuAuthBtnIcon = main.menuAuthBtn.querySelector("i");
 
   const url = "/api/v1/auth/logout";
 
@@ -160,17 +159,18 @@ export async function logoutUser() {
     await fetch(url);
     main.userAuth.isUserLoggedIn = false;
     main.data.contacts = [];
-    main.menuButtons.forEach((button) => button.classList.add("hide"));
     main.navInputContainer.classList.add("disable");
     main.navNewContactBtn.classList.add("hide");
     main.navAllContactsBtn.classList.add("hide");
-    authButtonIcon.className = "fa-solid fa-arrow-right-to-bracket";
+    main.menuAllOptions[0].classList.add("hide");
+    main.menuAllOptions[1].classList.add("hide");
     main.menuAuthBtn.childNodes[1].textContent = "Log in";
+    menuAuthBtnIcon.className = "fa-solid fa-arrow-right-to-bracket";
     constructor.createNavigationLetters();
 
     setTimeout(() => {
       showAllContacts();
-      hintIcon.classList.remove("hide");
+      main.navHintIcon.classList.remove("hide");
     }, 500);
   } catch (error) {
     console.log(error);

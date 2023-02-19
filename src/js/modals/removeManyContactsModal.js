@@ -17,6 +17,8 @@ export const removeManyContactsModal = () => {
   function openModal() {
     main.modalBackdrop.classList.add("open-modal");
     main.modalContactRemove.classList.add("open-modal");
+    main.menu.classList.remove("show-menu");
+    main.menuAllOptions.forEach((option) => option.classList.remove("active"));
   }
 
   function closeModal() {
