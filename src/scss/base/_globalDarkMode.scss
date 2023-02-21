@@ -184,9 +184,8 @@ body {
           button {
             color: $grey-semi-light-2;
 
-            i{
+            i {
               color: $dark-mode-clr;
-
             }
             &:hover {
               color: $dark-mode-clr;
@@ -204,7 +203,7 @@ body {
       }
     }
 
-    /* modals */
+    /* Modals */
     .modal__backdrop {
       .modal__contact-info {
         background-color: $dark-mode-2;
@@ -307,7 +306,6 @@ body {
           rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
 
         .confirm-question p {
-          color: $grey-semi-light-2;
           color: $grey-light-2;
 
           .selected-contact {
@@ -322,7 +320,7 @@ body {
         }
       }
 
-      .modal__contact-update {
+      .modal__account-update {
         background-color: $dark-mode-2;
         box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
           rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
@@ -389,6 +387,40 @@ body {
         }
 
         &__buttons button {
+          background-color: $dark-mode-clr;
+          color: $grey-light;
+        }
+      }
+
+      .modal__account-delete {
+        background-color: $dark-mode-2;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+
+        .modal__account__alert {
+          p {
+            color: $grey-light-2;
+          }
+        }
+
+        form div {
+          input {
+            color: $dark-mode-clr;
+            background-color: rgba(225, 225, 225, 0.1);
+            box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
+
+            &:focus,
+            &:valid {
+              background-color: transparent;
+              & + label,
+              & + label {
+                color: $grey-semi-light-2;
+              }
+            }
+          }
+        }
+
+        .modal__account__buttons button {
           background-color: $dark-mode-clr;
           color: $grey-light;
         }

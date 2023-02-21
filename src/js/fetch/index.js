@@ -242,8 +242,6 @@ export async function addContactToDB(contact, methods) {
     handleIsLoading(false);
 
     closeModal();
-
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -267,8 +265,6 @@ export async function uploadContactImage(contactImage, handleIsLoading) {
     main.contactImage.contactImageUrl = data.contactImageUrl;
     main.contactImage.contactImageName = data.contactImageName;
     handleIsLoading(false);
-
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -299,8 +295,6 @@ export async function removeContactImage(contactData, handleIsLoading) {
     main.contactImage.contactImageUrl = "";
     main.contactImage.contactImageName = "";
     handleIsLoading(false);
-
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -314,7 +308,6 @@ export async function removeUnsavedImageFromDB() {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -363,8 +356,6 @@ export async function deleteManyContactsFromDB(contactsId, methods) {
     handleIsLoading(false);
 
     closeModal();
-
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -389,8 +380,6 @@ export async function updateContact(contactData, methods) {
     handleIsLoading(false);
 
     closeModal();
-
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -516,7 +505,6 @@ export async function updateUserPassword(data, methods) {
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
-    console.log(data);
 
     if (!response.ok) {
       setTimeout(() => {
@@ -549,3 +537,43 @@ export async function updateUserPassword(data, methods) {
 }
 //! updatePassword
 /* UPDATE USER DATA */
+
+// ! removeAccount
+export const removeUserAccount = async (password, methods) => {
+  const { handleIsLoading, handleErrorMsg, closeModal } = methods;
+
+  const url = `/api/v1/user/deleteUser`;
+  requestOptions.method = "DELETE";
+  requestOptions.headers = { "Content-type": "application/json" };
+  requestOptions.body = JSON.stringify({ password });
+
+  handleIsLoading(true);
+
+  try {
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+
+    if (!response.ok) {
+      setTimeout(() => {
+        handleIsLoading(false);
+        handleErrorMsg(true, data.msg);
+      }, 1000);
+
+      setTimeout(() => {
+        handleErrorMsg(false, "");
+      }, 2500);
+
+      return;
+    }
+
+    logoutUser();
+
+    setTimeout(() => {
+      handleIsLoading(false);
+      closeModal();
+    }, 500);
+  } catch (error) {
+    console.log(error);
+  }
+};
+// ! removeAccount

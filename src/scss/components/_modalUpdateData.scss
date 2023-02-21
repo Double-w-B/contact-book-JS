@@ -1,6 +1,6 @@
 @use "../utils/_mixins" as shared;
 
-.modal__contact-update {
+.modal__account-update {
   @include shared.modalContainer;
 
   width: 350px;

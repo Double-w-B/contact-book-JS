@@ -1,4 +1,5 @@
 import { authModal } from "./authModal.js";
+import { removeAccountModal } from "./removeAccountModal.js";
 import { addContactModal } from "./addContactModal.js";
 import { editContactModal } from "./editContactModal.js";
 import { infoContactModal } from "./infoContactModal.js";
@@ -11,6 +12,7 @@ export {
   editContactModal,
   addContactModal,
   infoContactModal,
+  removeAccountModal,
   updateUserDataModal,
   removeSingleContactModal,
   removeManyContactsModal,

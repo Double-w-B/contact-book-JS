@@ -62,7 +62,6 @@ export const hideScrollbarThumb = () => {
 
 /* Hide menu */
 export const hideMenu = (e) => {
-  console.log(e.target);
   if (
     main.menu.classList.contains("show-menu") &&
     !e.target.closest(".nav__btn--menu") &&
@@ -151,6 +150,11 @@ export const openAuthModal = () => {
 export const openUpdateDataModal = () => {
   main.modalBackdrop.classList.add("open-modal");
   main.modalUpdateData.classList.add("open-modal");
+};
+/* Open Remove Account Modal */
+export const openRemoveAccountModal = () => {
+  main.modalBackdrop.classList.add("open-modal");
+  main.modalAccountRemove.classList.add("open-modal");
 };
 
 /* Window resize */

@@ -306,11 +306,13 @@ export function createNav() {
 export function createModals() {
   const modals = [
     "modal__auth",
-    "modal__contact-update",
     "modal__contact-info",
     "modal__contact-add",
     "modal__contact-delete",
+    "modal__account-update",
+    "modal__account-delete",
   ];
+
   for (let modal of modals) {
     const div = createNewElement("div", modal);
     main.modalBackdrop.append(div);

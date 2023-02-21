@@ -38,11 +38,12 @@ const navNewContactBtn = document.querySelector(".nav__btn--add");
 const navMenuBtn = document.querySelector(".nav__btn--menu");
 const navHintIcon = document.querySelector(".hintIcon");
 
-const modalUpdateData = document.querySelector(".modal__contact-update");
 const modalAuth = document.querySelector(".modal__auth");
 const modalContactInfo = document.querySelector(".modal__contact-info");
 const modalContactAddEdit = document.querySelector(".modal__contact-add");
 const modalContactRemove = document.querySelector(".modal__contact-delete");
+const modalUpdateData = document.querySelector(".modal__account-update");
+const modalAccountRemove = document.querySelector(".modal__account-delete");
 
 const menuSelectAllBtn = document.querySelector(".menu__btn--select");
 const menuUnselectAllBtn = document.querySelector(".menu__btn--unselect");
@@ -52,6 +53,7 @@ const menuUpdateDataBtn = document.querySelector(".menu__btn--update");
 const menuAuthBtn = document.querySelector(".menu__btn--auth");
 const menuAccountBtn = document.querySelector(".menu__btn--account");
 const menuContactsBtn = document.querySelector(".menu__btn--contacts");
+const menuRemoveAccountBtn = document.querySelector(".menu__btn--remove-user");
 const menuAllOptions = document.querySelectorAll(".menu > ul > li");
 
 const menuButtons = document.querySelectorAll(
@@ -94,7 +96,7 @@ menuAuthBtn.addEventListener("click", ui.openAuthModal);
 menuUpdateDataBtn.addEventListener("click", ui.openUpdateDataModal);
 menuAccountBtn.addEventListener("click", ui.showMenuOptions);
 menuContactsBtn.addEventListener("click", ui.showMenuOptions);
-
+menuRemoveAccountBtn.addEventListener("click", ui.openRemoveAccountModal);
 list.addEventListener("scroll", ui.hideScrollbarThumb);
 
 export {
@@ -129,4 +131,5 @@ export {
   modalContactInfo,
   modalContactRemove,
   modalUpdateData,
+  modalAccountRemove,
 };

@@ -55,4 +55,5 @@ export const showAllContacts = () => {
   modal.editContactModal();
   modal.removeSingleContactModal();
   modal.updateUserDataModal();
+  modal.removeAccountModal();
 };

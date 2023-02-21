@@ -470,3 +470,35 @@ export const createUpdateDataModal = () => {
 
   return main.modalUpdateData;
 };
+
+export const createUserRemoveModal = () => {
+  utils.removeChildrenElements(main.modalAccountRemove);
+
+  const infoContainer = createNewElement("div", "modal__account__alert");
+  const header = createNewElement("p");
+  header.textContent = "Confirm password to continue";
+  const mainAlert = createNewElement("p");
+  const secondaryAlert = createNewElement("p");
+
+  mainAlert.textContent =
+    "Your account and all your contacts will be permanently deleted.";
+  secondaryAlert.textContent = "You will no longer be able to log in.";
+  infoContainer.append(header, mainAlert, secondaryAlert);
+
+  const form = createNewElement("form");
+  const passwordInput = createInputContent("password", "password-input");
+  const pElm = createNewElement("p", "infoMsg");
+  form.append(passwordInput, pElm);
+
+  const loadingIcon = createLoadingSpinner();
+
+  const buttonsContainer = createNewElement("div", "modal__account__buttons");
+  const confirmButton = createButton(
+    "modal__account__buttons-confirm",
+    "confirm"
+  );
+  const closeButton = createButton("modal__account__buttons-close", "close");
+  buttonsContainer.append(confirmButton, closeButton, loadingIcon);
+
+  main.modalAccountRemove.append(infoContainer, form, buttonsContainer);
+};
