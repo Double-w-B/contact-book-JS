@@ -1,11 +1,12 @@
 import * as main from "../main";
 import { createUserRemoveModal } from "./constructor";
 import { removeUserAccount } from "../fetch";
+import * as ui from "../ui";
+import * as utils from "../utils";
 
 export const removeAccountModal = () => {
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalAccountRemove.classList.remove("open-modal");
+    ui.handleModalVisibility(main.modalAccountRemove, false);
     passwordInput.value = "";
   }
 
@@ -14,24 +15,18 @@ export const removeAccountModal = () => {
     confirmButton.classList.toggle("disable", boolean);
   }
 
-  function handleErrorMsg(boolean, txt) {
-    errorMsg.classList.toggle("show", boolean);
-    errorMsg.textContent = txt;
-  }
-
   function confirmRemove() {
-    const methods = { handleIsLoading, handleErrorMsg, closeModal };
+    const methods = { handleIsLoading, closeModal };
+
+    if (infoMsg.classList.contains("show")) return;
 
     if (!passwordInput.value) {
-      handleErrorMsg(true, "Please provide value");
-
-      setTimeout(() => {
-        handleErrorMsg(false, "");
-      }, 1000);
+      utils.showInfoMsg(infoMsg, "Please provide value");
+      utils.hideInfoMsg(infoMsg, 1000);
       return;
     }
 
-    removeUserAccount(passwordInput.value, methods);
+    removeUserAccount(passwordInput.value, methods, infoMsg);
   }
 
   createUserRemoveModal();
@@ -42,7 +37,7 @@ export const removeAccountModal = () => {
   const closeButton = document.querySelector(".modal__account__buttons-close");
   const loadingIcon = buttonsContainer.querySelector(".loadingIcon");
   const passwordInput = document.querySelector(".modal__account-delete input");
-  const errorMsg = document.querySelector(".modal__account-delete .infoMsg");
+  const infoMsg = document.querySelector(".modal__account-delete .infoMsg");
 
   confirmButton.addEventListener("click", confirmRemove);
   closeButton.addEventListener("click", closeModal);

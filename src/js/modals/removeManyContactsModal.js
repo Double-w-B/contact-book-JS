@@ -1,6 +1,7 @@
 import * as main from "../main";
 import { deleteManyContactsFromDB } from "../fetch";
 import { createRemoveManyContactsModal } from "./constructor";
+import * as ui from "../ui";
 
 export const removeManyContactsModal = () => {
   const contactImg = document.querySelectorAll(".contact-img");
@@ -15,15 +16,14 @@ export const removeManyContactsModal = () => {
   if (contactsId.length === 0) return;
 
   function openModal() {
-    main.modalBackdrop.classList.add("open-modal");
-    main.modalContactRemove.classList.add("open-modal");
+    ui.handleModalVisibility(main.modalContactRemove, true);
+
     main.menu.classList.remove("show-menu");
     main.menuAllOptions.forEach((option) => option.classList.remove("active"));
   }
 
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalContactRemove.classList.remove("open-modal");
+    ui.handleModalVisibility(main.modalContactRemove, false);
     contactsId = [];
   }
 

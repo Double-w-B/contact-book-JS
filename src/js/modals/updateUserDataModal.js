@@ -1,12 +1,12 @@
 import * as main from "../main";
 import * as utils from "../utils";
 import * as fetch from "../fetch";
+import * as ui from "../ui";
 import { createUpdateDataModal, createInputContent } from "./constructor";
 
 export const updateUserDataModal = () => {
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalUpdateData.classList.remove("open-modal");
+    ui.handleModalVisibility(main.modalUpdateData, false);
 
     removeActive();
     changeButtons[0].classList.add("active");
@@ -79,17 +79,6 @@ export const updateUserDataModal = () => {
     createErrorElm();
   }
 
-  function showErrorMsg(msg, errorMsgElm) {
-    errorMsgElm.textContent = msg;
-    errorMsgElm.classList.add("show", "error");
-  }
-
-  function hideErrorMsg(errorMsgElm) {
-    setTimeout(() => {
-      errorMsgElm.classList.remove("show", "error");
-    }, 1500);
-  }
-
   function handleIsLoading(boolean) {
     changeButtons.forEach((btn) => btn.classList.toggle("hide", boolean));
     loadingIcon.classList.toggle("show", boolean);
@@ -98,20 +87,23 @@ export const updateUserDataModal = () => {
 
   function updateUserData() {
     const allInputs = inputsContainer.querySelectorAll("input");
-    const errorMsg = inputsContainer.querySelector(".infoMsg");
+    const infoMsg = inputsContainer.querySelector(".infoMsg");
     const activeSection = Array.from(changeButtons).find((btn) =>
       btn.classList.contains("active")
     ).innerText;
     const methods = { handleIsLoading };
 
+    if (infoMsg.classList.contains("show")) return;
+
     if (activeSection === "Name") {
       const newUserName = Array.from(allInputs)[1].value;
 
       if (!newUserName) {
-        showErrorMsg("Please provide value", errorMsg);
-        hideErrorMsg(errorMsg);
+        utils.showInfoMsg(infoMsg, "Please provide value");
+        utils.hideInfoMsg(infoMsg, 1500, "error");
         return;
       }
+
       fetch.updateUserName(newUserName, methods);
     }
 
@@ -121,23 +113,24 @@ export const updateUserDataModal = () => {
       const data = { newUserEmail, userPassword };
 
       if (!newUserEmail || !userPassword) {
-        showErrorMsg("Please provide all values", errorMsg);
-        hideErrorMsg(errorMsg);
+        utils.showInfoMsg(infoMsg, "Please provide all values");
+        utils.hideInfoMsg(infoMsg, 1500, "error");
         return;
       }
+
       if (userPassword.length < 6) {
-        showErrorMsg("Password length min. 6 characters", errorMsg);
-        hideErrorMsg(errorMsg);
+        utils.showInfoMsg(infoMsg, "Password length min. 6 characters");
+        utils.hideInfoMsg(infoMsg, 1500, "error");
         return;
       }
 
       if (!newUserEmail.match(utils.emailRegExp)) {
-        showErrorMsg("Provide valid email", errorMsg);
-        hideErrorMsg(errorMsg);
+        utils.showInfoMsg(infoMsg, "Provide valid email");
+        utils.hideInfoMsg(infoMsg, 1500, "error");
         return;
       }
 
-      fetch.updateUserEmail(data, methods);
+      fetch.updateUserEmail(data, methods, infoMsg);
     }
 
     if (activeSection === "Password") {
@@ -146,18 +139,18 @@ export const updateUserDataModal = () => {
       const data = { oldPassword, newPassword };
 
       if (!oldPassword || !newPassword) {
-        showErrorMsg("Please provide all values", errorMsg);
-        hideErrorMsg(errorMsg);
+        utils.showInfoMsg(infoMsg, "Please provide all values");
+        utils.hideInfoMsg(infoMsg, 1500, "error");
         return;
       }
 
       if (oldPassword.length < 6 || newPassword.length < 6) {
-        showErrorMsg("Password length min. 6 characters", errorMsg);
-        hideErrorMsg(errorMsg);
+        utils.showInfoMsg(infoMsg, "Password length min. 6 characters");
+        utils.hideInfoMsg(infoMsg, 1500, "error");
         return;
       }
 
-      fetch.updateUserPassword(data, methods);
+      fetch.updateUserPassword(data, methods, infoMsg);
     }
   }
 

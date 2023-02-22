@@ -87,6 +87,22 @@ export const removeImage = () => {
   inputImgName.textContent = "add an image";
 };
 
+/* Handle info massages */
+export function showInfoMsg(element, msg, className) {
+  element.textContent = msg;
+  if (className) return element.classList.add("show", className);
+  element.classList.add("show", "error");
+}
+
+export function hideInfoMsg(element, timeout, className) {
+  return setTimeout(() => {
+    if (className) return element.classList.remove("show", className);
+
+    element.classList.remove("show");
+  }, timeout);
+}
+/* Handle info massages */
+
 class Person {
   constructor(
     name,

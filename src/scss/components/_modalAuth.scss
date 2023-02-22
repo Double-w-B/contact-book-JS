@@ -51,14 +51,8 @@
     position: relative;
 
     .infoMsg {
-      width: 100%;
-      text-align: center;
-      position: absolute;
+      @include shared.infoMsg;
       bottom: -0.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      visibility: hidden;
-      font-size: 0.9rem;
 
       &.show {
         visibility: visible;
@@ -77,10 +71,7 @@
     .error-hint-length,
     .error-hint-number,
     .error-hint-required {
-      position: absolute;
-      bottom: -1rem;
-      font-size: 0.8rem;
-      visibility: hidden;
+      @include shared.inputErrorHint;
     }
 
     div {
@@ -102,14 +93,7 @@
       }
 
       label {
-        font-size: 1.1rem;
-        color: $grey-semi-light;
-        position: absolute;
-        left: 0.8rem;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        pointer-events: none;
+        @include shared.inputsLabel;
       }
     }
     .userName-input input {

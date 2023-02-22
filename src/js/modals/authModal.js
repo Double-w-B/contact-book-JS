@@ -2,6 +2,7 @@ import * as main from "../main.js";
 import * as fetchData from "../fetch/index.js";
 import * as constructor from "./constructor.js";
 import { requiredInput } from "../validation.js";
+import { handleModalVisibility } from "../ui.js";
 
 export const authModal = () => {
   constructor.createAuthModal();
@@ -15,15 +16,14 @@ export const authModal = () => {
     "user-name",
     "userName-input"
   );
-  const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
+  const infoMsg = document.querySelector(".modal__auth__credentials .infoMsg");
 
   const allInputs = authCredentials.getElementsByTagName("input");
   const loadingIcon = document.querySelector(".loadingIcon");
   let isInputError = false;
 
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalAuth.classList.remove("open-modal");
+    handleModalVisibility(main.modalAuth, false);
     main.navHintIcon.classList.remove("hide");
 
     if (authCredentials.children.length === 4) {
@@ -45,7 +45,7 @@ export const authModal = () => {
       authCredentials.removeChild(nameInputContainer);
       changeButton.textContent = "register";
       authButton.textContent = "login";
-      errorMsg.classList.remove("show", "success");
+      infoMsg.classList.remove("show", "success");
     }
   }
 
@@ -79,7 +79,8 @@ export const authModal = () => {
         email: Array.from(allInputs)[1].value.toLowerCase(),
         password: Array.from(allInputs)[2].value,
       };
-      fetchData.registerUser(userData, methods);
+
+      fetchData.registerUser(userData, methods, infoMsg);
     }
 
     if (authButton.textContent === "login" && !isInputError) {
@@ -87,7 +88,7 @@ export const authModal = () => {
         email: Array.from(allInputs)[0].value.toLowerCase(),
         password: Array.from(allInputs)[1].value,
       };
-      fetchData.loginUser(userData, methods);
+      fetchData.loginUser(userData, methods, infoMsg);
     }
   }
 

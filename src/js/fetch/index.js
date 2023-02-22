@@ -1,13 +1,14 @@
 import * as main from "../main.js";
 import * as constructor from "../constructor.js";
-import { removeChildrenElements } from "../utils.js";
+import * as utils from "../utils.js";
 import { showAllContacts } from "../showAllContacts.js";
+import { handleModalVisibility } from "../ui.js";
 
 const requestOptions = {};
 
 //! checkCurrentUser
 export async function checkCurrentUser() {
-  removeChildrenElements(main.listOfContacts);
+  utils.removeChildrenElements(main.listOfContacts);
   const loadingSpinner = constructor.createLoadingSpinner();
   loadingSpinner.classList.add("show");
   main.listOfContacts.append(loadingSpinner);
@@ -38,8 +39,7 @@ export async function checkCurrentUser() {
 
     getAllContacts();
 
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalAuth.classList.remove("open-modal");
+    handleModalVisibility(main.modalAuth, false);
     main.navHintIcon.classList.add("hide");
     main.navInputContainer.classList.remove("disable");
     main.navNewContactBtn.classList.remove("hide");
@@ -55,11 +55,11 @@ export async function checkCurrentUser() {
 //! checkCurrentUser
 
 //! registerUser
-export async function registerUser(userData, methods) {
+export async function registerUser(userData, methods, infoMsg) {
   const { handleIsLoading, clearInputs } = methods;
-  const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
 
   const url = "/api/v1/auth/register";
+
   requestOptions.method = "POST";
   requestOptions.headers = { "Content-type": "application/json" };
   requestOptions.body = JSON.stringify(userData);
@@ -69,28 +69,20 @@ export async function registerUser(userData, methods) {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
-    if (!response.ok) {
-      handleIsLoading(false);
-      errorMsg.textContent = data.msg;
-      errorMsg.classList.add("show", "error");
-
-      setTimeout(() => {
-        errorMsg.classList.remove("show", "error");
-      }, 1500);
-      return;
-    }
-
     setTimeout(() => {
-      errorMsg.textContent = "Account created! Log in!";
-      errorMsg.classList.add("show", "success");
+      if (!response.ok) {
+        handleIsLoading(false);
+        utils.showInfoMsg(infoMsg, data.msg);
+        utils.hideInfoMsg(infoMsg, 1500, "error");
+        return;
+      }
 
+      utils.showInfoMsg(infoMsg, "Account created! Log in!", "success");
       clearInputs();
       handleIsLoading(false);
     }, 1000);
 
-    setTimeout(() => {
-      errorMsg.classList.remove("show", "success");
-    }, 2500);
+    utils.hideInfoMsg(infoMsg, 2500, "success");
   } catch (error) {
     console.log(error);
   }
@@ -98,11 +90,10 @@ export async function registerUser(userData, methods) {
 //! registerUser
 
 //! loginUser
-export async function loginUser(userData, methods) {
+export async function loginUser(userData, methods, infoMsg) {
   const { handleIsLoading, clearInputs } = methods;
 
   const menuAuthBtnIcon = main.menuAuthBtn.querySelector("i");
-  const errorMsg = document.querySelector(".modal__auth__credentials .infoMsg");
 
   const url = "/api/v1/auth/login";
   requestOptions.method = "POST";
@@ -117,23 +108,20 @@ export async function loginUser(userData, methods) {
     setTimeout(() => {
       if (!response.ok) {
         handleIsLoading(false);
-        errorMsg.textContent = data.msg;
-        errorMsg.classList.add("show", "error");
-
-        setTimeout(() => {
-          errorMsg.classList.remove("show", "error");
-        }, 1500);
-
+        utils.showInfoMsg(infoMsg, data.msg);
+        utils.hideInfoMsg(infoMsg, 1500, "error");
         return;
       }
 
       clearInputs();
       handleIsLoading(false);
+
       main.userAuth.isUserLoggedIn = true;
       main.userAuth.userName = data.user.name;
       main.userAuth.userEmail = data.user.email;
-      main.modalBackdrop.classList.remove("open-modal");
-      main.modalAuth.classList.remove("open-modal");
+
+      handleModalVisibility(main.modalAuth, false);
+
       main.navInputContainer.classList.remove("disable");
       main.navNewContactBtn.classList.remove("hide");
       main.navAllContactsBtn.classList.remove("hide");
@@ -152,11 +140,18 @@ export async function loginUser(userData, methods) {
 //! logoutUser
 export async function logoutUser() {
   const menuAuthBtnIcon = main.menuAuthBtn.querySelector("i");
+  const loadingSpinner = constructor.createLoadingSpinner();
 
   const url = "/api/v1/auth/logout";
 
+  utils.removeChildrenElements(main.listOfContacts);
+  main.listOfContacts.append(loadingSpinner);
+  loadingSpinner.classList.add("show");
+
   try {
     await fetch(url);
+
+    loadingSpinner.classList.remove("show");
     main.userAuth.isUserLoggedIn = false;
     main.data.contacts = [];
     main.navInputContainer.classList.add("disable");
@@ -180,7 +175,7 @@ export async function logoutUser() {
 
 //! getAllContacts
 export async function getAllContacts() {
-  removeChildrenElements(main.listOfContacts);
+  utils.removeChildrenElements(main.listOfContacts);
   const loadingSpinner = constructor.createLoadingSpinner();
   loadingSpinner.classList.add("show");
   main.listOfContacts.append(loadingSpinner);
@@ -211,8 +206,7 @@ export async function getAllContacts() {
 //! getAllContacts
 
 //! addContactToDB
-export async function addContactToDB(contact, methods) {
-  const errorMsg = document.querySelector(".new-con-secondary-info .infoMsg");
+export async function addContactToDB(contact, methods, infoMsg) {
   const { handleIsLoading, closeModal } = methods;
   handleIsLoading(true);
 
@@ -227,12 +221,8 @@ export async function addContactToDB(contact, methods) {
 
     if (!response.ok) {
       handleIsLoading(false);
-      errorMsg.classList.add("show");
-      errorMsg.textContent = data.msg;
-
-      setTimeout(() => {
-        errorMsg.classList.remove("show");
-      }, 1500);
+      utils.showInfoMsg(infoMsg, data.msg);
+      utils.hideInfoMsg(infoMsg, 1500);
       return;
     }
 
@@ -288,8 +278,7 @@ export async function removeContactImage(contactData, handleIsLoading) {
 
   handleIsLoading(true);
   try {
-    const response = await fetch(url, requestOptions);
-    const data = await response.json();
+    await fetch(url, requestOptions);
 
     main.contactImage.cloudinaryImageId = "";
     main.contactImage.contactImageUrl = "";
@@ -306,8 +295,7 @@ export async function removeUnsavedImageFromDB() {
   const url = "/api/v1/contacts/removeUnsavedImage";
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    await fetch(url);
   } catch (error) {
     console.log(error);
   }
@@ -349,8 +337,7 @@ export async function deleteManyContactsFromDB(contactsId, methods) {
 
   try {
     handleIsLoading(true);
-    const response = await fetch(url, requestOptions);
-    const data = await response.json();
+    await fetch(url, requestOptions);
 
     getAllContacts();
     handleIsLoading(false);
@@ -374,11 +361,9 @@ export async function updateContact(contactData, methods) {
 
   handleIsLoading(true);
   try {
-    const response = await fetch(url, requestOptions);
-    const data = await response.json();
+    await fetch(url, requestOptions);
 
     handleIsLoading(false);
-
     closeModal();
   } catch (error) {
     console.log(error);
@@ -420,14 +405,12 @@ export async function updateUserName(name, methods) {
 //! updateName
 
 //! updateEmail
-export async function updateUserEmail(data, methods) {
+export async function updateUserEmail(data, methods, infoMsg) {
   const { newUserEmail, userPassword } = data;
   const { handleIsLoading } = methods;
   const reqData = { email: newUserEmail, password: userPassword };
 
   const inputsContainer = document.querySelector(".modal__update__credentials");
-  const errorMsg = inputsContainer.querySelector(".infoMsg");
-
   const userEmailInput = inputsContainer.querySelector(
     ".userEmail-input input"
   );
@@ -444,32 +427,27 @@ export async function updateUserEmail(data, methods) {
   requestOptions.body = JSON.stringify(reqData);
 
   handleIsLoading(true);
+
   try {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
-    if (!response.ok) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (!response.ok) {
         handleIsLoading(false);
 
         if (data.msg.startsWith("Duplicate")) {
-          errorMsg.textContent = "This email already exists";
+          utils.showInfoMsg(infoMsg, "This email already exists");
           newUserEmailInput.value = "";
           userPasswordInput.value = "";
         } else {
-          errorMsg.textContent = "Invalid credentials";
+          utils.showInfoMsg(infoMsg, "Invalid credentials");
         }
-        errorMsg.classList.add("show", "error");
-      }, 1000);
 
-      setTimeout(() => {
-        errorMsg.classList.remove("show", "error");
-      }, 2500);
+        utils.hideInfoMsg(infoMsg, 2500, "error");
+        return;
+      }
 
-      return;
-    }
-
-    setTimeout(() => {
       handleIsLoading(false);
       main.userAuth.userEmail = data.user.email;
       userEmailInput.value = data.user.email;
@@ -483,12 +461,11 @@ export async function updateUserEmail(data, methods) {
 //! updateEmail
 
 //! updatePassword
-export async function updateUserPassword(data, methods) {
+export async function updateUserPassword(data, methods, infoMsg) {
   const { oldPassword, newPassword } = data;
   const { handleIsLoading } = methods;
 
   const inputsContainer = document.querySelector(".modal__update__credentials");
-  const errorMsg = inputsContainer.querySelector(".infoMsg");
   const oldPasswordInput = inputsContainer.querySelector(
     ".password-input input"
   );
@@ -504,33 +481,22 @@ export async function updateUserPassword(data, methods) {
   handleIsLoading(true);
   try {
     const response = await fetch(url, requestOptions);
-    const data = await response.json();
-
-    if (!response.ok) {
-      setTimeout(() => {
-        handleIsLoading(false);
-        errorMsg.textContent = "Invalid credentials";
-        errorMsg.classList.add("show", "error");
-      }, 1000);
-
-      setTimeout(() => {
-        errorMsg.classList.remove("show", "error");
-      }, 2500);
-
-      return;
-    }
 
     setTimeout(() => {
+      if (!response.ok) {
+        handleIsLoading(false);
+        utils.showInfoMsg(infoMsg, "Invalid credentials", "error");
+        utils.hideInfoMsg(infoMsg, 2500, "error");
+        return;
+      }
+
       handleIsLoading(false);
-      errorMsg.textContent = "Password updated";
-      errorMsg.classList.add("show", "success");
+      utils.showInfoMsg(infoMsg, "Password updated", "success");
       oldPasswordInput.value = "";
       newPasswordInput.value = "";
     }, 1000);
 
-    setTimeout(() => {
-      errorMsg.classList.remove("show", "success");
-    }, 2500);
+    utils.hideInfoMsg(infoMsg, 2500, "success");
   } catch (error) {
     console.log(error);
   }
@@ -539,8 +505,8 @@ export async function updateUserPassword(data, methods) {
 /* UPDATE USER DATA */
 
 // ! removeAccount
-export const removeUserAccount = async (password, methods) => {
-  const { handleIsLoading, handleErrorMsg, closeModal } = methods;
+export const removeUserAccount = async (password, methods, infoMsg) => {
+  const { handleIsLoading, closeModal } = methods;
 
   const url = `/api/v1/user/deleteUser`;
   requestOptions.method = "DELETE";
@@ -553,25 +519,21 @@ export const removeUserAccount = async (password, methods) => {
     const response = await fetch(url, requestOptions);
     const data = await response.json();
 
-    if (!response.ok) {
+    setTimeout(() => {
+      if (!response.ok) {
+        handleIsLoading(false);
+        utils.showInfoMsg(infoMsg, data.msg);
+        utils.hideInfoMsg(infoMsg, 2500);
+        return;
+      }
+
+      logoutUser();
+
       setTimeout(() => {
         handleIsLoading(false);
-        handleErrorMsg(true, data.msg);
-      }, 1000);
-
-      setTimeout(() => {
-        handleErrorMsg(false, "");
-      }, 2500);
-
-      return;
-    }
-
-    logoutUser();
-
-    setTimeout(() => {
-      handleIsLoading(false);
-      closeModal();
-    }, 500);
+        closeModal();
+      }, 500);
+    }, 1000);
   } catch (error) {
     console.log(error);
   }

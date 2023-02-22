@@ -1,13 +1,13 @@
 import * as main from "../main.js";
 import * as utils from "../utils.js";
+import * as ui from "../ui.js";
 import { validation } from "../validation.js";
 import * as fetchData from "../fetch/index.js";
 import { createAddContactModalContent } from "./constructor.js";
 
 export const addContactModal = () => {
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalContactAddEdit.classList.remove("open-modal");
+    ui.handleModalVisibility(main.modalContactAddEdit, false);
 
     if (main.contactImage.cloudinaryImageId) {
       fetchData.removeUnsavedImageFromDB();
@@ -70,11 +70,10 @@ export const addContactModal = () => {
       imgId
     );
 
-    fetchData.addContactToDB(newContact, methods);
+    fetchData.addContactToDB(newContact, methods, infoMsg);
   }
 
-  main.modalBackdrop.classList.add("open-modal");
-  main.modalContactAddEdit.classList.add("open-modal");
+  ui.handleModalVisibility(main.modalContactAddEdit, true);
 
   createAddContactModalContent();
 
@@ -90,6 +89,7 @@ export const addContactModal = () => {
   const loadingIcon = document.querySelector(".new-con-btns .loadingIcon");
   const addButton = document.querySelector(".accept");
   const cancelButton = document.querySelector(".cancel");
+  const infoMsg = document.querySelector(".new-con-secondary-info .infoMsg");
 
   const { contactImageName } = main.contactImage;
   let imgSrc = main.contactImage.contactImageUrl;

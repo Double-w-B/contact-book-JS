@@ -134,27 +134,29 @@ export const handleSelection = (type) => {
   }
 };
 
+/* Modal visibility */
+export const handleModalVisibility = (element, boolean) => {
+  main.modalBackdrop.classList.toggle("open-modal", boolean);
+  element.classList.toggle("open-modal", boolean);
+};
+
 /* Open Auth modal / Logout */
 export const openAuthModal = () => {
   main.navHintIcon.classList.add("hide");
 
   if (main.menuAuthBtn.textContent === "Log in") {
-    main.modalBackdrop.classList.add("open-modal");
-    main.modalAuth.classList.add("open-modal");
+    handleModalVisibility(main.modalAuth, true);
   } else {
     logoutUser();
   }
 };
-
 /* Open UpdateData Modal */
 export const openUpdateDataModal = () => {
-  main.modalBackdrop.classList.add("open-modal");
-  main.modalUpdateData.classList.add("open-modal");
+  handleModalVisibility(main.modalUpdateData, true);
 };
 /* Open Remove Account Modal */
 export const openRemoveAccountModal = () => {
-  main.modalBackdrop.classList.add("open-modal");
-  main.modalAccountRemove.classList.add("open-modal");
+  handleModalVisibility(main.modalAccountRemove, true);
 };
 
 /* Window resize */

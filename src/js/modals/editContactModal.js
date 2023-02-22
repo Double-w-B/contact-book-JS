@@ -1,5 +1,6 @@
 import * as main from "../main.js";
 import * as utils from "../utils.js";
+import * as ui from "../ui.js";
 import { validation } from "../validation.js";
 import * as fetchData from "../fetch/index.js";
 import { createEditContactModalContent } from "./constructor.js";
@@ -8,12 +9,11 @@ export const editContactModal = () => {
   main.listOfContacts.addEventListener("click", handleListClick);
 
   function openModal() {
-    main.modalBackdrop.classList.add("open-modal");
-    main.modalContactAddEdit.classList.add("open-modal");
+    ui.handleModalVisibility(main.modalContactAddEdit, true);
   }
+
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalContactAddEdit.classList.remove("open-modal");
+    ui.handleModalVisibility(main.modalContactAddEdit, false);
 
     if (main.contactImage.cloudinaryImageId) {
       fetchData.removeUnsavedImageFromDB();

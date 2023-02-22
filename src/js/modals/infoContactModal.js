@@ -1,16 +1,15 @@
 import * as main from "../main.js";
+import * as ui from "../ui.js";
 import { createContactInfoModal } from "./constructor.js";
 
 export const infoContactModal = () => {
   main.listOfContacts.addEventListener("click", handleListClick);
 
   function openModal() {
-    main.modalBackdrop.classList.add("open-modal");
-    main.modalContactInfo.classList.add("open-modal");
+    ui.handleModalVisibility(main.modalContactInfo, true);
   }
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalContactInfo.classList.remove("open-modal");
+    ui.handleModalVisibility(main.modalContactInfo, false);
   }
 
   function handleListClick(e) {

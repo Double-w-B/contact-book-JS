@@ -1,17 +1,16 @@
 import * as main from "../main.js";
 import { deleteSingleContactFromDB } from "../fetch/index.js";
 import { createRemoveSingleContactModal } from "./constructor.js";
+import * as ui from "../ui.js";
 
 export const removeSingleContactModal = () => {
   main.listOfContacts.addEventListener("click", handleListClick);
 
   function openModal() {
-    main.modalBackdrop.classList.add("open-modal");
-    main.modalContactRemove.classList.add("open-modal");
+    ui.handleModalVisibility(main.modalContactRemove, true);
   }
   function closeModal() {
-    main.modalBackdrop.classList.remove("open-modal");
-    main.modalContactRemove.classList.remove("open-modal");
+    ui.handleModalVisibility(main.modalContactRemove, false);
   }
 
   function handleListClick(e) {
