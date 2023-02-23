@@ -16,7 +16,7 @@ Full-stack web application with an authentication logic where users store entrie
 
 Back-end part of a project: https://github.com/Double-w-B/contactBook-API-NODE
 
-#### Technology: <JavaScript + SCSS + RWD + Webpack + Node.js>
+#### Technology: <JavaScript + SCSS + REST API + RWD + Webpack>
 
 ##
 
@@ -39,7 +39,7 @@ It correctly bundles app in production mode and optimizes the build for the best
 
 To access private contacts stored in the database, it's required to pass the authentication first.
 
-![img_1](https://user-images.githubusercontent.com/75247773/218709658-a1963ebf-a22f-4b5a-ae32-d5671022be78.jpg)
+![img_1](https://user-images.githubusercontent.com/75247773/220439121-9b9cf562-d42a-4c61-ac67-4f68ff5b0b53.jpg)
 
 ![img_2](https://user-images.githubusercontent.com/75247773/218705923-ad09898e-deff-40bc-961c-58e06111e6b7.jpg)
 
@@ -76,7 +76,7 @@ To update personal data click the button "Update data" in the menu.
 
 There is a possibility to remove selected contacts or all the contacts. By clicking on a menu button in a top right corner of the app and choosing among options "Select all" and "Remove selected".
 
-![img_11](https://user-images.githubusercontent.com/75247773/218706526-311e832f-9f8f-4a86-be35-87027b0fc55f.jpg)
+![img_11](https://user-images.githubusercontent.com/75247773/220439125-20da3149-f62e-49d2-9ce3-6a33e933e24f.jpg)
 
 ![img_12](https://user-images.githubusercontent.com/75247773/218706529-b0250bce-dc44-4575-90de-99f7ed886912.jpg)
 
