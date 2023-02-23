@@ -30,6 +30,7 @@ export const createInputContent = (type, className) => {
   if (type.includes("-")) type = type.split("-").join(" ");
   if (type === "phone") input.maxLength = "9";
   if (type === "address" || type === "notes") input.maxLength = "40";
+  if (type === "password") input.maxLength = "16";
 
   const label = createNewElement("label");
   const labelSpan = createNewElement("span");
@@ -47,6 +48,13 @@ export const createInputContent = (type, className) => {
   if (type === "address" || type === "notes") {
     inputContainer.append(input, label);
     return inputContainer;
+  }
+
+  if (type.includes("password")) {
+    const iconContainer = createNewElement("div", "icon");
+    const showPasswordIcon = createNewElement("i", "fa-solid fa-eye");
+    iconContainer.append(showPasswordIcon);
+    inputContainer.append(iconContainer);
   }
 
   if (type === "user name" || type === "user email" || type === "password") {
@@ -141,7 +149,7 @@ export const createImgInput = (name, src) => {
 
 /* Main info AddContactModal */
 export const createMainInfoStructure = () => {
-  const mainInfoContainer = createNewElement("div", "new-con-main-info");
+  const container = createNewElement("div", "new-con-main-info");
 
   const mainInfoForm = createNewElement("form");
   const formInfoOne = createNewElement("div", "info-one");
@@ -157,27 +165,23 @@ export const createMainInfoStructure = () => {
   formInfoTwo.append(phoneInput, emailInput);
 
   mainInfoForm.append(formInfoOne, formInfoTwo);
-  mainInfoContainer.append(mainInfoForm);
+  container.append(mainInfoForm);
 
-  return mainInfoContainer;
+  return container;
 };
 
 /* Secondary info AddContactModal*/
 export const createSecondaryInfoStructure = () => {
-  const secondaryInfoContainer = createNewElement(
-    "div",
-    "new-con-secondary-info"
-  );
-
-  const secondaryInfoForm = createNewElement("form");
+  const container = createNewElement("div", "new-con-secondary-info");
+  const form = createNewElement("form");
   const addressInput = createInputContent("address", "address-input");
   const notesInput = createInputContent("notes", "notes-input");
   const pElm = createNewElement("p", "infoMsg");
 
-  secondaryInfoForm.append(addressInput, notesInput, pElm);
-  secondaryInfoContainer.append(secondaryInfoForm);
+  form.append(addressInput, notesInput, pElm);
+  container.append(form);
 
-  return secondaryInfoContainer;
+  return container;
 };
 
 /* Add contact modal */

@@ -1,4 +1,5 @@
 import * as main from "../main.js";
+import * as utils from "../utils.js";
 import * as fetchData from "../fetch/index.js";
 import * as constructor from "./constructor.js";
 import { requiredInput } from "../validation.js";
@@ -7,19 +8,22 @@ import { handleModalVisibility } from "../ui.js";
 export const authModal = () => {
   constructor.createAuthModal();
 
+  const modal = document.querySelector(".modal__auth");
   const changeButton = document.querySelector(".modal__auth__change__button");
   const authButton = document.querySelector(".modal__auth__buttons-auth");
   const closeButton = document.querySelector(".modal__auth__buttons-close");
   const authCredentials = document.querySelector(".modal__auth__credentials");
   const emailInputContainer = document.querySelector(".userEmail-input");
+  const passwordInput = document.querySelector(".password-input input");
+  const passwordIcon = document.querySelector(".password-input i");
   const nameInputContainer = constructor.createInputContent(
     "user-name",
     "userName-input"
   );
   const infoMsg = document.querySelector(".modal__auth__credentials .infoMsg");
-
   const allInputs = authCredentials.getElementsByTagName("input");
   const loadingIcon = document.querySelector(".loadingIcon");
+  const passwordIconContainer = modal.querySelector(".icon");
   let isInputError = false;
 
   function closeModal() {
@@ -32,9 +36,13 @@ export const authModal = () => {
     changeButton.textContent = "register";
     authButton.textContent = "login";
     Array.from(allInputs).forEach((input) => (input.value = ""));
+    passwordIconContainer.classList.remove("show");
+    passwordInput.type = "password";
   }
 
   function handleChangeButton() {
+    passwordIconContainer.classList.remove("show");
+    passwordInput.type = "password";
     clearInputs();
 
     if (changeButton.textContent === "register") {
@@ -92,7 +100,14 @@ export const authModal = () => {
     }
   }
 
-  changeButton.addEventListener("click", handleChangeButton);
-  closeButton.addEventListener("click", closeModal);
-  authButton.addEventListener("click", handleAuthButton);
+  function handleModalClick(e) {
+    if (e.target === changeButton) handleChangeButton();
+    if (e.target === closeButton) closeModal();
+    if (e.target === authButton) handleAuthButton();
+  }
+
+  passwordIcon.addEventListener("click", utils.handlePasswordIcon);
+  passwordInput.addEventListener("keydown", utils.handlePasswordInputChange);
+  passwordInput.addEventListener("keyup", utils.handlePasswordInputChange);
+  modal.addEventListener("click", handleModalClick);
 };

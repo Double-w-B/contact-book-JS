@@ -1,3 +1,6 @@
+@use "../utils/_mixins" as shared;
+
+/* Main content */
 body {
   &.dark-mode {
     background-color: $dark-mode-primary;
@@ -41,8 +44,7 @@ body {
         }
 
         button {
-          background-color: $dark-mode-clr;
-          color: $grey-light;
+          @include shared.buttonDarkModeRules;
         }
       }
 
@@ -202,13 +204,12 @@ body {
         color: $dark-mode-clr;
       }
     }
+    /* Main content */
 
     /* Modals */
     .modal__backdrop {
       .modal__contact-info {
-        background-color: $dark-mode-2;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+        @include shared.modalDarkModeRules;
 
         .top_info {
           background-color: $dark-mode-clr;
@@ -260,16 +261,14 @@ body {
           }
 
           .bottom_info-close-btn {
-            background-color: $dark-mode-clr;
-            color: $grey-light;
+            @include shared.buttonDarkModeRules;
           }
         }
       }
 
+      /* Add new contact */
       .modal__contact-add {
-        background-color: $dark-mode-2;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+        @include shared.modalDarkModeRules;
 
         .avatar-container {
           box-shadow: rgba(120, 120, 120, 1) 0px 0px 2px;
@@ -280,30 +279,18 @@ body {
         }
 
         form input {
-          color: $dark-mode-clr;
-          background-color: rgba(225, 225, 225, 0.1);
-          box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
-
-          &:focus,
-          &:valid {
-            background-color: transparent;
-            & + label,
-            & + label {
-              color: $grey-semi-light-2;
-            }
-          }
+          @include shared.inputDarkModeRules;
         }
 
         .new-con-btns button {
-          background-color: $dark-mode-clr;
-          color: $grey-light;
+          @include shared.buttonDarkModeRules;
         }
       }
+      /* Add new contact */
 
+      /* Delete contact */
       .modal__contact-delete {
-        background-color: $dark-mode-2;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+        @include shared.modalDarkModeRules;
 
         .confirm-question p {
           color: $grey-light-2;
@@ -315,15 +302,14 @@ body {
         }
 
         .confirm-btns button {
-          background-color: $dark-mode-clr;
-          color: $grey-light;
+          @include shared.buttonDarkModeRules;
         }
       }
+      /* Delete contact */
 
+      /* Account update */
       .modal__account-update {
-        background-color: $dark-mode-2;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+        @include shared.modalDarkModeRules;
 
         .modal__update__change button {
           &:hover,
@@ -333,33 +319,25 @@ body {
         }
         .modal__update__credentials {
           div {
+            .icon {
+              @include shared.passwordIconDarkModeRules;
+            }
             input {
-              color: $dark-mode-clr;
-              background-color: rgba(225, 225, 225, 0.1);
-              box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
-
-              &:focus,
-              &:valid {
-                background-color: transparent;
-                & + label,
-                & + label {
-                  color: $grey-semi-light-2;
-                }
-              }
+              @include shared.inputDarkModeRules;
             }
           }
         }
 
         .modal__update__buttons button {
-          background-color: $dark-mode-clr;
-          color: $grey-light;
+          @include shared.buttonDarkModeRules;
         }
       }
+      /* Account update */
 
+      /* Auth */
       .modal__auth {
-        background-color: $dark-mode-2;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+        @include shared.modalDarkModeRules;
+
         &__change {
           &__button {
             &:hover {
@@ -369,33 +347,24 @@ body {
         }
         &__credentials {
           div {
+            .icon {
+              @include shared.passwordIconDarkModeRules;
+            }
             input {
-              color: $dark-mode-clr;
-              background-color: rgba(225, 225, 225, 0.1);
-              box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
-
-              &:focus,
-              &:valid {
-                background-color: transparent;
-                & + label,
-                & + label {
-                  color: $grey-semi-light-2;
-                }
-              }
+              @include shared.inputDarkModeRules;
             }
           }
         }
 
         &__buttons button {
-          background-color: $dark-mode-clr;
-          color: $grey-light;
+          @include shared.buttonDarkModeRules;
         }
       }
+      /* Auth */
 
+      /* Delete account */
       .modal__account-delete {
-        background-color: $dark-mode-2;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-          rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+        @include shared.modalDarkModeRules;
 
         .modal__account__alert {
           p {
@@ -404,27 +373,20 @@ body {
         }
 
         form div {
+          .icon {
+            @include shared.passwordIconDarkModeRules;
+          }
           input {
-            color: $dark-mode-clr;
-            background-color: rgba(225, 225, 225, 0.1);
-            box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
-
-            &:focus,
-            &:valid {
-              background-color: transparent;
-              & + label,
-              & + label {
-                color: $grey-semi-light-2;
-              }
-            }
+            @include shared.inputDarkModeRules;
           }
         }
 
         .modal__account__buttons button {
-          background-color: $dark-mode-clr;
-          color: $grey-light;
+          @include shared.buttonDarkModeRules;
         }
       }
+      /* Delete account */
     }
   }
 }
+/* Modals */

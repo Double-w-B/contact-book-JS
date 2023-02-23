@@ -103,6 +103,30 @@ export function hideInfoMsg(element, timeout, className) {
 }
 /* Handle info massages */
 
+/* Password Input */
+export function handlePasswordInputChange(e) {
+  if (e.keyCode === 32) e.preventDefault();
+
+  if (e.target.value > 1) return;
+  if (e.target.value) {
+    e.target.previousSibling.classList.add("show");
+  } else {
+    e.target.previousSibling.classList.remove("show");
+  }
+}
+
+export function handlePasswordIcon(e) {
+  console.log(e.target);
+  if (e.target.classList.contains("active")) {
+    e.target.classList.remove("active");
+    e.target.parentElement.nextSibling.type = "password";
+    return;
+  }
+  e.target.classList.add("active");
+  e.target.parentElement.nextSibling.type = "text";
+}
+/* Password Input */
+
 class Person {
   constructor(
     name,

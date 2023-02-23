@@ -51,6 +51,17 @@
       position: relative;
       transition: all 0.1s ease-in;
 
+      &.password-input,
+      &.newPassword-input {
+        input {
+          text-transform: none;
+        }
+      }
+
+      .icon {
+        @include shared.passwordIcon;
+      }
+
       .invalid-input {
         color: $red-secondary;
         visibility: visible;

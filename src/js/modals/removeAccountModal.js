@@ -1,13 +1,16 @@
 import * as main from "../main";
-import { createUserRemoveModal } from "./constructor";
-import { removeUserAccount } from "../fetch";
 import * as ui from "../ui";
 import * as utils from "../utils";
+import { removeUserAccount } from "../fetch";
+import { createUserRemoveModal } from "./constructor";
 
 export const removeAccountModal = () => {
   function closeModal() {
     ui.handleModalVisibility(main.modalAccountRemove, false);
     passwordInput.value = "";
+    passwordIcon.classList.remove("active");
+    passwordInput.type = "password";
+    passwordInput.previousSibling.classList.remove("show");
   }
 
   function handleIsLoading(boolean) {
@@ -29,16 +32,25 @@ export const removeAccountModal = () => {
     removeUserAccount(passwordInput.value, methods, infoMsg);
   }
 
+  function handleButtonsClick(e) {
+    if (e.target === confirmButton) confirmRemove();
+    if (e.target === closeButton) closeModal();
+  }
+
   createUserRemoveModal();
+  const modal = document.querySelector(".modal__account-delete");
   const buttonsContainer = document.querySelector(".modal__account__buttons");
   const confirmButton = document.querySelector(
     ".modal__account__buttons-confirm"
   );
   const closeButton = document.querySelector(".modal__account__buttons-close");
   const loadingIcon = buttonsContainer.querySelector(".loadingIcon");
-  const passwordInput = document.querySelector(".modal__account-delete input");
-  const infoMsg = document.querySelector(".modal__account-delete .infoMsg");
+  const infoMsg = modal.querySelector(".modal__account-delete .infoMsg");
+  const passwordInput = modal.querySelector(".modal__account-delete input");
+  const passwordIcon = modal.querySelector(".password-input i");
 
-  confirmButton.addEventListener("click", confirmRemove);
-  closeButton.addEventListener("click", closeModal);
+  passwordIcon.addEventListener("click", utils.handlePasswordIcon);
+  passwordInput.addEventListener("keydown", utils.handlePasswordInputChange);
+  passwordInput.addEventListener("keyup", utils.handlePasswordInputChange);
+  buttonsContainer.addEventListener("click", handleButtonsClick);
 };

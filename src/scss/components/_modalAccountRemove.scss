@@ -53,6 +53,15 @@
       position: relative;
       transition: all 0.1s ease-in;
 
+      &.password-input input {
+        text-transform: none;
+      }
+
+      .icon {
+        @include shared.passwordIcon;
+        right: 1rem;
+      }
+
       .error-hint-required {
         @include shared.inputErrorHint;
       }

@@ -3,6 +3,7 @@ import * as utils from "../utils";
 import * as fetch from "../fetch";
 import * as ui from "../ui";
 import { createUpdateDataModal, createInputContent } from "./constructor";
+import { createNewElement } from "../constructor";
 
 export const updateUserDataModal = () => {
   function closeModal() {
@@ -12,7 +13,7 @@ export const updateUserDataModal = () => {
     changeButtons[0].classList.add("active");
     utils.removeChildrenElements(inputsContainer);
     createNameInputs();
-    createErrorElm();
+    createInfoElm();
   }
 
   function removeActive() {
@@ -48,13 +49,26 @@ export const updateUserDataModal = () => {
       "new-password",
       "newPassword-input"
     );
+
     inputsContainer.append(oldPasswordInput, newPasswordInput);
   }
 
-  function createErrorElm() {
-    const pElm = document.createElement("p");
-    pElm.className = "infoMsg";
+  function createInfoElm() {
+    const pElm = createNewElement("p", "infoMsg");
     inputsContainer.append(pElm);
+  }
+
+  function handleInputsClick(e) {
+    if (e.target.tagName === "I") utils.handlePasswordIcon(e);
+
+    if (
+      e.target.tagName === "INPUT" &&
+      (e.target.parentElement.className.includes("password") ||
+        e.target.parentElement.className.includes("Password"))
+    ) {
+      e.target.addEventListener("keydown", utils.handlePasswordInputChange);
+      e.target.addEventListener("keyup", utils.handlePasswordInputChange);
+    }
   }
 
   function handleChangeButtons(e) {
@@ -76,7 +90,12 @@ export const updateUserDataModal = () => {
       e.target.classList.add("active");
       createPasswordInputs();
     }
-    createErrorElm();
+    createInfoElm();
+  }
+
+  function handleButtonsClick(e) {
+    if (e.target === updateButton) updateUserData();
+    if (e.target === closeButton) closeModal();
   }
 
   function handleIsLoading(boolean) {
@@ -162,10 +181,11 @@ export const updateUserDataModal = () => {
   );
   const changeButtons = changeButtonsContainer.querySelectorAll("button");
   const loadingIcon = changeButtonsContainer.querySelector(".loadingIcon");
+  const buttonsContainer = document.querySelector(".modal__update__buttons");
   const updateButton = document.querySelector(".modal__update__buttons-update");
   const closeButton = document.querySelector(".modal__update__buttons-close");
 
-  updateButton.addEventListener("click", updateUserData);
+  buttonsContainer.addEventListener("click", handleButtonsClick);
   changeButtonsContainer.addEventListener("click", handleChangeButtons);
-  closeButton.addEventListener("click", closeModal);
+  inputsContainer.addEventListener("click", handleInputsClick);
 };

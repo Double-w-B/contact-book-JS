@@ -113,3 +113,73 @@
   font-size: 0.8rem;
   visibility: hidden;
 }
+
+@mixin passwordIcon {
+  width: 1.5rem;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  i {
+    color: #878788;
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+
+    &:hover,
+    &.active {
+      color: $blue-primary;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+/* Dark mode */
+@mixin modalDarkModeRules {
+  background-color: $dark-mode-2;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px, inset 0 0 1px $dark-mode-primary;
+}
+
+@mixin inputDarkModeRules {
+  color: $dark-mode-clr;
+  background-color: rgba(225, 225, 225, 0.1);
+  box-shadow: rgba(225, 225, 225, 0.2) 0px 0px 0px 1px;
+
+  &:focus,
+  &:valid {
+    background-color: transparent;
+    & + label,
+    & + label {
+      color: $grey-semi-light-2;
+    }
+  }
+}
+
+@mixin buttonDarkModeRules {
+  background-color: $dark-mode-clr;
+  color: $grey-light;
+}
+
+@mixin passwordIconDarkModeRules {
+  i {
+    &:hover,
+    &.active {
+      color: $dark-mode-clr;
+    }
+  }
+}
+/* Dark mode */
