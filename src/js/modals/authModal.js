@@ -2,7 +2,6 @@ import * as main from "../main.js";
 import * as utils from "../utils.js";
 import * as fetchData from "../fetch/index.js";
 import * as constructor from "./constructor.js";
-import { requiredInput } from "../validation.js";
 import { handleModalVisibility } from "../ui.js";
 
 export const authModal = () => {
@@ -45,6 +44,21 @@ export const authModal = () => {
     passwordInput.type = "password";
     clearInputs();
 
+    Array.from(allInputs).forEach((input) => {
+      const inputInfoMsg = input.parentElement.lastElementChild;
+      inputInfoMsg.classList.remove("show");
+      if (input.name === "password") {
+        const inputIcon = input.previousElementSibling.firstElementChild;
+        inputIcon.classList.remove("active");
+      }
+    });
+
+    const highestTimeoutId = window.setTimeout(() => {
+      for (let i = highestTimeoutId; i >= 0; i--) {
+        window.clearTimeout(i);
+      }
+    }, 0);
+
     if (changeButton.textContent === "register") {
       authCredentials.insertBefore(nameInputContainer, emailInputContainer);
       changeButton.textContent = "login";
@@ -67,15 +81,33 @@ export const authModal = () => {
     authButton.classList.toggle("disable", boolean);
   }
 
+  function handleInputError() {
+    isInputError = true;
+    setTimeout(() => {
+      isInputError = false;
+    }, 1500);
+  }
+
   function handleAuthButton() {
     Array.from(allInputs).forEach((input) => {
-      if (!input.value) {
-        requiredInput(input);
-        isInputError = true;
+      const inputInfoMsg = input.parentElement.lastElementChild;
 
-        setTimeout(() => {
-          isInputError = false;
-        });
+      if (!input.value) {
+        handleInputError();
+        utils.showInfoMsg(inputInfoMsg, "Please provide value", "error");
+        utils.hideInfoMsg(inputInfoMsg, 1500, "error");
+        return;
+      }
+
+      if (
+        input.name === "user-email" &&
+        input.value &&
+        !input.value.match(utils.emailRegExp)
+      ) {
+        handleInputError();
+        utils.showInfoMsg(inputInfoMsg, "Please provide valid email", "error");
+        utils.hideInfoMsg(inputInfoMsg, 1500, "error");
+        return;
       }
     });
 

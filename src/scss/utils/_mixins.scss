@@ -112,6 +112,13 @@
   bottom: -1rem;
   font-size: 0.8rem;
   visibility: hidden;
+
+  &.show {
+    visibility: visible;
+    &.error {
+      color: $red-secondary;
+    }
+  }
 }
 
 @mixin passwordIcon {

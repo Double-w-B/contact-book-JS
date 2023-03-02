@@ -116,7 +116,6 @@ export function handlePasswordInputChange(e) {
 }
 
 export function handlePasswordIcon(e) {
-  console.log(e.target);
   if (e.target.classList.contains("active")) {
     e.target.classList.remove("active");
     e.target.parentElement.nextSibling.type = "password";

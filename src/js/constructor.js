@@ -249,7 +249,7 @@ export function createMenu() {
   const themeButton = createIconButton(
     "fa-solid fa-moon",
     "menu__btn--mode",
-    "Dark Theme"
+    "Dark theme"
   );
   themeLi.append(themeButton);
 

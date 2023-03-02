@@ -16,11 +16,11 @@ export const themeMode = () => {
   if (localStorage.theme === "dark-mode") {
     document.body.className = "light-mode";
     localStorage.theme = document.body.className;
-    changeContent("fa-moon", "Dark mode");
+    changeContent("fa-moon", "Dark theme");
   } else {
     document.body.className = "dark-mode";
     localStorage.theme = document.body.className;
-    changeContent("fa-sun", "Light mode");
+    changeContent("fa-sun", "Light theme");
   }
 };
 

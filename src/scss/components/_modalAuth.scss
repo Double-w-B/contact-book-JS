@@ -67,10 +67,7 @@
       }
     }
 
-    .error-hint,
-    .error-hint-length,
-    .error-hint-number,
-    .error-hint-required {
+    p {
       @include shared.inputErrorHint;
     }
 
